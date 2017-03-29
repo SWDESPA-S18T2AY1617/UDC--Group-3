@@ -1,41 +1,46 @@
 
-public class ClientController {
+public class ClientController extends ViewController {
 	
 	private ClientView view;
-	private ModelController model;
 	
 	public ClientController(ModelController model)
 	{
-		this.model = model;
+		super(model);
 		view = new ClientView();
 	}
 	
-	public void updateView() {
+	public void updateView()
+	{
 		
 	}
 	
 	//check all available appointment slots
-	public Iterator<Appointment> checkAvailable() {
+	public Iterator<Appointment> checkAvailable()
+	{
 		
 	}
 	
 	//with filter
-	public Iterator<Appointment> checkAvailable() {
+	public Iterator<Appointment> checkAvailable()
+	{
 		
 	}
 	
 	//check client's reservations
-	public Iterator<Appointment> getAppointments() {
+	public Iterator<Appointment> checkAppointments()
+	{
 		
 	}
 	
-	public void reserveAppointment() {
+	public void setAppointment()
+	{
 		
 		
 		this.updateView();
 	}
 	
-	public void cancelAppointment() {
+	public void cancelAppointment()
+	{
 		
 		
 		this.updateView();

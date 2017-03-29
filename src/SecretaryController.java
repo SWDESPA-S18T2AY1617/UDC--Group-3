@@ -1,62 +1,77 @@
 
-public class SecretaryController {
+public class SecretaryController extends ViewController {
 
 	private SecretaryView view;
-	private ModelController model;
 	
 	public SecretaryController(ModelController model)
 	{
-		this.model = model;
+		super(model);
 		view = new SecretaryView();
 	}
 	
-	public void updateView() {
+	public void updateView() 
+	{
 		
 	}
 	
-	//check all appointment slots
-	public Iterator<Appointment> checkAppointments() {
+	//check all appointment slots (all doctors)
+	public Iterator<Appointment> checkAppointments() 
+	{
 		
 	}
 	
-	//check filled appointment slots for day
-	public Iterator<Appointment> checkAppointments() {
+	//check all appointment slots of a doctor
+	public Iterator<Appointment> checkAppointments() 
+	{
 		
 	}
 	
-	//check filled appointment slots for week
-	public Iterator<Appointment> checkAppointments() {
+	//check all appointments for day
+	public Iterator<Appointment> checkAppointments() 
+	{
+		
+	}
+	
+	//check all appointments for week
+	public Iterator<Appointment> checkAppointments() 
+	{
 		
 	}
 	
 	//check all available appointment slots
-	public Iterator<Appointment> checkAvailable() {
+	public Iterator<Appointment> checkAvailable()
+	{
 		
 	}
 	
-	//with filter
-	public Iterator<Appointment> checkAvailable() {
+	//with filter (some doctors only)
+	public Iterator<Appointment> checkAvailable()
+	{
 		
 	}
 	
 	//verify filled appointment slots of all doctors
-	public Iterator<Appointment> verifyAppointments() {
+	public Iterator<Appointment> verifyAppointments()
+	{
 		
 	}
 	
 	//with filter (some doctors)
-	public Iterator<Appointment> verifyAppointments() {
+	public Iterator<Appointment> verifyAppointments()
+	{
 		
 	}
 	
 	//book appointment on behalf of client
-	public void reserveAppointment() {
+	public void setAppointment()
+	{
 		
 		
 		this.updateView();
 	}
 	
-	public void cancelAppointment() {
+	public void cancelAppointment()
+	{
 		
 		
 		this.updateView();
