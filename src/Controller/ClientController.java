@@ -1,3 +1,5 @@
+package Controller;
+import Appointment;
 
 public class ClientController extends ViewController {
 	
@@ -14,20 +16,8 @@ public class ClientController extends ViewController {
 		
 	}
 	
-	//check all available appointment slots
-	public Iterator<Appointment> checkAvailable()
-	{
-		
-	}
-	
-	//with filter
-	public Iterator<Appointment> checkAvailable()
-	{
-		
-	}
-	
-	//check client's reservations
-	public Iterator<Appointment> checkAppointments()
+	//check appointments (parameter == filter, can be changed to ArrayList<Integer> if preferred, depends on model implementation)
+	public Iterator<Appointment> checkAppointments(ArrayList<String> filter)
 	{
 		
 	}

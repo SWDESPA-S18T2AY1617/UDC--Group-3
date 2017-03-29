@@ -1,3 +1,5 @@
+package Controller;
+import Appointment;
 
 public class DoctorController extends ViewController {
 	

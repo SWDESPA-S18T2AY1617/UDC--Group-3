@@ -1,3 +1,5 @@
+package Controller;
+import Appointment;
 
 public abstract class ViewController {
 	
@@ -11,13 +13,8 @@ public abstract class ViewController {
 	
 	public abstract void updateView();
 	
-	//check all available appointment slots
-	public abstract Iterator<Appointment> checkAvailable();
-	
-	//with filter
-	public abstract Iterator<Appointment> checkAvailable();
-	
-	public abstract Iterator<Appointment> checkAppointments();
+	//check appointments (parameter == filter, can be changed to ArrayList<Integer> if preferred, depends on model implementation)
+	public Iterator<Appointment> checkAppointments(ArrayList<String> filter);
 	
 	public abstract void setAppointment();
 	
