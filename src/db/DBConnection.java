@@ -5,18 +5,34 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.io.*;
+import java.util.*;
 
 public class DBConnection {
 
-	private final String URL = "jdbc:mysql://localhost:3306/sm_cinemas?user=root";
-	private final String username = "root";
-	private final String password = "DLSU";
+	private final String URL;
+	private final String username;
+	private final String password;
 	
 	private Connection conn;
 	private Statement statement;
 	private ResultSet result;
 	
-	public DBConnection() { }
+	public DBConnection() { 
+		configure();
+	}
+	
+	public void configure() throws IOException{
+		File file = new File("db.config");
+		FileReader fr = new FileReader(file);
+		BufferedReader br = new BufferedReader(fr);
+		String line;
+		List<String> list;
+		while((line = br.readLine()) != null){
+			list.add(line);
+		}
+		fr.close();
+	}
 	
 	public boolean editRow(String query)
 	{
