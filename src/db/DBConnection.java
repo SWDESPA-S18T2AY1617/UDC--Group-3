@@ -10,28 +10,39 @@ import java.util.*;
 
 public class DBConnection {
 
-	private final String URL;
-	private final String username;
-	private final String password;
+	private String URL;
+	private String username;
+	private String password;
 	
 	private Connection conn;
 	private Statement statement;
 	private ResultSet result;
 	
-	public DBConnection() { 
+	public DBConnection() throws IOException { 
 		configure();
 	}
 	
+	/* okay bois here's what u gonna do for this shiz db
+	 * first off create a new file sa UDC-Group-3 folder
+	 * then u put the url on the first line     sample:jdbc:mysql://localhost:3306/sm_cinemas?user=root
+	 * tapos sa next line username naman        sample:root
+	 * and finally the password					sample:DLSU
+	 * iba iba to kada machine so sabi ni sir gawin ko daw na ganito
+	 * so save niyo ung file not as text file but as a .config file para cool bois tayo
+	 */
 	public void configure() throws IOException{
 		File file = new File("db.config");
 		FileReader fr = new FileReader(file);
 		BufferedReader br = new BufferedReader(fr);
 		String line;
-		List<String> list;
+		ArrayList<String> list = new ArrayList<String>();
 		while((line = br.readLine()) != null){
 			list.add(line);
 		}
 		fr.close();
+		this.URL = list.get(0);
+		this.username = list.get(1);
+		this.password = list.get(2);
 	}
 	
 	public boolean editRow(String query)

@@ -1,4 +1,4 @@
-package model;
+package db;
 
 public class Appointment {
 	
@@ -22,25 +22,18 @@ public class Appointment {
 	public Appointment() { }
 
 	public Appointment(int appointment_id, String start_time, String end_time, 
-					   String date, String client_id, String type) {
+					   String date, int person_id, String type) {
 		super();
 		this.appointment_id = appointment_id;
 		this.start_time = start_time;
 		this.end_time = end_time;
 		this.date = date;
-		this.client_id = client_id;
 		this.type = type;
-	}
-	
-	public Appointment(int appointment_id, String start_time, String end_time, 
-					   String date, String doctor_id, String type) {
-		super();
-		this.appointment_id = appointment_id;
-		this.start_time = start_time;
-		this.end_time = end_time;
-		this.date = date;
-		this.client_id = client_id;
-		this.type = type;
+		
+		if(type.equals("Client"))
+			this.client_id = person_id;
+		else if(type.equals("Doctor"))
+			this.doctor_id = person_id;
 	}
 
 	public int getAppointment_id() {
