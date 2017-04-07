@@ -1,20 +1,21 @@
-package Controller;
-import Appointment;
+package controller;
 
 public class DoctorController extends ViewController {
 	
-	private DoctorView view;
+	//private DoctorView view;
 	
-	public DoctorController(ModelController model)
+	public DoctorController(MainController controller)
 	{
-		super(model);
-		view = new DoctorView();
+		super(controller);
+		
+		//remember to have an instance of their specific ViewControllers to their views
+		//view = new DoctorView(this);
 	}
 	
 	public void updateView() {
 		
 	}
-	
+	/*
 	//check all appointment slots of this doctor
 	public Iterator<Appointment> checkAppointments()
 	{
@@ -46,7 +47,7 @@ public class DoctorController extends ViewController {
 		
 		this.updateView();
 	}
-	
+	*/
 	//recurring
 	public void setAppointment()
 	{
