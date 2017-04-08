@@ -35,19 +35,25 @@ public class CalendarCalculator {
 	    c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 	    c.set(Calendar.DAY_OF_WEEK_IN_MONTH, 1);
 	    return c.get(Calendar.DAY_OF_MONTH);
-	}
+	}	
 	
 	public static int getFirstMondayOfWeek(int year, int month, int day) {
 		Calendar c = getNewCalendar(year, month, day);
 		int dayOfWeekInMonth = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
 	    c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-	    c.set(Calendar.DAY_OF_WEEK_IN_MONTH, dayOfWeekInMonth);
+	    //c.set(Calendar.DAY_OF_WEEK_IN_MONTH, dayOfWeekInMonth);
 	    return c.get(Calendar.DAY_OF_MONTH);
 	}
 
 	public static int getNoDays(int year, int month) {
 		GregorianCalendar cal = new GregorianCalendar(year, month, 1);
 		return cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
+	}
+	
+	public static int getDayOfWeek(int year, int month, int day) {
+		Calendar c = getNewCalendar(year, month, day);
+		
+	    return c.get(Calendar.DAY_OF_WEEK);
 	}
 
 	public static int getStartMonth(int year, int month) {
