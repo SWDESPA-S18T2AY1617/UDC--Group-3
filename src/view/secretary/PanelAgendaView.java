@@ -9,7 +9,7 @@ import javax.swing.table.*;
 import javax.swing.border.Border;
 
 public class PanelAgendaView extends JPanel{
-	private SecretaryController sc;
+	private ViewController vc;
 	private JScrollPane scrollAgenda;
 	private JTable agendaTable;
     private DefaultTableModel modelCalendarTable;
@@ -24,8 +24,8 @@ public class PanelAgendaView extends JPanel{
     				displayDoc3,
     				dailyORweekly;
 
-	public PanelAgendaView(SecretaryController sc){
-		this.sc = sc;
+	public PanelAgendaView(ViewController vc){
+		this.vc = vc;
 		
 		this.setSize(550, 500);
 		this.setLayout(null);
@@ -74,7 +74,7 @@ public class PanelAgendaView extends JPanel{
 
 		dailyORweekly = true;
 		modelCalendarTable.setColumnCount(0);
-		modelCalendarTable.addColumn("Reservations for, "+ month + " / " + day + " / " + year);
+		modelCalendarTable.addColumn("Reservations for "+ month + " / " + day + " / " + year);
 		modelCalendarTable.setColumnCount(1);
 		modelCalendarTable.setRowCount(50);
 		
@@ -137,30 +137,91 @@ public class PanelAgendaView extends JPanel{
 		displayDoc3 = setting;
 	}
 
-	public void updateAgendaView(){
+	public void updateAgendaView( /*listofAppointmentsDoc1,listofAppointmentsDoc2, listofAppointmentsDoc3 */ ){
+		int row = 0;
 		if(displayDoc1){
-			if(dailyORweekly){
+			if(dailyORweekly){// true = daily ; false = weekly
+
+				for(/*Appointments app*/ : /*listofAppointmentsDoc1*/){
+					if( month == app.getMonth() && // or anything similar to compare them.
+						day == app.getDay() && 
+						year == app.getYear())
+						agendaTable.setValueAt(app.getSHour() + ":" +
+											   app.getSMin()/10 + "0 :" +
+											   app.getName(), row, 0);
+						row++;
+				}
 
 			}
 			else{
+
+				for(/*Appointments app*/ : /*listofAppointmentsDoc1*/){
+					for(int i = 0; i<5; i++){
+						if( month == app.getMonth() && day+i == app.getDay() && year == app.getYear())// or anything similar to compare them.
+							agendaTable.setValueAt(app.getSHour() + ":" +
+												   app.getSMin()/10 + "0 :" +
+												   app.getName(), row, i);
+							row++;
+					}
+				}
 
 			}
 
 		}
 		if(displayDoc2){
-			if(dailyORweekly){
+			if(dailyORweekly){// true = daily ; false = weekly
+
+				for(/*Appointments app*/ : /*listofAppointmentsDoc2*/){
+					if( month == app.getMonth() && // or anything similar to compare them.
+						day == app.getDay() && 
+						year == app.getYear())
+						agendaTable.setValueAt(app.getSHour() + ":" +
+											   app.getSMin()/10 + "0 :" +
+											   app.getName(), row, 0);
+						row++;
+				}
 
 			}
 			else{
-				
+
+				for(/*Appointments app*/ : /*listofAppointmentsDoc2*/){
+					for(int i = 0; i<5; i++){
+						if( month == app.getMonth() && day+i == app.getDay() && year == app.getYear())// or anything similar to compare them.
+							agendaTable.setValueAt(app.getSHour() + ":" +
+												   app.getSMin()/10 + "0 :" +
+												   app.getName(), row, i);
+							row++;
+					}
+				}
+
 			}
 		}	
 		if(displayDoc3){
-			if(dailyORweekly){
+			if(dailyORweekly){// true = daily ; false = weekly
+
+				for(/*Appointments app*/ : /*listofAppointmentsDoc3*/){
+					if( month == app.getMonth() && // or anything similar to compare them.
+						day == app.getDay() && 
+						year == app.getYear())
+						agendaTable.setValueAt(app.getSHour() + ":" +
+											   app.getSMin()/10 + "0 :" +
+											   app.getName(), row, 0);
+						row++;
+				}
 
 			}
 			else{
-				
+
+				for(/*Appointments app*/ : /*listofAppointmentsDoc3*/){
+					for(int i = 0; i<5; i++){
+						if( month == app.getMonth() && day+i == app.getDay() && year == app.getYear())// or anything similar to compare them.
+							agendaTable.setValueAt(app.getSHour() + ":" +
+												   app.getSMin()/10 + "0 :" +
+												   app.getName(), row, i);
+							row++;
+					}
+				}
+
 			}
 		}
 

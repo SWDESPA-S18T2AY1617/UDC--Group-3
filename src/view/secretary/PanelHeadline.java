@@ -11,7 +11,7 @@ import javax.swing.border.Border;
 
 public class PanelHeadline extends JPanel{
 	
-	private SecretaryController sc;
+	private ViewController vc;
 	private JFrame frmMain;
 			   
     private JLabel lblviewName,
@@ -27,8 +27,8 @@ public class PanelHeadline extends JPanel{
     				  chckDoc2,
     				  chckDoc3;
 
-	public PanelHeadline(SecretaryController controller){
-		sc = controller;
+	public PanelHeadline(ViewController vc){
+		this.vc = vc;
 		this.setSize(900, 75);
 		this.setLayout(null);
 		this.setBackground(new Color(70, 70, 70));
@@ -91,21 +91,21 @@ public class PanelHeadline extends JPanel{
 		public void actionPerformed (ActionEvent e){
 			btnCalendar.setForeground(new Color(32, 194, 14));
 			btnAgenda.setForeground(new Color(30,144,255));
-			sc.setCalendarPanel();
+			vc.setCalendarPanel();
 		}
 	}
 	class btnAgendaAction implements ActionListener{
 		public void actionPerformed (ActionEvent e){
 			btnCalendar.setForeground(new Color(30,144,255));
 			btnAgenda.setForeground(new Color(32, 194, 14));
-			sc.setAgendaPanel();
+			vc.setAgendaPanel();
 		}
 	}
 	class btnWeeklyAction implements ActionListener{
 		public void actionPerformed (ActionEvent e){
 			btnWeekly.setForeground(new Color(32, 194, 14));
 			btnDaily.setForeground(new Color(220,20,60));
-			sc.setWeeklyFormat();
+			vc.setWeeklyFormat();
 		}
 	}
 	class btnDailyAction implements ActionListener{
@@ -113,7 +113,7 @@ public class PanelHeadline extends JPanel{
 			btnWeekly.setForeground(new Color(220,20,60));
 			btnDaily.setForeground(new Color(32, 194, 14));
 			
-			sc.setDailyFormat();
+			vc.setDailyFormat();
 		}
 	}
 

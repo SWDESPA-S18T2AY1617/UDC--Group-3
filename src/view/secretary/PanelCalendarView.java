@@ -10,7 +10,7 @@ import javax.swing.border.Border;
 
 public class PanelCalendarView extends JPanel{
 
-	private SecretaryController sc;
+	private ViewController vc;
 
 	private JScrollPane scrollCalendar;
 	private JTable calendarTable;
@@ -25,9 +25,9 @@ public class PanelCalendarView extends JPanel{
     				displayDoc2,
     				displayDoc3,
     				dailyORweekly;
-	public PanelCalendarView(SecretaryController sc){
+	public PanelCalendarView(ViewController vc){
 
-		this.sc = sc;
+		this.vc = vc;
 
 		this.setSize(550, 500);
 		this.setLayout(null);
@@ -163,80 +163,221 @@ public class PanelCalendarView extends JPanel{
 	public void setDoc3 (Boolean setting){
 		displayDoc3 = setting;
 	}
-	public void updateCalendarView(){
+	public void updateCalendarView(/*listofAppointmentsDoc1,listofAppointmentsDoc2, listofAppointmentsDoc3 */){
 
 		if(displayDoc1){
-			if(dailyORweekly){
+			if(dailyORweekly){// true = daily ; false = weekly
+				for(int i=0 ; i<48; i++){
+					int ctr = 0;
+					Object cellHour = dayTable.getValueAt(i, 0);
+					Object cellMinute = dayTable.getValueAt(i, 1);
 
+					cellHour = Integer.parseInt((String) cellHour); 
+					cellMinute = Integer.parseInt((String) cellMinute); 
+
+					for(/*Appointment temp*/ : /*listofAppointmentsDoc1*/){
+						if( givenMonth == temp.getMonth() &&
+							givenDay == temp.getDay() &&
+							givenYear == temp.getYear() &&
+							cellHour ==  temp.getSHour() &&
+							cellMinute == temp.getSMin()){
+							dayTable.setValueAt(temp.getName(), i, 2);
+							hasTaskorEvent = true;
+							ctr = temp.getEHour() - temp.getSHour();
+
+							if(temp.getSMin() - temp.getEMin() == 0 ){
+								ctr = i + (ctr*2)-1;
+							}
+							else if(temp.getSMin() - temp.getEMin() == -30  ){
+								ctr = i + (ctr*2);
+							}
+							else if (temp.getSMin() - temp.getEMin() == 30  ){
+								ctr = i + (ctr*2)-2;
+							}
+							
+						}
+					}
+				}
 			}
 			else{
-				
-			}
-			/*
-			for(int i=0 ; i<48; i++){
-				int ctr = 0;
-				Object cellHour = dayTable.getValueAt(i, 0);
-				Object cellMinute = dayTable.getValueAt(i, 1);
+				for(int i=0 ; i<48; i++){
+					int ctr = 0;
+					Object cellHour = dayTable.getValueAt(i, 0);
+					Object cellMinute = dayTable.getValueAt(i, 1);
 
-				cellHour = Integer.parseInt((String) cellHour); 
-				cellMinute = Integer.parseInt((String) cellMinute); 
+					cellHour = Integer.parseInt((String) cellHour); 
+					cellMinute = Integer.parseInt((String) cellMinute); 
 
-				for(Reservation temp : listofEvents){
-					if( givenMonth == temp.getMonth() &&
-						givenDay == temp.getDay() &&
-						givenYear == temp.getYear() &&
-						cellHour ==  temp.getSHour() &&
-						cellMinute == temp.getSMin()){
-						dayTable.setValueAt(temp.getName(), i, 2);
-						hasTaskorEvent = true;
-						ctr = temp.getEHour() - temp.getSHour();
+					for(int j=0; j<5;j++){
+						for(/*Appointment temp*/ : /*listofAppointmentsDoc1*/){
+							if( month == temp.getMonth() && day == temp.getDay()+j &&
+								year == temp.getYear() &&
+								cellHour ==  temp.getSHour() && cellMinute == temp.getSMin()){
 
-						if(temp.getSMin() - temp.getEMin() == 0 ){
-							ctr = i + (ctr*2)-1;
-						}
-						else if(temp.getSMin() - temp.getEMin() == -30  ){
-							ctr = i + (ctr*2);
-						}
-						else if (temp.getSMin() - temp.getEMin() == 30  ){
-							ctr = i + (ctr*2)-2;
-						}
-							
-						switch(temp.getColor()){
+								dayTable.setValueAt(temp.getName(), i, 2+j);
+								hasTaskorEvent = true;
+								ctr = temp.getEHour() - temp.getSHour();
 
-							case "red":
-										for(int j = i; j<=ctr; j++)
-									    	masterTable.addRed(j);
-										break;
-							case "green":
-										for(int j = i; j<=ctr; j++)
-									    	masterTable.addGreen(j);
-										break;
-							case "blue":
-										for(int j = i; j<=ctr; j++)
-									    	masterTable.addBlue(j);
-										break;
+								if(temp.getSMin() - temp.getEMin() == 0 ){
+									ctr = i + (ctr*2)-1;
+								}
+								else if(temp.getSMin() - temp.getEMin() == -30  ){
+									ctr = i + (ctr*2);
+								}
+								else if (temp.getSMin() - temp.getEMin() == 30  ){
+									ctr = i + (ctr*2)-2;
+								}
+									
+								//ctr to be used for the color stuff
+
+							}
 						}
-						
 					}
-				}*/
-
-			
+				}
+			}
 		}
+			
 
 		if(displayDoc2){
-			if(dailyORweekly){
+			if(dailyORweekly){// true = daily ; false = weekly
+				for(int i=0 ; i<48; i++){
+					int ctr = 0;
+					Object cellHour = dayTable.getValueAt(i, 0);
+					Object cellMinute = dayTable.getValueAt(i, 1);
 
+					cellHour = Integer.parseInt((String) cellHour); 
+					cellMinute = Integer.parseInt((String) cellMinute); 
+
+					for(/*Appointment temp*/ : /*listofAppointmentsDoc2*/){
+						if( givenMonth == temp.getMonth() &&
+							givenDay == temp.getDay() &&
+							givenYear == temp.getYear() &&
+							cellHour ==  temp.getSHour() &&
+							cellMinute == temp.getSMin()){
+							dayTable.setValueAt(temp.getName(), i, 2);
+							hasTaskorEvent = true;
+							ctr = temp.getEHour() - temp.getSHour();
+
+							if(temp.getSMin() - temp.getEMin() == 0 ){
+								ctr = i + (ctr*2)-1;
+							}
+							else if(temp.getSMin() - temp.getEMin() == -30  ){
+								ctr = i + (ctr*2);
+							}
+							else if (temp.getSMin() - temp.getEMin() == 30  ){
+								ctr = i + (ctr*2)-2;
+							}
+							
+						}
+					}
+				}
 			}
 			else{
-				
+				for(int i=0 ; i<48; i++){
+					int ctr = 0;
+					Object cellHour = dayTable.getValueAt(i, 0);
+					Object cellMinute = dayTable.getValueAt(i, 1);
+
+					cellHour = Integer.parseInt((String) cellHour); 
+					cellMinute = Integer.parseInt((String) cellMinute); 
+
+					for(int j=0; j<5;j++){
+						for(/*Appointment temp*/ : /*listofAppointmentsDoc2*/){
+							if( month == temp.getMonth() && day == temp.getDay()+j &&
+								year == temp.getYear() &&
+								cellHour ==  temp.getSHour() && cellMinute == temp.getSMin()){
+
+								dayTable.setValueAt(temp.getName(), i, 2+j);
+								hasTaskorEvent = true;
+								ctr = temp.getEHour() - temp.getSHour();
+
+								if(temp.getSMin() - temp.getEMin() == 0 ){
+									ctr = i + (ctr*2)-1;
+								}
+								else if(temp.getSMin() - temp.getEMin() == -30  ){
+									ctr = i + (ctr*2);
+								}
+								else if (temp.getSMin() - temp.getEMin() == 30  ){
+									ctr = i + (ctr*2)-2;
+								}
+									
+								//ctr to be used for the color stuff
+
+							}
+						}
+					}
+				}
 			}
 		}
 		if(displayDoc3){
-			if(dailyORweekly){
+			if(dailyORweekly){// true = daily ; false = weekly
+				for(int i=0 ; i<48; i++){
+					int ctr = 0;
+					Object cellHour = dayTable.getValueAt(i, 0);
+					Object cellMinute = dayTable.getValueAt(i, 1);
 
+					cellHour = Integer.parseInt((String) cellHour); 
+					cellMinute = Integer.parseInt((String) cellMinute); 
+
+					for(/*Appointment temp*/ : /*listofAppointmentsDoc3*/){
+						if( givenMonth == temp.getMonth() &&
+							givenDay == temp.getDay() &&
+							givenYear == temp.getYear() &&
+							cellHour ==  temp.getSHour() &&
+							cellMinute == temp.getSMin()){
+							dayTable.setValueAt(temp.getName(), i, 2);
+							hasTaskorEvent = true;
+							ctr = temp.getEHour() - temp.getSHour();
+
+							if(temp.getSMin() - temp.getEMin() == 0 ){
+								ctr = i + (ctr*2)-1;
+							}
+							else if(temp.getSMin() - temp.getEMin() == -30  ){
+								ctr = i + (ctr*2);
+							}
+							else if (temp.getSMin() - temp.getEMin() == 30  ){
+								ctr = i + (ctr*2)-2;
+							}
+							
+						}
+					}
+				}
 			}
 			else{
-				
+				for(int i=0 ; i<48; i++){
+					int ctr = 0;
+					Object cellHour = dayTable.getValueAt(i, 0);
+					Object cellMinute = dayTable.getValueAt(i, 1);
+
+					cellHour = Integer.parseInt((String) cellHour); 
+					cellMinute = Integer.parseInt((String) cellMinute); 
+
+					for(int j=0; j<5;j++){
+						for(/*Appointment temp*/ : /*listofAppointmentsDoc3*/){
+							if( month == temp.getMonth() && day == temp.getDay()+j &&
+								year == temp.getYear() &&
+								cellHour ==  temp.getSHour() && cellMinute == temp.getSMin()){
+
+								dayTable.setValueAt(temp.getName(), i, 2+j);
+								hasTaskorEvent = true;
+								ctr = temp.getEHour() - temp.getSHour();
+
+								if(temp.getSMin() - temp.getEMin() == 0 ){
+									ctr = i + (ctr*2)-1;
+								}
+								else if(temp.getSMin() - temp.getEMin() == -30  ){
+									ctr = i + (ctr*2);
+								}
+								else if (temp.getSMin() - temp.getEMin() == 30  ){
+									ctr = i + (ctr*2)-2;
+								}
+									
+								//ctr to be used for the color stuff
+
+							}
+						}
+					}
+				}
 			}
 		}
 

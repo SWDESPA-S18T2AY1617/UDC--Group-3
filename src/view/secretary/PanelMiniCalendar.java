@@ -9,7 +9,7 @@ import javax.swing.table.*;
 import javax.swing.border.Border;
 
 public class PanelMiniCalendar extends JPanel{
-	SecretaryController sc;
+	private ViewController vc;
 
     private JLabel monthLabel, 
     			   yearLabel,
@@ -33,8 +33,8 @@ public class PanelMiniCalendar extends JPanel{
 			   cellDay;
 	private Boolean highlight;
 
-	public PanelMiniCalendar(SecretaryController sc){
-		this.sc = sc;
+	public PanelMiniCalendar(ViewController vc){
+		this.vc = vc;
 
         this.setSize( 350, 500);
 		this.setLayout(null);
@@ -131,7 +131,7 @@ public class PanelMiniCalendar extends JPanel{
     	chckDoc3.setForeground(new Color(120, 120, 120));
 		
 		refreshCalendar(monthBound, yearBound);
-		sc.setViewDate(monthBound+1, dayBound, yearBound); 
+		vc.setViewDate(monthBound+1, dayBound, yearBound); 
 	}
 
 	public void addsetParts(){
@@ -171,7 +171,7 @@ public class PanelMiniCalendar extends JPanel{
 
 	}
 	public void sendDateToView(){
-		sc.setViewDate(monthBound+1, dayBound, yearBound);
+		vc.setViewDate(monthBound+1, dayBound, yearBound);
 	}
 	public void refreshCalendar(int month, int year){
     	
@@ -241,7 +241,7 @@ public class PanelMiniCalendar extends JPanel{
 	}
 	class btnBookAction implements ActionListener{
 		public void actionPerformed (ActionEvent e){
-			sc.setBookingPanel();
+			vc.setBookingPanel();
 		}
 	}
 	class dateSelectAction implements MouseListener{
@@ -256,7 +256,7 @@ public class PanelMiniCalendar extends JPanel{
 	    		   highlight = true;
 	    		   cellDay = Integer.parseInt(cellVal.toString());
 	               refreshCalendar(monthBound, yearBound);
-	               sc.setViewDate(monthBound+1, cellDay, yearBound);
+	               vc.setViewDate(monthBound+1, cellDay, yearBound);
 	           }
 	           catch(NullPointerException e){
 	           		System.out.println("No");
@@ -284,30 +284,30 @@ public class PanelMiniCalendar extends JPanel{
     class chckDoc1Action implements ItemListener{
     	public void itemStateChanged(ItemEvent evt){
     		if(evt.getStateChange() == ItemEvent.SELECTED){
-				sc.setDoc1(true);
+				vc.setDoc1(true);
 			}
 			else{
-				sc.setDoc1(false);
+				vc.setDoc1(false);
 			}
 		}
     }
     class chckDoc2Action implements ItemListener{
     	public void itemStateChanged(ItemEvent evt){
 			if(evt.getStateChange() == ItemEvent.SELECTED){
-				sc.setDoc2(true);
+				vc.setDoc2(true);
 			}
 			else{
-				sc.setDoc2(false);
+				vc.setDoc2(false);
 			}
 		}
     }
     class chckDoc3Action implements ItemListener{
     	public void itemStateChanged(ItemEvent evt){
 			if(evt.getStateChange() == ItemEvent.SELECTED){
-				sc.setDoc3(true);
+				vc.setDoc3(true);
 			}
 			else{
-				sc.setDoc3(false);
+				vc.setDoc3(false);
 			}
 		}
     }
