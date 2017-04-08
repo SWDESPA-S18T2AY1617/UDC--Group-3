@@ -108,14 +108,31 @@ public class PanelMenu extends JPanel {
 		SwingUtilities.updateComponentTreeUI(btnCal);
 
 		btnWeek.setSelected(true);
-		
 		btnCal.setSelected(true);
+		
+		btnAgenda.setContentAreaFilled(false);
+		btnAgenda.setOpaque(true);
+		btnAgenda.setFocusPainted(false);
+		
+		btnCal.setContentAreaFilled(false);
+		btnCal.setOpaque(true);
+		btnCal.setFocusPainted(false);
+		
+		btnDay.setContentAreaFilled(false);
+		btnDay.setOpaque(true);
+		btnDay.setFocusPainted(false);
+		
+		btnWeek.setContentAreaFilled(false);
+		btnWeek.setOpaque(true);
+		btnWeek.setFocusPainted(false);
+		
 		btnToday.setContentAreaFilled(false);
 		btnToday.setBorder(BorderFactory.createLineBorder(new Color(70, 206, 168), 1, true));
-		btnCal.setBackground(new Color(70, 206, 168));
-		// btnCal.setBorder(BorderFactory.createEmptyBorder());
+		
+		btnCal.setBackground(new Color(60, 168, 138));
+		btnWeek.setBackground(new Color(60, 168, 138));
 		btnAgenda.setBackground(new Color(70, 206, 168));
-		// btnAgenda.setBorder(BorderFactory.createEmptyBorder());
+		btnDay.setBackground(new Color(70, 206, 168));
 	}
 
 	private void addPlaceComp() {
@@ -171,36 +188,52 @@ public class PanelMenu extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(btnWeek.isSelected())
-					vc.setMainPanel(vc.PANEL_WEEK);
-				else if (btnDay.isSelected())
-					vc.setMainPanel(vc.PANEL_DAY);
+				if(btnWeek.isSelected()) {
+					vc.setMainPanel(vc.PANEL_CAL_WEEK);
+					btnCal.setBackground(new Color(60, 168, 138));
+					btnAgenda.setBackground(new Color(70, 206, 168));
+				}
+					
+				else if (btnDay.isSelected()) {
+					vc.setMainPanel(vc.PANEL_CAL_DAY);
+					btnDay.setBackground(new Color(60, 168, 138));
+					btnAgenda.setBackground(new Color(70, 206, 168));
+				}
+					
 			}
 
 		});
 		btnAgenda.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				vc.setMainPanel(vc.PANEL_AGENDA);
+				btnAgenda.setBackground(new Color(60, 168, 138));
+				btnCal.setBackground(new Color(70, 206, 168));
+				if(btnWeek.isSelected())
+					vc.setMainPanel(vc.PANEL_AGENDA_WEEK);
+				else if (btnDay.isSelected())
+					vc.setMainPanel(vc.PANEL_AGENDA_DAY);
 			}
 		});
 		btnDay.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				btnDay.setBackground(new Color(60, 168, 138));
+				btnWeek.setBackground(new Color(70, 206, 168));
 				if(btnCal.isSelected())
-					vc.setMainPanel(vc.PANEL_DAY);
+					vc.setMainPanel(vc.PANEL_CAL_DAY);
 				else if (btnAgenda.isSelected())
-					vc.setMainPanel(vc.PANEL_AGENDA);
+					vc.setMainPanel(vc.PANEL_AGENDA_DAY);
 			}
 		});
 		btnWeek.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				btnWeek.setBackground(new Color(60, 168, 138));
+				btnDay.setBackground(new Color(70, 206, 168));
 				if(btnCal.isSelected())
-					vc.setMainPanel(vc.PANEL_WEEK);
+					vc.setMainPanel(vc.PANEL_CAL_WEEK);
 				else if (btnAgenda.isSelected())
-					vc.setMainPanel(vc.PANEL_AGENDA);
+					vc.setMainPanel(vc.PANEL_AGENDA_WEEK);
 			}
 		});
 	}

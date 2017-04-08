@@ -6,11 +6,20 @@ import javax.swing.border.Border;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ContainerEvent;
+import java.awt.event.ContainerListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.awt.Dimension;
@@ -30,6 +39,8 @@ public class PanelDay extends JPanel {
 	private JPanel panelWeek;
 	private JPanel panelTable;
 
+	private JButton[] arrBtnRemove;
+	
 	private JPanel[] timeSlot;
 	private JPanel[] activitySlot;
 	private JLabel[] seeTime;
@@ -48,6 +59,7 @@ public class PanelDay extends JPanel {
 		this.initComp();
 		this.initTimeSlot();
 		this.initActivitySlot();
+		this.initButtons();
 		this.addPlaceComp();
 	}
 
@@ -148,7 +160,7 @@ public class PanelDay extends JPanel {
 			Border border = BorderFactory.createMatteBorder(1, 0, 0, 0, Color.LIGHT_GRAY);
 
 			activitySlot[j] = new JPanel();
-
+			
 			activitySlot[j].setBorder(border);
 			activitySlot[j].setBackground(Color.WHITE);
 			// activitySlot[48 * i + j].add(new JLabel("muaha " + i + " " +
@@ -159,25 +171,73 @@ public class PanelDay extends JPanel {
 			gbc[j].fill = GridBagConstraints.BOTH;
 			gbc[j].gridx = 0;
 			gbc[j].gridy = j;
-
+			
 			activity.add(activitySlot[j], gbc[j]);
 		}
 
 	}
+	
+	private void initButtons() {
+		arrBtnRemove = new JButton[48];
+		
+		for (int j = 0; j < 48; j++) {
+			
+			final int index = j;
+			arrBtnRemove[j] = new JButton(" ... ");
+			arrBtnRemove[j].setFont(new Font("Sans Serif", Font.BOLD, 12));
+			arrBtnRemove[j].setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.WHITE));	
+			arrBtnRemove[j].setForeground(Color.WHITE);
+			arrBtnRemove[j].setContentAreaFilled(false);
+			arrBtnRemove[j].addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					JButton b = (JButton) e.getSource();
+					b.setVisible(true);
+				}
+				@Override
+				public void mouseExited(MouseEvent e) {
+					JButton b = (JButton) e.getSource();
+					b.setVisible(false);
+				}
+			});
+			arrBtnRemove[j].addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					PanelModifyDelete pmd = new PanelModifyDelete(2017, 10, 29);
+					int choice = JOptionPane.showConfirmDialog(null, pmd, "Modify Activity", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+					
+					if(pmd.toDelete()) {
+						int timeH = index / 2;
+						int timeM = 30 * (index % 2);
+						
+						// Get appointment from list which matches the above starting time and the current date pointer
+						// -> then delete the appointment
+						
+					} else {
+						if(choice == JOptionPane.OK_OPTION) {
+							if(pmd.isValidTime()) {
+								// Original starting time
+								int timeH = index / 2;
+								int timeM = 30 * (index % 2);
+								
+								// Get appointment from list which matches the above starting time and the current date pointer
+								
+								/* appointment.setDate( */pmd.getSpinDate();
+								/* appointment.setStartTime( */pmd.getFromTime();
+								/* appointment.setEndTime( */pmd.getToTime();
+							} else {
+								JOptionPane.showMessageDialog(null, "Invalid time input", "Cannot modify appointment", JOptionPane.WARNING_MESSAGE);
+							}
+						}
+					} 
+				}
+			});
+		}
+	}
 
 	private void addPlaceComp() {
 		this.add(scrollAct);
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public void update(int year, int month, int day, Iterator/* <type> */ appointments, String wala) {
-
-		for (/* appointment */String a; appointments.hasNext();) {
-
-		}
 	}
 
 	public void update(int month, int day, int year, Iterator<TestAppointment> activity) {
@@ -187,15 +247,12 @@ public class PanelDay extends JPanel {
 	}
 
 	public void setPanelValues(int month, int day, int year, Iterator<TestAppointment> activity) {
-		System.out.println("+++++++++");
-
 		ArrayList<TestAppointment> activityList = new ArrayList<>();
 
 		if (activity != null) {
 			while (activity != null && activity.hasNext()) {
 				TestAppointment a = activity.next();
 				activityList.add(a);
-				System.out.println(a.getName());
 			}
 
 			for (int i = 0; i < activityList.size(); i++) {
@@ -217,11 +274,25 @@ public class PanelDay extends JPanel {
 		int end = act.getEndHour() * 2 + act.getEndMinute() / 30;
 
 		activitySlot[start].add(evnt);
-
+		activitySlot[start].add(arrBtnRemove[start]);
+		arrBtnRemove[start].setVisible(false);
+		final int originalIndex = start;
+		
 		while (start < end) {
-
 			activitySlot[start].setBackground(act.getColor());
-			
+			activitySlot[start].setBorder(BorderFactory.createEmptyBorder());
+			if(act.getColor() != ColorParser.getColor(TestAppointment.COLOR_TAKEN)) {
+				activitySlot[start].addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						arrBtnRemove[originalIndex].setVisible(true);
+					}
+					@Override
+					public void mouseExited(MouseEvent e) {
+						arrBtnRemove[originalIndex].setVisible(false);
+					}
+				});
+			}
 			start++;
 		}
 	}
@@ -239,6 +310,9 @@ public class PanelDay extends JPanel {
 		for (int i = 0; i < 48; i++) {
 			activitySlot[i].setBackground(Color.WHITE);
 			activitySlot[i].removeAll();
+			//activitySlot[i].add(arrBtnRemove[i]);
+			//arrBtnRemove[i].setBounds(5, 5, 10, 10);
+			//arrBtnRemove[i].setVisible(false);
 			activitySlot[i].revalidate();
 			activitySlot[i].repaint();
 		}

@@ -78,8 +78,10 @@ public class PanelCalendar extends JPanel {
 		
 		btnCreate.setForeground(Color.WHITE);
 		btnCreate.setFont(new Font("Sans Serif", Font.BOLD, 16));
-		btnCreate.setBackground(new Color(77, 148, 179));
+		btnCreate.setContentAreaFilled(false);
 		btnCreate.setOpaque(true);
+		btnCreate.setFocusPainted(false);
+		btnCreate.setBackground(new Color(77, 148, 179));
 		//btnCreate.setBorder(BorderFactory.createEmptyBorder());
 		btnCreate.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
