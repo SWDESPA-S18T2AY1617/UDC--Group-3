@@ -8,6 +8,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import java.util.*;
 import javax.swing.table.*;
@@ -25,6 +27,7 @@ public class PanelCalendar extends JPanel {
 	private JTable calendarTable;
 	private DefaultTableModel modelCalendarTable;
 	private JButton btnCreate;
+	private JButton btnFilterDoctor;
 	private JScrollPane doctorPane;
 	private JList<String> doctorList;
 	private DefaultListModel<String> listDoctor;
@@ -66,10 +69,9 @@ public class PanelCalendar extends JPanel {
 		btnNext = new JButton(">");
 		btnCreate = new JButton("Add Appointment");
 		listDoctor = new DefaultListModel<>();
+		btnFilterDoctor = new JButton("Filter");
 		doctorList = new JList<>(listDoctor);
 		doctorPane = new JScrollPane(doctorList);
-		//chckEvent = new JCheckBox("Event");
-		//chckTask = new JCheckBox("Task");
 		
 		filterLabel.setFont(new Font("Sans Serif", Font.BOLD, 16));
 		
@@ -92,16 +94,18 @@ public class PanelCalendar extends JPanel {
 		btnPrev.setContentAreaFilled(false); 
 		btnPrev.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
+		btnFilterDoctor.setForeground(Color.WHITE);
+		btnFilterDoctor.setFont(new Font("Sans Serif", Font.BOLD, 12));
+		btnFilterDoctor.setBackground(Color.decode("#BC9C98"));
+		btnFilterDoctor.setOpaque(true);
+		btnFilterDoctor.setBorder(BorderFactory.createEmptyBorder());
+		btnFilterDoctor.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
 		doctorPane.setBorder(BorderFactory.createEmptyBorder());
 		
 		doctorList.setBackground(Color.decode("#fcf6f5"));
 		doctorList.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.decode("#d4afab")));
 		doctorList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		
-		//chckEvent.setFont(new Font("Sans Serif", Font.PLAIN, 16));
-		//chckTask.setFont(new Font("Sans Serif", Font.PLAIN, 16));
-		//chckEvent.setOpaque(false);
-		//chckTask.setOpaque(false);
 		
 		// Set all cells to uneditable
 		modelCalendarTable = new DefaultTableModel() {
@@ -144,8 +148,6 @@ public class PanelCalendar extends JPanel {
 		this.add(btnPrev);
 		this.add(filterLabel);
 		this.add(doctorPane);
-		//this.add(chckEvent);
-		//this.add(chckTask);
 
 		// Place components on layout (includes setting of size)
 		monthLabel.setBounds(15, 70, 100, 20);
@@ -155,8 +157,7 @@ public class PanelCalendar extends JPanel {
 		scrollCalendarTable.setBounds(15, 100, 190, 205);
 		filterLabel.setBounds(15, 310, 100, 40);
 		doctorPane.setBounds(15, 345, 190, 130);
-		//chckEvent.setBounds(30, 345, 100, 40);
-		//chckTask.setBounds(30, 385, 100, 40);
+		btnFilterDoctor.setBounds(15, 480, 100, 20);
 	}
 	
 	private void createDateLabel(int currMonth, int currYear) {
@@ -204,15 +205,6 @@ public class PanelCalendar extends JPanel {
 			modelCalendarTable.setValueAt(i, row, column);
 		}
 	}
-/*
-	public boolean isTaskSelected() {
-		return chckTask.isSelected();
-	}
-
-	public boolean isEventSelected() {
-		return chckEvent.isSelected();
-	}
-*/
 	public void setTableNull() {
 		for (int i = 0; i < 6; i++)
 			for (int j = 0; j < 7; j++)
@@ -256,9 +248,19 @@ public class PanelCalendar extends JPanel {
 		btnPrev.addActionListener(new BtnPrev());
 		btnCreate.addChangeListener(new RecolorBtnCreate());
 		btnCreate.addActionListener(new BtnCreate());
-		//chckEvent.addActionListener(new FilterCheckBox());
-		//chckTask.addActionListener(new FilterCheckBox());
+		btnFilterDoctor.addActionListener(new BtnFilterDoctor());
 		calendarTable.addMouseListener(new ChangeDate());
+	}
+	
+	class BtnFilterDoctor implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			
+			System.out.println(doctorList.getSelectedValuesList());
+		}
+		
 	}
 	
 	class BtnNext implements ActionListener {
@@ -284,7 +286,7 @@ public class PanelCalendar extends JPanel {
 			if(!btnCreate.isEnabled()) {
 				btnCreate.setBackground(Color.LIGHT_GRAY);
 			}
-			else btnCreate.setBackground(new Color(211, 72, 54));
+			else btnCreate.setBackground(Color.decode("#BC9C98"));
 		}
 	}
 	
