@@ -32,7 +32,7 @@ public class ClientViewController {
 		pm = new PanelMenu(controller, year, month, day);
 		pcr = new PanelCreate(controller, year, month, day);
 		pa = new PanelReservation(controller);
-		pw = new PanelWeek();
+		pw = new PanelWeek(year, month, day);
 		pd = new PanelDay();
 		
 		f.setLeftPanel(pc);
@@ -48,7 +48,7 @@ public class ClientViewController {
 		pa.update(month, day, year);
 		pm.update(month, day, year);
 		pd.update(month, day, year);
-		pw.update(month, day, year);
+		pw.update(year, month, day);
 	}
 	
 	public void setMainPanel(int panelConstant) {

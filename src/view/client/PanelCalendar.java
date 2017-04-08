@@ -32,9 +32,6 @@ public class PanelCalendar extends JPanel {
 	private JList<String> doctorList;
 	private DefaultListModel<String> listDoctor;
 	
-	//private JCheckBox chckEvent;
-	//private JCheckBox chckTask;
-	
 	private Controller controller;
 
 	public PanelCalendar(Controller controller, int currYear, int currMonth, int currDay) {
@@ -146,6 +143,7 @@ public class PanelCalendar extends JPanel {
 		this.add(btnCreate);
 		this.add(btnNext);
 		this.add(btnPrev);
+		this.add(btnFilterDoctor);
 		this.add(filterLabel);
 		this.add(doctorPane);
 
@@ -171,6 +169,7 @@ public class PanelCalendar extends JPanel {
 		// Enable previous and next buttons
 		btnPrev.setEnabled(true);
 		btnNext.setEnabled(true);
+		btnFilterDoctor.setEnabled(true);
 
 		/*
 		// If month is January and 100 years less than current year
