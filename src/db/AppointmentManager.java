@@ -98,6 +98,7 @@ public class AppointmentManager {
 		Appointment appointment = null;
 		ResultSet result;
 
+		//I intentionally left the error below to remind mahself what to edit here
 		String query = "SELECT * FROM " + Appointment.TABLE_NAME +
 					   " WHERE " + Appointment.COL_ + " = '" + what + 
 					   "' AND " + Appointment.COL_ + " = '" + wew + "'";

@@ -22,9 +22,16 @@ public class DBConnection {
 		configure();
 	}
 	
+	/* Alright some instructions for referenced libraries baka lang makalimutan niyo
+	 * to like I did huhu. Now for the db to be able to connect necessary to.
+	 * What you do is right click sa project name neto, click build path, then click add
+	 * external archives. May window na lalabas then select niyo ung jar file na sinend ko sa gc.
+	 * Also, may sinama ako na sql file. I think you guys know what to do with that na ahhahaah
+	 */
+	
 	/* okay bois here's what u gonna do for this shiz db
 	 * first off create a new file sa UDC-Group-3 folder
-	 * then u put the url on the first line     sample:jdbc:mysql://localhost:3306/sm_cinemas?user=root
+	 * then u put the url on the first line     sample:jdbc:mysql://localhost:3306/udc_db?user=root
 	 * tapos sa next line username naman        sample:root
 	 * and finally the password					sample:DLSU
 	 * iba iba to kada machine so sabi ni sir gawin ko daw na ganito

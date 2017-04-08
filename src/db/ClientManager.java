@@ -1,5 +1,6 @@
-package clinicDatabase;
+package db;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import db.DBConnection;
 
 public class ClientManager {
 	
-	public ArrayList<Client> getAllClients() {
+	public ArrayList<Client> getAllClients() throws IOException {
 		ArrayList<Client> clientList = new ArrayList<Client> ();
 		Client client = null;
 		
@@ -35,9 +36,10 @@ public class ClientManager {
 				db.close();
 			}
 		}
+		return clientList;
 	}
 	
-	public boolean addClient(Client client) {
+	public boolean addClient(Client client) throws IOException {
 		boolean result;
 		
 		String query = "INSERT INTO" + Client.TABLE_NAME + " (" + Client.CLIENT_ID + ", " 
@@ -56,7 +58,7 @@ public class ClientManager {
 		return result;
 	}
 	
-	public boolean deleteClient(Client client) {
+	public boolean deleteClient(Client client) throws IOException {
 		boolean result;
 		
 		String query = "DELETE FROM " + Client.TABLE_NAME + " WHERE " 
@@ -75,7 +77,7 @@ public class ClientManager {
 		return result;
 	}
 	
-	public boolean updateClient(Client client) {
+	public boolean updateClient(Client client) throws IOException {
 		boolean result;
 		
 		String query = "UPDATE " + Client.TABLE_NAME +
@@ -95,7 +97,7 @@ public class ClientManager {
 		return result;
 	}
 	
-	public Client getClient(int client_id, String name) {
+	public Client getClient(int client_id, String name) throws IOException {
 		
 		Client client = null;
 		ResultSet result;
@@ -104,7 +106,7 @@ public class ClientManager {
 						Client.CLIENT_ID + " = '" + client_id + "' AND " +
 						Client.CLIENT_NAME + " = '" + name + "'";
 		
-		DBConnect db = new DBConnection();
+		DBConnection db = new DBConnection();
 		
 		try {
 			

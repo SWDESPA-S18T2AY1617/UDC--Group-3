@@ -1,3 +1,6 @@
+package db;
+
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -7,7 +10,7 @@ import java.util.ArrayList;
 
 public class DoctorManager{
 
-	public ArrayList<Doctor> getAllDoctors(){
+	public ArrayList<Doctor> getAllDoctors() throws IOException{
 		ArrayList<Doctor> doctorList = new ArrayList<Doctor>();
 		Doctor doctor = null;
 		
@@ -38,7 +41,7 @@ public class DoctorManager{
 		return doctorList;
 	}
 	
-	public boolean addDoctor(Doctor doctor){
+	public boolean addDoctor(Doctor doctor) throws IOException{
 		boolean result;
 		
 		String query = "INSERT INTO " + Doctor.TABLE_NAME + " ("
@@ -57,12 +60,12 @@ public class DoctorManager{
 		return result;
 	}
 	
-	public Doctor getDoctor(String name){
+	public Doctor getDoctor(String name) throws IOException{
 		Doctor doctor = null;
 		ResultSet result;
 		
 		String query = "SELECT * FROM " + Doctor.TABLE_NAME +
-						" WHERE " + Doctor.COL_NAME " = '" + name + " '";
+						" WHERE " + Doctor.COL_NAME + " = '" + name + " '";
 			
 		DBConnection db = new DBConnection();
 		

@@ -1,4 +1,4 @@
-package clinicDatabase;
+package db;
 
 public class Client {
 	

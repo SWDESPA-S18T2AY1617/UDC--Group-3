@@ -1,3 +1,5 @@
+package db;
+
 public class Doctor{
 	
 	public static final String TABLE_NAME = "Doctor";
@@ -24,7 +26,7 @@ public class Doctor{
 		this.doctor_id = doctor_id;
 	}
 	
-	public int getName(){
+	public String getName(){
 		return this.name;
 	}
 	
