@@ -372,6 +372,8 @@ public class PanelWeek extends JPanel {
 			panelHeader[i].add(lblHeader);
 			calWeekScope[i - 1] = new GregorianCalendar(year, currMonth, (monday + i - 1));
 		}
+		
+		repaint();
 	}
 
 	public Calendar[] getWeekScope() {

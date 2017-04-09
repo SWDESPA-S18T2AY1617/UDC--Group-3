@@ -519,6 +519,11 @@ public class PanelCreate extends JPanel {
 							end.set(Calendar.YEAR, getSpinYear());
 							
 							Appointment a = new Appointment(start, end);
+							
+							System.out.println("Create appointment " + start.get(Calendar.MONTH) + " " + start.get(Calendar.DAY_OF_MONTH) + 
+									" " + start.get(Calendar.YEAR) + "\n from " + start.get(Calendar.HOUR) + ":" + start.get(Calendar.MINUTE) + " to " +
+									end.get(Calendar.HOUR) + ":" + end.get(Calendar.MINUTE) + "\n");
+							
 							if(!docController.addAppointment(a))
 								JOptionPane.showMessageDialog(null, "Cannot add appointment because of overlap.", "Cannot add appointment", JOptionPane.WARNING_MESSAGE);
 							else JOptionPane.showMessageDialog(null, "Successfully added appointment!");
@@ -638,6 +643,10 @@ public class PanelCreate extends JPanel {
 							appEnd.set(Calendar.DAY_OF_MONTH, listGC.get(i).get(Calendar.DAY_OF_MONTH));
 							appEnd.set(Calendar.YEAR, listGC.get(i).get(Calendar.YEAR));
 							
+							System.out.println("Create appointment " + appStart.get(Calendar.MONTH) + " " + appStart.get(Calendar.DAY_OF_MONTH) + 
+									" " + appStart.get(Calendar.YEAR) + "\n from " + appStart.get(Calendar.HOUR) + ":" + appStart.get(Calendar.MINUTE) + " to " +
+									appEnd.get(Calendar.HOUR) + ":" + appEnd.get(Calendar.MINUTE) + "\n");
+							
 							if(isWeekend())
 								JOptionPane.showMessageDialog(null, "Weekend appointments are not applicable.");
 							else {
@@ -646,9 +655,7 @@ public class PanelCreate extends JPanel {
 									JOptionPane.showMessageDialog(null, "Cannot add appointment because of overlap.", "Cannot add appointment", JOptionPane.WARNING_MESSAGE);
 								else successAdd++;
 							}
-							System.out.println("Create appointment " + appStart.get(Calendar.MONTH) + " " + appStart.get(Calendar.DAY_OF_MONTH) + 
-									" " + appStart.get(Calendar.YEAR) + "\n from " + appStart.get(Calendar.HOUR) + ":" + appStart.get(Calendar.MINUTE) + " to " +
-									appEnd.get(Calendar.HOUR) + ":" + appEnd.get(Calendar.MINUTE) + "\n");
+							
 						}
 						JOptionPane.showMessageDialog(null, "Successfully added " + successAdd + " appointment(s)!");
 					}

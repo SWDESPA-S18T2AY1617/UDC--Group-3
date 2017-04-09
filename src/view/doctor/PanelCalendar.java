@@ -55,7 +55,7 @@ public class PanelCalendar extends JPanel {
 		this.addPlaceComp();
 		
 		// Add table cell content
-		this.update(currMonth, currYear, currDay);
+		this.update(currMonth, currDay, currYear);
 		
 		// Select cell to current day
 		this.setSelectedCell(currDay);
@@ -171,7 +171,7 @@ public class PanelCalendar extends JPanel {
 		monthLabel.setText(s);	
 	}
 
-	public void update(int month, int year, int day) {
+	public void update(int month, int day, int year) {
 
 		// Enable previous and next buttons
 		btnPrev.setEnabled(true);
