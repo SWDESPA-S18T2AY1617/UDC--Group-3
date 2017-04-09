@@ -95,7 +95,8 @@ public class CalendarModel {
 	}
 	
 	public void deleteAppointment(Calendar start) {
-		for(Appointment a : appointments) {
+		for(int i = appointments.size() - 1; i >= 0; i--) {
+			Appointment a = appointments.get(i);
 			if(a.getStart().compareTo(start) == 0) {
 				AppointmentManager manager = new AppointmentManager();
 				try {
@@ -110,7 +111,8 @@ public class CalendarModel {
 	}
 	
 	public void cancelAppointment(Calendar start) {
-		for(Appointment a : appointments) {
+		for(int i = appointments.size() - 1; i >= 0; i--) {
+			Appointment a = appointments.get(i);
 			if(a.getStart().compareTo(start) == 0) {
 				AppointmentManager manager = new AppointmentManager();
 				a.setClient(null);
