@@ -125,6 +125,17 @@ public class CalendarModel {
 
 		return a.iterator();
 	}
+	
+	public boolean isAppointmentValid(Appointment appointment) {
+		if(!appointment.isTimeValid()) {
+			return false;
+		}
+		for(Appointment a : appointments) {
+			if(a.isOverlapping(appointment))
+				return false;
+		}
+	    return true;
+	}
 
 	public void sortAppointments() {
 		Collections.sort(appointments, new Comparator<Appointment>() {
