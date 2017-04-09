@@ -15,18 +15,21 @@ public class CalendarCalculator {
 
 	public static Calendar getNewCalendar(int year, int month) {
 		Calendar c = new GregorianCalendar();
+		c.clear();
 		c.set(year, month, 0, 0, 0, 0);
 		return c;
 	}
 
 	public static Calendar getNewCalendar(int year, int month, int day) {
 		Calendar c = new GregorianCalendar();
+		c.clear();
 		c.set(year, month, day, 0, 0, 0);
 		return c;
 	}
 
 	public static Calendar getNewCalendar(int year, int month, int day, int hour, int minute) {
 		Calendar c = new GregorianCalendar();
+		c.clear();
 		c.set(year, month, day, hour, minute, 0);
 		return c;
 	}
