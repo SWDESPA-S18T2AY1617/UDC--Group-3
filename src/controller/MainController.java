@@ -28,13 +28,15 @@ public class MainController {
 		
 		initiateViews();
 		initializeAppointments();
+		updateAll();
 	}
 	
 	private void initiateViews() {
 		// get info from DB for clients and doctors
-		//initiateSecretary();
+		
 		//initiateClient();
 		initiateDoctor();
+		//initiateSecretary();
 	}
 	
 	private void initiateSecretary() {

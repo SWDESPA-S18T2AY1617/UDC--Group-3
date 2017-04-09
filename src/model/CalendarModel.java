@@ -52,6 +52,7 @@ public class CalendarModel {
 	
 	public ArrayList<String> getDoctorNames() {
 		ArrayList<String> list = new ArrayList<>();
+		System.out.println("IM HERE");
 		for(Doctor d : doctors) {
 			list.add(d.getName());
 		}
