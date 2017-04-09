@@ -122,7 +122,7 @@ public class DoctorController extends ViewController {
 
 	public boolean showDoctorWho() {
 		System.out.println("open sesame");
-		FrameDoctorWho fdw = new FrameDoctorWho();
+		PanelDoctorWho fdw = new PanelDoctorWho();
 		JDialog d1 = new JDialog();
 		d1.setLocationRelativeTo(null);
 		d1.setSize(new Dimension(400, 180));
