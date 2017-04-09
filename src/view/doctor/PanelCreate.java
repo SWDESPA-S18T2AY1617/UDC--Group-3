@@ -519,6 +519,7 @@ public class PanelCreate extends JPanel {
 							end.set(Calendar.YEAR, getSpinYear());
 							
 							Appointment a = new Appointment(start, end);
+							a.setDoctor(docController.getDoctor());
 							
 							System.out.println("Create appointment " + start.get(Calendar.MONTH) + " " + start.get(Calendar.DAY_OF_MONTH) + 
 									" " + start.get(Calendar.YEAR) + "\n from " + start.get(Calendar.HOUR) + ":" + start.get(Calendar.MINUTE) + " to " +
@@ -651,6 +652,7 @@ public class PanelCreate extends JPanel {
 								JOptionPane.showMessageDialog(null, "Weekend appointments are not applicable.");
 							else {
 								Appointment a = new Appointment(appStart, appEnd);
+								a.setDoctor(docController.getDoctor());
 								if(!docController.addAppointment(a))
 									JOptionPane.showMessageDialog(null, "Cannot add appointment because of overlap.", "Cannot add appointment", JOptionPane.WARNING_MESSAGE);
 								else successAdd++;

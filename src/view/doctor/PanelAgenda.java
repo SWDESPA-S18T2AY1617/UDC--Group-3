@@ -18,10 +18,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.RowFilter.Entry;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import controller.DoctorController;
 import model.Appointment;
@@ -35,7 +37,7 @@ public class PanelAgenda extends JPanel {
 	// private JLabel lblToDoLeft;
 
 	private JTable agendaTable;
-
+	private TableRowSorter<TableModel> filter;
 	// private JButton btnMarkDone;
 	// private JButton btnDeleteDone;
 
@@ -89,7 +91,7 @@ public class PanelAgenda extends JPanel {
 
 		// Table components
 		modelAgendaTable = new AgendaTableModel(100, 4);
-
+		filter = new TableRowSorter<TableModel>(modelAgendaTable);
 		agendaTable = new JTable(modelAgendaTable) {
 			@Override
 			public Class getColumnClass(int column) {
@@ -113,6 +115,7 @@ public class PanelAgenda extends JPanel {
 		scrollAgendaTable.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
 		agendaTable.setTableHeader(null);
+		agendaTable.setRowSorter(filter);
 		agendaTable.setShowGrid(false);
 		agendaTable.setDefaultRenderer(agendaTable.getColumnClass(0), new TableRendererAgenda());
 		agendaTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -166,6 +169,18 @@ public class PanelAgenda extends JPanel {
 		}
 	}
 
+	public void showAvailable(boolean show) {
+		if(!show) {
+			RowFilter<TableModel, Object> rf = null;
+			
+			rf = RowFilter.regexFilter("(patient)", 0);
+			
+			filter.setRowFilter(rf);
+		} else {
+			filter.setRowFilter(null);
+		}
+	}
+	
 	public void setWeekAppointments(Iterator<Appointment> ta) {
 		listTA.removeAll(listTA);
 
@@ -277,12 +292,12 @@ public class PanelAgenda extends JPanel {
 	}
 
 	private boolean isThisWeek(Appointment t) {
-		System.out.println("PUTANGINAAAAAAAAAA");
+		//System.out.println("PUTANGINAAAAAAAAAA");
 		for (int i = 0; i < calWeekScope.length; i++) {
 			Calendar c = calWeekScope[i];
 			if (t.isMonth(c.get(Calendar.MONTH)) && t.isDay(c.get(Calendar.DAY_OF_MONTH))
 					&& t.isYear(c.get(Calendar.YEAR))) {
-				System.out.println("PASOK BES");
+				//System.out.println("PASOK BES");
 				return true;
 			}
 		}

@@ -326,6 +326,8 @@ public class PanelWeek extends JPanel {
 									end.set(Calendar.YEAR, pmd.getSpinYear());
 									
 									Appointment a = new Appointment(start, end);
+									a.setDoctor(docController.getDoctor());
+									
 									if(!docController.addAppointment(a))
 										JOptionPane.showMessageDialog(null, "Cannot add appointment because of overlap.", "Cannot add appointment", JOptionPane.WARNING_MESSAGE);
 									else JOptionPane.showMessageDialog(null, "Successfully added appointment!");

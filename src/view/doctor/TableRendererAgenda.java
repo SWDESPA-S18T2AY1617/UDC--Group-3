@@ -42,7 +42,7 @@ public class TableRendererAgenda extends DefaultTableCellRenderer {
             			System.out.println("COLUMN 222222222222222222222222222222222222222222222222");
             			setText("Dr. " + t.getDoctorName());
             			if(!t.isAvailable())
-            				table.setValueAt(t.getClientName(), row, column + 1);
+            				table.setValueAt("Patient " + t.getClientName(), row, column + 1);
             		}
             		
             		
