@@ -103,6 +103,28 @@ public class CalendarModel {
 		}
 		return list.iterator();
 	}
+	
+	public Iterator<Appointment> getAppointments(int year, int month, ArrayList<String> filter) {
+		ArrayList<Appointment> a = new ArrayList<>();
+		if(filter.contains("All")) {
+			for(Appointment appointment : appointments) {
+				if(appointment.isYear(year) && appointment.isMonth(month))
+					a.add(appointment);
+			}
+		}
+		else {
+			for(Appointment appointment : appointments) {
+				if(appointment.isYear(year) && appointment.isMonth(month) && (filter.contains("Doctor " + appointment.getDoctorID()) || filter.contains("Client " + appointment.getClientID()))) {
+					if(filter.contains("Available") && appointment.isAvailable());
+						a.add(appointment);
+					if(filter.contains("Unavailable") && !appointment.isAvailable());
+						a.add(appointment);
+				}
+			}
+		}
+
+		return a.iterator();
+	}
 
 	public void sortAppointments() {
 		Collections.sort(appointments, new Comparator<Appointment>() {
