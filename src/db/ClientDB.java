@@ -1,6 +1,6 @@
 package db;
 
-public class Client {
+public class ClientDB {
 	
 	public static final String TABLE_NAME = "client";
 	public static final String CLIENT_ID = "clientid";
@@ -9,9 +9,9 @@ public class Client {
 	private int clientid;
 	private String name;
 	
-	public Client() { }
+	public ClientDB() { }
 	
-	public Client(int clientid, String name) {
+	public ClientDB(int clientid, String name) {
 		super();
 		this.clientid = clientid;
 		this.name = name;
