@@ -8,6 +8,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
 import javax.swing.border.Border;
+import java.util.Iterator;
 
 public class PanelAgendaView extends JPanel{
 	private SecretaryController vc;
@@ -24,8 +25,10 @@ public class PanelAgendaView extends JPanel{
     				displayDoc2,
     				displayDoc3,
     				dailyORweekly;
-
-	public PanelAgendaView(SecretaryController vc){
+    private String doctor1,
+    			   doctor2,
+    			   doctor3;
+	public PanelAgendaView(SecretaryController vc, ArrayList<String> namesofDoctors){
 		this.vc = vc;
 		
 		this.setSize(550, 500);
@@ -33,10 +36,14 @@ public class PanelAgendaView extends JPanel{
 		this.setBackground(new Color(31, 31, 31));
 		this.setBorder(BorderFactory.createTitledBorder(""));
 
-		this.initParts();
+		this.initParts(namesofDoctors);
 		this.addsetParts();
 	}
-	public void initParts(){
+	public void initParts(ArrayList<String> namesofDoctors){
+
+		doctor1 = namesofDoctors.get(0);
+		doctor2 = namesofDoctors.get(1);
+		doctor3 = namesofDoctors.get(2);
 
 		modelCalendarTable = new DefaultTableModel(){
         	public boolean isCellEditable(int rowIndex, int mColIndex){
@@ -135,34 +142,38 @@ public class PanelAgendaView extends JPanel{
 		displayDoc3 = setting;
 	}
 
-	public void updateAgendaView(){//listofAppointmentsDoc1,listofAppointmentsDoc2, listofAppointmentsDoc3 ){
-		int row = 0;
+	public void updateAgendaView(Iterator<Appointment> listofappointments){
 
 		masterTable = new TableRendererCalenAgen();
 		masterTable.setCalendarorAgenda(false);
 
-		/*if(displayDoc1){
+
+		while(listofAppointments.hasNext()){
+
+			Appointment app = listofappointments.next();
+
+		if(displayDoc1 && app.getDoctorName().equals(doctor1)){
 			if(dailyORweekly){// true = daily ; false = weekly
+
 				masterTable.setDailyorWeekly(true);
-				for(Appointment app : listofAppointmentsDoc1){
-					if( month == app.getMonth() && day == app.getDay() && year == app.getYear()){
-						agendaTable.setValueAt(app.getSHour() + ":" +
-											   app.getSMin()/10 + "0 :" +
-											   app.getName(), row, 0);
-						if(app.isFree())
-							masterTable.addGreen(row);
-						else
-							masterTable.addRed(row);
-						row++;
-					}
-					
 
+				if( month == app.getMonth() && day == app.getDay() && year == app.getYear()){
+					agendaTable.setValueAt(app.getSHour() + ":" +
+										   app.getSMin()/10 + "0 :" +
+										   app.getName(), row, 0);
+					if(app.isFree())
+						masterTable.addGreen(row);
+					else
+						masterTable.addRed(row);
+					row++;
 				}
-
+	
 			}
 			else{
 				masterTable.setDailyorWeekly(false);
+
 				for(Appointments app : listofAppointmentsDoc1){
+
 					for(int i = 0; i<5; i++){
 						if( month == app.getMonth() && day+i == app.getDay() && year == app.getYear()){
 							agendaTable.setValueAt(app.getSHour() + ":" +
@@ -184,12 +195,90 @@ public class PanelAgendaView extends JPanel{
 			}
 
 		}
-		if(displayDoc2){
-			
+		if(displayDoc2 && app.getDoctorName().equals(doctor2)){
+			if(dailyORweekly){// true = daily ; false = weekly
+
+				masterTable.setDailyorWeekly(true);
+
+				if( month == app.getMonth() && day == app.getDay() && year == app.getYear()){
+					agendaTable.setValueAt(app.getSHour() + ":" +
+										   app.getSMin()/10 + "0 :" +
+										   app.getName(), row, 0);
+					if(app.isFree())
+						masterTable.addGreen(row);
+					else
+						masterTable.addRed(row);
+					row++;
+				}
+
+			}
+			else{
+				masterTable.setDailyorWeekly(false);
+				
+				for(Appointments app : listofAppointmentsDoc1){
+
+					for(int i = 0; i<5; i++){
+						if( month == app.getMonth() && day+i == app.getDay() && year == app.getYear()){
+							agendaTable.setValueAt(app.getSHour() + ":" +
+												   app.getSMin()/10 + "0 :" +
+												   app.getName(), row, i);
+							if(app.isFree()){
+								masterTable.addGreen(row);
+								masterTable.addGreen(i);
+							}
+							else{
+								masterTable.addRed(row);
+								masterTable.addRed(i);
+							}
+							row++;
+						}
+					}
+				}
+
+			}
 		}	
-		if(displayDoc3){
-			
-		}*/
+		if(displayDoc3 && app.getDoctorName().equals(doctor3)){
+			if(dailyORweekly){// true = daily ; false = weekly
+
+				masterTable.setDailyorWeekly(true);
+
+				if( month == app.getMonth() && day == app.getDay() && year == app.getYear()){
+					agendaTable.setValueAt(app.getSHour() + ":" +
+										   app.getSMin()/10 + "0 :" +
+										   app.getName(), row, 0);
+					if(app.isFree())
+						masterTable.addGreen(row);
+					else
+						masterTable.addRed(row);
+					row++;
+				}
+
+			}
+			else{
+				masterTable.setDailyorWeekly(false);
+				
+				for(Appointments app : listofAppointmentsDoc1){
+
+					for(int i = 0; i<5; i++){
+						if( month == app.getMonth() && day+i == app.getDay() && year == app.getYear()){
+							agendaTable.setValueAt(app.getSHour() + ":" +
+												   app.getSMin()/10 + "0 :" +
+												   app.getName(), row, i);
+							if(app.isFree()){
+								masterTable.addGreen(row);
+								masterTable.addGreen(i);
+							}
+							else{
+								masterTable.addRed(row);
+								masterTable.addRed(i);
+							}
+							row++;
+						}
+					}
+				}
+
+			}
+		}
 
 		agendaTable.setDefaultRenderer(agendaTable.getColumnClass(0), masterTable);
 	}

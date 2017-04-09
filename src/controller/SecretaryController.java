@@ -6,6 +6,7 @@ import view.secretary.PanelBookingView;
 import view.secretary.PanelCalendarView;
 import view.secretary.PanelHeadline;
 import view.secretary.PanelMiniCalendar;
+import java.util.Calendar;
 
 public class SecretaryController extends ViewController {
 	private FrameMain main;
@@ -16,15 +17,18 @@ public class SecretaryController extends ViewController {
 	private PanelBookingView bv;
 
 	private Boolean dailyORweekly; // daily == true ; false == weekly
+
 	public SecretaryController(MainController mc) { 
 		super(mc);
-		
+
+		dailyORweekly = true;
+
 		main = new FrameMain();
 		hd = new PanelHeadline(this);
-		cv = new PanelCalendarView(this);
-		av = new PanelAgendaView(this);
+		cv = new PanelCalendarView(this, mc.getDoctorNames());
+		av = new PanelAgendaView(this, mc.getDoctorNames());
 		bv = new PanelBookingView(this);
-		mnc = new PanelMiniCalendar(this);
+		mnc = new PanelMiniCalendar(this. mc.getDoctorNames());
 
 		main.setTop(hd);
 		main.setLeft(mnc);
@@ -44,16 +48,16 @@ public class SecretaryController extends ViewController {
 	public void setWeeklyFormat(){
 		dailyORweekly = false;
 		cv.setToWeekly();
-		cv.updateCalendarView();
+		cv.updateCalendarView(controller.getAppointments());
 		av.setToWeekly();
-		av.updateAgendaView();
+		av.updateAgendaView(controller.getAppointments());
 	}
 	public void setDailyFormat(){
 		dailyORweekly = true;
 		cv.setToDaily();
-		cv.updateCalendarView();
+		cv.updateCalendarView(controller.getAppointments());
 		av.setToDaily();
-		av.updateAgendaView();
+		av.updateAgendaView(controller.getAppointments());
 	}
 	public void setViewDate(int month, int day, int year){ //SETS THE DATE FOR CALENDAR AND AGENDA VIEWS
 
@@ -61,13 +65,13 @@ public class SecretaryController extends ViewController {
 			cv.setDate(month, day, year);
 		    cv.updateCalendarView();
 			av.setDate(month, day, year);
-			av.updateAgendaView();
+			av.updateAgendaView(controller.getAppointments());
 		}
 		else{ 
 			cv.setDate(month, day, year);
 			cv.updateCalendarView();
 			av.setDate(month, day, year);
-			av.updateAgendaView();
+			av.updateAgendaView(controller.getAppointments());
 		}
 	}
 	public void setDoc1(Boolean setting){
@@ -84,12 +88,14 @@ public class SecretaryController extends ViewController {
 	}
 	@Override
 	public void updateView() {
-		// TODO Auto-generated method stub
+		cv.updateCalendarView(controller.getAppointments());
+		av.updateAgendaView(controller.getAppointments());
 		
 	}
 	@Override
 	public void setAppointment() {
 		// TODO Auto-generated method stub
+		if ( controller.setAppointment(bv.get)
 		
 	}
 	@Override
@@ -100,16 +106,9 @@ public class SecretaryController extends ViewController {
 
 }
 
-/*
-
-	//book appointment on behalf of client
+/* book appointment on behalf of client
 	public void setAppointment()
-	{	//arraylist containing all reservation details from user
-		// sorry for not using the calendar thing... 
-		//am still trying to adapt and adjust to be more consistent and uniform along with your guys' codes.
-
-		
-		
+	{	
 		//inputData.get(0) = month of appointment
 		//inputData..get(1) = day of appointment
 		//inputData..get(2) = year of appointment
@@ -130,12 +129,41 @@ public class SecretaryController extends ViewController {
 			//SEND ALL APPROPRIATE DATA TO WHEREEVER FOR DOCTOR NUMBUH 1
 			
 		}
-
-		this.updateView();
+public String getRadioButtonChoice(){
+		return radioGroup.getSelection().getActionCommand();
 	}
 	
-	public void cancelAppointment()
-	{
+	public String getEventDeets(){
+		return eventTitle.getText().trim();
+	}
+	
+	public String getMonthInput(){
+		return addMonth.getSelectedItem().toString();
+	}
+	
+	public String getDayInput(){
+		return addDay.getSelectedItem().toString();
+	}
+	
+	public String getYearInput(){
+		return addYear.getSelectedItem().toString();
+	}
+	
+	public String getStartH(){
+		return timeStartHour.getValue().toString();
+	}
+	
+	public String getStartM(){
+		return timeStartMinute.getValue().toString();
+	}
+	
+	public String getEndH(){
+		return timeEndHour.getValue().toString();
+	}
+	
+	public String getEndM(){
+		return timeEndMinute.getValue().toString();
+	}
 		
 		
 		this.updateView();
