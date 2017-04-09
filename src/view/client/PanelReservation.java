@@ -119,7 +119,7 @@ public class PanelReservation extends JPanel {
 	}
 	public void update(int month, int day, int year) {
 		this.setTableNull();
-		this.setTableValues(month, day, year);
+		this.setTableValues(/*Iterator<Appointment> activity*/);
 	//	this.updateLabel(year, month, day);
 		this.deleteBtnDisable();
 	}
@@ -134,10 +134,9 @@ public class PanelReservation extends JPanel {
 				flag = true;
 			}
 		}
-	//	btnMarkDone.setEnabled(flag);
 /*
 		flag = false;
-		if (btnCancel.getText().equalsIgnoreCase("Discard completed tasks")) {
+		if (btnCancel.getText().equalsIgnoreCase("Cancel Appointment")) {
 			for (int i = 0; i < agendaTable.getRowCount(); i++) {
 				if (((String[]) agendaTable.getValueAt(i, 1))[2].contains(Activity.COLOR_TODO_DONE)) {
 					flag = true;
@@ -174,7 +173,9 @@ public class PanelReservation extends JPanel {
 			agendaTable.getColumnModel().getColumn(2).setPreferredWidth(55);
 		}
 	}
-	public void setTableValues(int month, int day, int year/*,Iterator<Appointment> activity*/) {
+	
+	//displays all reservation/appointment
+	public void setTableValues(/*,Iterator<Appointment> activity*/) {
 		System.out.println("Setting table values");
 		// ArrayList<Appointment> activityList = new ArrayList<>();
 		//activityList = new ArrayList<>();
@@ -194,9 +195,6 @@ public class PanelReservation extends JPanel {
 			if (activityList.size() > 0)
 				modelAgendaTable.setRowCount(activityList.size());
 			for (int i = 0; i < activityList.size(); i++) {
-				System.out.println("searching for act");
-				if (activityList.get(i).isMonth(month) && activityList.get(i).isDay(day)
-						&& activityList.get(i).isYear(year)) {
 					String[] sArr = activityList.get(i).toStringArr();
 
 					modelAgendaTable.setValueAt(sArr, rwCnt, 0);
@@ -205,10 +203,10 @@ public class PanelReservation extends JPanel {
 					rwCnt++;
 				}
 			}
-		}
+		}*/
 		revalidate();
 		repaint();
-		*/
+	}
 /*	private void addListeners() {
 	//	btnMarkDone.addActionListener(new MarkDone());
 		btnCancel.addActionListener(new DeleteAppointment());
