@@ -161,7 +161,9 @@ public class PanelAgendaView extends JPanel{
 
 				if( month == app.getMonth() && day == app.getDay() && year == app.getYear()){
 					agendaTable.setValueAt(app.getStartHour() + ":" +
-										   app.getStartMinute()/10 + "0 :" +
+										   app.getStartMinute()/10 + "0 ::" +
+										   app.getEndHour() +":" +
+										   app.getEndMinute()/10+"0  for"+
 										   app.getDoctorName(), row, 0);
 					if(app.isAvailable())
 						masterTable.addGreen(row);
@@ -178,9 +180,11 @@ public class PanelAgendaView extends JPanel{
 
 					for(int i = 0; i<5; i++){
 						if( month == ap.getMonth() && day+i == ap.getDay() && year == ap.getYear()){
-							agendaTable.setValueAt(ap.getStartHour() + ":" +
-												   ap.getStartMinute()/10 + "0 :" +
-												   ap.getDoctorName(), row, i);
+							agendaTable.setValueAt(app.getStartHour() + ":" +
+												   app.getStartMinute()/10 + "0 ::" +
+												   app.getEndHour() +":" +
+												   app.getEndMinute()/10+"0  for"+
+												   app.getDoctorName(), row, 0);
 							if(ap.isAvailable()){
 								masterTable.addGreen(row);
 								masterTable.addGreen(i);
@@ -203,9 +207,11 @@ public class PanelAgendaView extends JPanel{
 				masterTable.setDailyorWeekly(true);
 
 				if( month == app.getMonth() && day == app.getDay() && year == app.getYear()){
-					agendaTable.setValueAt(app.getSHour() + ":" +
-										   app.getSMin()/10 + "0 :" +
-										   app.getName(), row, 0);
+					agendaTable.setValueAt(app.getStartHour() + ":" +
+										   app.getStartMinute()/10 + "0 ::" +
+										   app.getEndHour() +":" +
+										   app.getEndMinute()/10+"0  for"+
+										   app.getDoctorName(), row, 0);
 					if(app.isFree())
 						masterTable.addGreen(row);
 					else
@@ -221,9 +227,11 @@ public class PanelAgendaView extends JPanel{
 
 					for(int i = 0; i<5; i++){
 						if( month == app.getMonth() && day+i == app.getDay() && year == app.getYear()){
-							agendaTable.setValueAt(app.getSHour() + ":" +
-												   app.getSMin()/10 + "0 :" +
-												   app.getName(), row, i);
+							agendaTable.setValueAt(app.getStartHour() + ":" +
+												   app.getStartMinute()/10 + "0 ::" +
+												   app.getEndHour() +":" +
+												   app.getEndMinute()/10+"0  for"+
+												   app.getDoctorName(), row, 0);
 							if(app.isFree()){
 								masterTable.addGreen(row);
 								masterTable.addGreen(i);
@@ -245,9 +253,11 @@ public class PanelAgendaView extends JPanel{
 				masterTable.setDailyorWeekly(true);
 
 				if( month == app.getMonth() && day == app.getDay() && year == app.getYear()){
-					agendaTable.setValueAt(app.getSHour() + ":" +
-										   app.getSMin()/10 + "0 :" +
-										   app.getName(), row, 0);
+					agendaTable.setValueAt(app.getStartHour() + ":" +
+										   app.getStartMinute()/10 + "0 ::" +
+										   app.getEndHour() +":" +
+										   app.getEndMinute()/10+"0  for"+
+										   app.getDoctorName(), row, 0);
 					if(app.isFree())
 						masterTable.addGreen(row);
 					else
@@ -263,9 +273,11 @@ public class PanelAgendaView extends JPanel{
 
 					for(int i = 0; i<5; i++){
 						if( month == app.getMonth() && day+i == app.getDay() && year == app.getYear()){
-							agendaTable.setValueAt(app.getSHour() + ":" +
-												   app.getSMin()/10 + "0 :" +
-												   app.getName(), row, i);
+							agendaTable.setValueAt(app.getStartHour() + ":" +
+												   app.getStartMinute()/10 + "0 ::" +
+												   app.getEndHour() +":" +
+												   app.getEndMinute()/10+"0  for"+
+												   app.getDoctorName(), row, 0);
 							if(app.isFree()){
 								masterTable.addGreen(row);
 								masterTable.addGreen(i);

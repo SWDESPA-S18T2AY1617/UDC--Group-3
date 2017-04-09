@@ -206,9 +206,6 @@ public class PanelBookingView extends JPanel{
 			vc.setCalendarPanel();
 		}
 	}
-	public String getRadioButtonChoice(){
-		return radioGroup.getSelection().getActionCommand();
-	}
 	public String getClientName(){
 		return bookDetails.getText().trim();
 	}
