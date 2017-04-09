@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 
 import db.AppointmentDB;
@@ -95,18 +96,18 @@ public class MainController {
 							}
 						}
 					}
-				} else if(list.get(i).getClient_id() == 0) {
+				} else if(list.get(i).getClient_id() == -1) {
 					
 				} else {
 					System.out.println("ERROR SETTING CLIENT");
 				}
 			}
+			Appointment.ctr = manager.getCurrAutoInc();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
 	
 	public Iterator<Appointment> getAppointments(int year, int month) {
 		return model.getAppointments(year, month);
@@ -127,12 +128,18 @@ public class MainController {
 	}
 	
 	//called by client or secretary
-	public void setAppointment() {
-		
+	public boolean setAppointment(Client c, Calendar start, Calendar end) {
+		return model.setAppointment(c, start, end);
 	}
 	
 	//called by doctor
-	public void addAppointment() {
-		
+	public boolean addAppointment(Appointment appointment) {
+		if(model.isAppointmentValid(appointment)) {
+			model.addAppointment(appointment);
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }
