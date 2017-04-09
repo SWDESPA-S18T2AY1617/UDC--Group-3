@@ -14,6 +14,7 @@ import javax.swing.SwingUtilities;
 import view.doctor.*;
 import model.Appointment;
 import model.CalendarPointers;
+import model.Client;
 import model.Doctor;
 
 public class DoctorController extends ViewController {
@@ -172,6 +173,18 @@ public class DoctorController extends ViewController {
 		Calendar end;
 		Appointment t;
 
+		start = new GregorianCalendar(year, month, 10);
+		start.set(Calendar.SECOND, 0);
+		end = (Calendar) start.clone();
+		start.set(Calendar.HOUR, 00);
+		start.set(Calendar.MINUTE, 30);
+		end.set(Calendar.HOUR, 5);
+		end.set(Calendar.MINUTE, 0);
+
+		t = new Appointment(d, start, end);
+		t.setClient(new Client("Alola Raichu"));
+		listA.add(t);
+		
 		// NOVEMBER 5 - 05:00 - 6:00
 		start = new GregorianCalendar(year, month, day + 5);
 		start.set(Calendar.SECOND, 0);
@@ -185,6 +198,19 @@ public class DoctorController extends ViewController {
 		listA.add(t);
 
 
+		start = new GregorianCalendar(year, month, day + 3);
+		start.set(Calendar.SECOND, 0);
+		end = (Calendar) start.clone();
+		start.set(Calendar.HOUR, 15);
+		start.set(Calendar.MINUTE, 0);
+		end.set(Calendar.HOUR, 19);
+		end.set(Calendar.MINUTE, 0);
+
+		t = new Appointment(new Doctor("Shirley Chu"), start, end);
+		
+		listA.add(t);
+
+		
 		start = new GregorianCalendar(year, month, day + 2);
 		start.set(Calendar.SECOND, 0);
 		end = (Calendar) start.clone();
@@ -206,31 +232,6 @@ public class DoctorController extends ViewController {
 
 		t = new Appointment(d, start, end);
 		//t.setTaken(true);
-		listA.add(t);
-
-		
-		start = new GregorianCalendar(year, month, day + 3);
-		start.set(Calendar.SECOND, 0);
-		end = (Calendar) start.clone();
-		start.set(Calendar.HOUR, 15);
-		start.set(Calendar.MINUTE, 0);
-		end.set(Calendar.HOUR, 19);
-		end.set(Calendar.MINUTE, 0);
-
-		t = new Appointment(new Doctor("Shirley Chu"), start, end);
-
-		listA.add(t);
-
-		
-		start = new GregorianCalendar(year, month, 10);
-		start.set(Calendar.SECOND, 0);
-		end = (Calendar) start.clone();
-		start.set(Calendar.HOUR, 00);
-		start.set(Calendar.MINUTE, 30);
-		end.set(Calendar.HOUR, 5);
-		end.set(Calendar.MINUTE, 0);
-
-		t = new Appointment(d, start, end);
 		listA.add(t);
 
 		System.out.println("iterator size " + listA.size());
