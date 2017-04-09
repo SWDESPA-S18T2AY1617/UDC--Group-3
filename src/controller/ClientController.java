@@ -98,6 +98,10 @@ public class ClientController extends ViewController {
 		}
 	}
 	
+	public Client getClient() {
+		return client;
+	}
+	
 	public void updateView(/*Maybe an Iterator of Appointments*/)
 	{
 		//will be called by MainController

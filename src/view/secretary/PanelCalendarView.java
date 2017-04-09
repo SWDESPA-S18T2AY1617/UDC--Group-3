@@ -6,11 +6,14 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
+
+import controller.SecretaryController;
+
 import javax.swing.border.Border;
 
 public class PanelCalendarView extends JPanel{
 
-	private ViewController vc;
+	private SecretaryController vc;
 
 	private JScrollPane scrollCalendar;
 	private JTable calendarTable;
@@ -25,9 +28,9 @@ public class PanelCalendarView extends JPanel{
     				displayDoc2,
     				displayDoc3,
     				dailyORweekly;
-	public PanelCalendarView(ViewController vc){
+	public PanelCalendarView(SecretaryController secretaryController){
 
-		this.vc = vc;
+		this.vc = secretaryController;
 
 		this.setSize(550, 500);
 		this.setLayout(null);

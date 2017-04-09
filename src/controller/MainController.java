@@ -2,11 +2,15 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
+import db.AppointmentDB;
+import db.AppointmentManager;
 import db.ClientDB;
 import db.ClientManager;
 import db.DoctorDB;
 import db.DoctorManager;
+import model.Appointment;
 import model.CalendarModel;
 import model.Client;
 import model.Converter;
@@ -21,8 +25,8 @@ public class MainController {
 		model = new CalendarModel();
 		views = new ArrayList<>();
 		
-		//initiateViews();
-		//initializeAppointments();
+		initiateViews();
+		initializeAppointments();
 	}
 	
 	private void initiateViews() {
@@ -63,6 +67,8 @@ public class MainController {
 				Doctor doctor = Converter.toDoctor(list.get(i));
 				model.addDoctor(doctor);
 				DoctorController dc = new DoctorController(this, doctor);
+				dc.createGUI();
+				dc.showGUI();
 				views.add(dc);
 			}
 		} catch (IOException e) {
@@ -72,7 +78,42 @@ public class MainController {
 	}
 	
 	private void initializeAppointments() {
-		
+		AppointmentManager manager = new AppointmentManager();
+		try {
+			ArrayList<AppointmentDB> list = manager.getAllAppointments();
+			for(int i = 0; i < list.size(); i++) {
+				Appointment appointment = Converter.toAppointment(list.get(i));
+				int doctorId = list.get(i).getDoctor_id();
+				Doctor d = model.getDoctor(doctorId);
+				appointment.setDoctor(d);
+				if(list.get(i).getClient_id() > 0) {
+					for(int j = 0; j < views.size(); j++) {
+						if(views.get(j) instanceof ClientController) {
+							Client c = ((ClientController) views.get(j)).getClient();
+							if(c.getID() == list.get(i).getClient_id()){
+								appointment.setClient(c);
+							}
+						}
+					}
+				} else if(list.get(i).getClient_id() == 0) {
+					
+				} else {
+					System.out.println("ERROR SETTING CLIENT");
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public Iterator<Appointment> getAppointments(int year, int month) {
+		return model.getAppointments(year, month);
+	}
+	
+	public ArrayList<String> getDoctorNames() {
+		return model.getDoctorNames();
 	}
 	
 	//called by client or secretary

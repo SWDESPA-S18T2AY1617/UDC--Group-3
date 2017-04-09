@@ -6,12 +6,15 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
+
+import controller.SecretaryController;
+
 import javax.swing.border.Border;
 
 
 public class PanelHeadline extends JPanel{
 	
-	private ViewController vc;
+	private SecretaryController vc;
 	private JFrame frmMain;
 			   
     private JLabel lblviewName,
@@ -27,8 +30,8 @@ public class PanelHeadline extends JPanel{
     				  chckDoc2,
     				  chckDoc3;
 
-	public PanelHeadline(ViewController vc){
-		this.vc = vc;
+	public PanelHeadline(SecretaryController secretaryController){
+		this.vc = secretaryController;
 		this.setSize(900, 75);
 		this.setLayout(null);
 		this.setBackground(new Color(70, 70, 70));
