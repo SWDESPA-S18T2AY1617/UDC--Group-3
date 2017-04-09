@@ -108,10 +108,7 @@ public class CalendarModel {
 		else {
 			for(Appointment appointment : appointments) {
 				if(appointment.isYear(year) && appointment.isMonth(month) && (filter.contains("Doctor " + appointment.getDoctorID()) || filter.contains("Client " + appointment.getClientID()))) {
-					if(filter.contains("Available") && appointment.isAvailable());
-						a.add(appointment);
-					if(filter.contains("Unavailable") && !appointment.isAvailable());
-						a.add(appointment);
+					a.add(appointment);
 				}
 			}
 		}
