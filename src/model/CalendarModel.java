@@ -146,6 +146,25 @@ public class CalendarModel {
 		return appointments.iterator();
 	}
 	
+	public Iterator<Appointment> get3MonthAppointments(int year, int month) {
+		ArrayList<Appointment> list = new ArrayList<>();
+		int nextMonth = CalendarCalculator.getNextMonth(month);
+		int nextYear = year;
+		int prevMonth = CalendarCalculator.getPrevMonth(month);
+		int prevYear = year;
+		if(nextMonth == 0)
+			nextYear++;
+		if(prevMonth == 11)
+			nextYear--;
+		
+		for(int i = 0; i < appointments.size(); i++) {
+			if((appointments.get(i).isYear(year) && appointments.get(i).isMonth(month)) || (appointments.get(i).isYear(nextYear) && appointments.get(i).isMonth(nextMonth)) || (appointments.get(i).isYear(prevYear) && appointments.get(i).isMonth(prevMonth)))
+				list.add(appointments.get(i));
+			
+		}
+		return list.iterator();
+	}
+	
 	public Iterator<Appointment> getAppointments(int year, int month) {
 		ArrayList<Appointment> list = new ArrayList<>();
 		for(int i = 0; i < appointments.size(); i++) {
