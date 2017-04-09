@@ -1,14 +1,12 @@
 package view.secretary;
 
+import controller.SecretaryController;
 import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
-
-import controller.SecretaryController;
-
 import javax.swing.border.Border;
 
 public class PanelAgendaView extends JPanel{
@@ -17,7 +15,7 @@ public class PanelAgendaView extends JPanel{
 	private JTable agendaTable;
     private DefaultTableModel modelCalendarTable;
     private TableColumnModel tcm;
-    private TableRenderer masterTable;
+    private TableRendererCalenAgen masterTable;
 
 	private int month,
     			day,
@@ -27,8 +25,8 @@ public class PanelAgendaView extends JPanel{
     				displayDoc3,
     				dailyORweekly;
 
-	public PanelAgendaView(SecretaryController secretaryController){
-		this.vc = secretaryController;
+	public PanelAgendaView(SecretaryController vc){
+		this.vc = vc;
 		
 		this.setSize(550, 500);
 		this.setLayout(null);
@@ -47,7 +45,7 @@ public class PanelAgendaView extends JPanel{
         };
 		agendaTable = new JTable(modelCalendarTable);
 		scrollAgenda = new JScrollPane(agendaTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		masterTable = new TableRenderer();
+		masterTable = new TableRendererCalenAgen();
 
 		agendaTable.setShowGrid(true);
 		agendaTable.getParent().setBackground(agendaTable.getBackground()); 
@@ -83,19 +81,17 @@ public class PanelAgendaView extends JPanel{
 		
         tcm.getColumn(0).setPreferredWidth(1000);
 
-
-		agendaTable.setDefaultRenderer(agendaTable.getColumnClass(0), masterTable);
 		this.setTableBlankDaily();
 	}
 	public void setToWeekly(){
 
 		dailyORweekly = false;
 		modelCalendarTable.setColumnCount(0);
-        modelCalendarTable.addColumn("Reservations for Monday, "+ month + " / " + day + " / " + year);
-        modelCalendarTable.addColumn("Reservations for Tuesday, "+ month + " / " + (day+1) + " / " + year);
-        modelCalendarTable.addColumn("Reservations for Wednesday, "+ month + " / " + (day+2) +" / " + year);
-        modelCalendarTable.addColumn("Reservations for Thursday, "+ month + " / " + (day+3) + " / " + year);
-        modelCalendarTable.addColumn("Reservations for Friday, "+ month + " / " + (day+4) + " / " + year);
+        modelCalendarTable.addColumn("Reservations for Monday");
+        modelCalendarTable.addColumn("Reservations for Tuesday");
+        modelCalendarTable.addColumn("Reservations for Wednesday");
+        modelCalendarTable.addColumn("Reservations for Thursday");
+        modelCalendarTable.addColumn("Reservations for Friday");
 		modelCalendarTable.setColumnCount(5);
 		modelCalendarTable.setRowCount(50);
 		
@@ -105,7 +101,6 @@ public class PanelAgendaView extends JPanel{
 		tcm.getColumn(3).setPreferredWidth(300);
 		tcm.getColumn(4).setPreferredWidth(300);
 
-		agendaTable.setDefaultRenderer(agendaTable.getColumnClass(0), masterTable);
 		this.setTableBlankWeekly();
 	}
 
@@ -139,32 +134,50 @@ public class PanelAgendaView extends JPanel{
 	public void setDoc3 (Boolean setting){
 		displayDoc3 = setting;
 	}
-/*
-	public void updateAgendaView( /*listofAppointmentsDoc1,listofAppointmentsDoc2, listofAppointmentsDoc3  ){
-		int row = 0;
-		if(displayDoc1){
-			if(dailyORweekly){// true = daily ; false = weekly
 
-				for(/*Appointments app : /*listofAppointmentsDoc1){
-					if( month == app.getMonth() && // or anything similar to compare them.
-						day == app.getDay() && 
-						year == app.getYear())
+	public void updateAgendaView(){//listofAppointmentsDoc1,listofAppointmentsDoc2, listofAppointmentsDoc3 ){
+		int row = 0;
+
+		masterTable = new TableRendererCalenAgen();
+		masterTable.setCalendarorAgenda(false);
+
+		/*if(displayDoc1){
+			if(dailyORweekly){// true = daily ; false = weekly
+				masterTable.setDailyorWeekly(true);
+				for(Appointment app : listofAppointmentsDoc1){
+					if( month == app.getMonth() && day == app.getDay() && year == app.getYear()){
 						agendaTable.setValueAt(app.getSHour() + ":" +
 											   app.getSMin()/10 + "0 :" +
 											   app.getName(), row, 0);
+						if(app.isFree())
+							masterTable.addGreen(row);
+						else
+							masterTable.addRed(row);
 						row++;
+					}
+					
+
 				}
 
 			}
 			else{
-
-				for(/*Appointments app : /*listofAppointmentsDoc1){
+				masterTable.setDailyorWeekly(false);
+				for(Appointments app : listofAppointmentsDoc1){
 					for(int i = 0; i<5; i++){
-						if( month == app.getMonth() && day+i == app.getDay() && year == app.getYear())// or anything similar to compare them.
+						if( month == app.getMonth() && day+i == app.getDay() && year == app.getYear()){
 							agendaTable.setValueAt(app.getSHour() + ":" +
 												   app.getSMin()/10 + "0 :" +
 												   app.getName(), row, i);
+							if(app.isFree()){
+								masterTable.addGreen(row);
+								masterTable.addGreen(i);
+							}
+							else{
+								masterTable.addRed(row);
+								masterTable.addRed(i);
+							}
 							row++;
+						}
 					}
 				}
 
@@ -172,64 +185,14 @@ public class PanelAgendaView extends JPanel{
 
 		}
 		if(displayDoc2){
-			if(dailyORweekly){// true = daily ; false = weekly
-
-				for(/*Appointments app : /*listofAppointmentsDoc2){
-					if( month == app.getMonth() && // or anything similar to compare them.
-						day == app.getDay() && 
-						year == app.getYear())
-						agendaTable.setValueAt(app.getSHour() + ":" +
-											   app.getSMin()/10 + "0 :" +
-											   app.getName(), row, 0);
-						row++;
-				}
-
-			}
-			else{
-
-				for(/*Appointments app : /*listofAppointmentsDoc2){
-					for(int i = 0; i<5; i++){
-						if( month == app.getMonth() && day+i == app.getDay() && year == app.getYear())// or anything similar to compare them.
-							agendaTable.setValueAt(app.getSHour() + ":" +
-												   app.getSMin()/10 + "0 :" +
-												   app.getName(), row, i);
-							row++;
-					}
-				}
-
-			}
+			
 		}	
 		if(displayDoc3){
-			if(dailyORweekly){// true = daily ; false = weekly
+			
+		}*/
 
-				for(/*Appointments app : /*listofAppointmentsDoc3){
-					if( month == app.getMonth() && // or anything similar to compare them.
-						day == app.getDay() && 
-						year == app.getYear())
-						agendaTable.setValueAt(app.getSHour() + ":" +
-											   app.getSMin()/10 + "0 :" +
-											   app.getName(), row, 0);
-						row++;
-				}
-
-			}
-			else{
-
-				for(/*Appointments app : /*listofAppointmentsDoc3){
-					for(int i = 0; i<5; i++){
-						if( month == app.getMonth() && day+i == app.getDay() && year == app.getYear())// or anything similar to compare them.
-							agendaTable.setValueAt(app.getSHour() + ":" +
-												   app.getSMin()/10 + "0 :" +
-												   app.getName(), row, i);
-							row++;
-					}
-				}
-
-			}
-		}
-
-
-	}*/
+		agendaTable.setDefaultRenderer(agendaTable.getColumnClass(0), masterTable);
+	}
 
 }
 

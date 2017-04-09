@@ -1,14 +1,12 @@
 package view.secretary;
 
+import controller.SecretaryController;
 import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
-
-import controller.SecretaryController;
-
 import javax.swing.border.Border;
 
 
@@ -30,8 +28,8 @@ public class PanelHeadline extends JPanel{
     				  chckDoc2,
     				  chckDoc3;
 
-	public PanelHeadline(SecretaryController secretaryController){
-		this.vc = secretaryController;
+	public PanelHeadline(SecretaryController vc){
+		this.vc = vc;
 		this.setSize(900, 75);
 		this.setLayout(null);
 		this.setBackground(new Color(70, 70, 70));
@@ -44,7 +42,7 @@ public class PanelHeadline extends JPanel{
 	}
 	public void initParts(){
 
-		lblProdTool = new JLabel("SECRETARY OF THE VIEWING");
+		lblProdTool = new JLabel("Secretary View");
 		btnCalendar = new JButton("Calendar Form");
 		btnAgenda = new JButton("Agenda Form");
 		btnWeekly = new JButton("Weekly Form");
