@@ -21,8 +21,8 @@ public class MainController {
 		model = new CalendarModel();
 		views = new ArrayList<>();
 		
-		//initiateViews();
-		//initializeAppointments();
+		initiateViews();
+		initializeAppointments();
 	}
 	
 	private void initiateViews() {
@@ -63,6 +63,8 @@ public class MainController {
 				Doctor doctor = Converter.toDoctor(list.get(i));
 				model.addDoctor(doctor);
 				DoctorController dc = new DoctorController(this, doctor);
+				dc.createGUI();
+				dc.showGUI();
 				views.add(dc);
 			}
 		} catch (IOException e) {
