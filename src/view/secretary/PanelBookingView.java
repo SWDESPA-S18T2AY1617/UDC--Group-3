@@ -47,7 +47,7 @@ public class PanelBookingView extends JPanel{
 	}
 	public void initParts(){
 		
-		lblDesc = new JLabel("Event Description:");
+		lblDesc = new JLabel("Name of client:");
 		bookDetails = new JTextArea("");
 		radioDoc1 = new JRadioButton("Doc 1");
 		radioDoc2 = new JRadioButton("Doc 2");
@@ -179,7 +179,7 @@ public class PanelBookingView extends JPanel{
 		timeEndMinute.setBounds(460, 120, 50, 30);
 
 		lblDesc.setBounds(50, 170, 180, 40);
-		bookDetails.setBounds(50, 210, 420, 200);
+		bookDetails.setBounds(50, 210, 200, 50);
 
 		btnSave.setBounds(220, 420, 100, 45);
 		btnDiscard.setBounds(320, 420, 150, 45);
@@ -209,7 +209,7 @@ public class PanelBookingView extends JPanel{
 	public String getRadioButtonChoice(){
 		return radioGroup.getSelection().getActionCommand();
 	}
-	public String getBookingDetails(){
+	public String getClientName(){
 		return bookDetails.getText().trim();
 	}
 	
