@@ -73,7 +73,7 @@ public class ClientController extends ViewController {
 		//while(activity != null && activity.hasNext())
 		//	act.add(activity.next());
 		pc.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr());
-		pa.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), activity);
+		pa.update(activity);
 		pm.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr());
 		pd.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), activity);
 		pw.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), activity);
@@ -107,7 +107,7 @@ public class ClientController extends ViewController {
 	
 	public ArrayList<String> getDoctorName() {
 		
-		return this.getDoctorName();
+		return controller.getDoctorNames();
 	}
 	/*
 	//check appointments (parameter == filter, can be changed to ArrayList<Integer> if preferred, depends on model implementation)
@@ -119,7 +119,11 @@ public class ClientController extends ViewController {
 	
 	public void updateView() {
 		// TODO Auto-generated method stub
-		
+		pc.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr());
+		pm.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr());
+		pa.update(controller.get3MonthAppointments(super.getYearCurr(), super.getMonthCurr()));
+		pw.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), controller.get3MonthAppointments(super.getYearCurr(), super.getMonthCurr()));
+		pd.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), controller.get3MonthAppointments(super.getYearCurr(), super.getMonthCurr()));
 	}
 
 	public boolean setAppointment(Client c, Calendar start, Calendar end) {
@@ -135,6 +139,12 @@ public class ClientController extends ViewController {
 
 	@Override
 	public void setAppointment() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void cancelAppointment() {
 		// TODO Auto-generated method stub
 		
 	}

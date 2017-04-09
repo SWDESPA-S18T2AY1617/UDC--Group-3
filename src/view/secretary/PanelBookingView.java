@@ -47,7 +47,7 @@ public class PanelBookingView extends JPanel{
 	}
 	public void initParts(){
 		
-		lblDesc = new JLabel("Event Description:");
+		lblDesc = new JLabel("Name of client:");
 		bookDetails = new JTextArea("");
 		radioDoc1 = new JRadioButton("Doc 1");
 		radioDoc2 = new JRadioButton("Doc 2");
@@ -179,7 +179,7 @@ public class PanelBookingView extends JPanel{
 		timeEndMinute.setBounds(460, 120, 50, 30);
 
 		lblDesc.setBounds(50, 170, 180, 40);
-		bookDetails.setBounds(50, 210, 420, 200);
+		bookDetails.setBounds(50, 210, 200, 50);
 
 		btnSave.setBounds(220, 420, 100, 45);
 		btnDiscard.setBounds(320, 420, 150, 45);
@@ -206,39 +206,36 @@ public class PanelBookingView extends JPanel{
 			vc.setCalendarPanel();
 		}
 	}
-	public String getRadioButtonChoice(){
-		return radioGroup.getSelection().getActionCommand();
-	}
-	public String getBookingDetails(){
+	public String getClientName(){
 		return bookDetails.getText().trim();
 	}
 	
-	public String getMonthInput(){
-		return addMonth.getSelectedItem().toString();
+	public int getMonthInput(){
+		return Integer.parseInt(addMonth.getSelectedItem().toString());
 	}
 	
-	public String getDayInput(){
-		return addDay.getSelectedItem().toString();
+	public int getDayInput(){
+		return Integer.parseInt(addDay.getSelectedItem().toString());
 	}
 	
-	public String getYearInput(){
-		return addYear.getSelectedItem().toString();
+	public int getYearInput(){
+		return Integer.parseInt(addYear.getSelectedItem().toString());
 	}
 	
-	public String getStartH(){
-		return timeStartHour.getValue().toString();
+	public int getStartH(){
+		return Integer.parseInt(timeStartHour.getValue().toString());
 	}
 	
-	public String getStartM(){
-		return timeStartMinute.getValue().toString();
+	public int getStartM(){
+		return Integer.parseInt(timeStartMinute.getValue().toString());
 	}
 	
-	public String getEndH(){
-		return timeEndHour.getValue().toString();
+	public int getEndH(){
+		return Integer.parseInt(timeEndHour.getValue().toString());
 	}
 	
-	public String getEndM(){
-		return timeEndMinute.getValue().toString();
+	public int getEndM(){
+		return Integer.parseInt(timeEndMinute.getValue().toString());
 	}
 	
 }

@@ -34,7 +34,7 @@ public class PanelMiniCalendar extends JPanel{
 			   cellDay;
 	private Boolean highlight;
 
-	public PanelMiniCalendar(SecretaryController vc){
+	public PanelMiniCalendar(SecretaryController vc, ArrayList<String> namesofDoctors){
 		this.vc = vc;
 
         this.setSize( 350, 500);
@@ -42,13 +42,13 @@ public class PanelMiniCalendar extends JPanel{
 		this.setBackground(new Color(31, 31, 31));
 		this.setBorder(BorderFactory.createTitledBorder(""));
 
-		this.initParts();
+		this.initParts(namesofDoctors);
 		this.addsetParts();
 		this.addActionListeners();
 
 	}
 		
-	public void initParts(){
+	public void initParts(ArrayList<String> namesofDoctors){
 		
 
 		monthLabel = new JLabel ("what");
@@ -56,9 +56,9 @@ public class PanelMiniCalendar extends JPanel{
 		btnPrev = new JButton ("<");
 		btnNext = new JButton (">");
 		btnBook = new JButton ("Book Appointment");
-		chckDoc1 = new JCheckBox("DOCTOR 1 GOES HERE ");
-		chckDoc2 = new JCheckBox("DOCTOR 2 GOES HERE ");
-		chckDoc3 = new JCheckBox("DOCTOR 3 GOES HERE ");
+		chckDoc1 = new JCheckBox(namesofDoctors.get(0));
+		chckDoc2 = new JCheckBox(namesofDoctors.get(1));
+		chckDoc3 = new JCheckBox(namesofDoctors.get(2));
 
 		
 

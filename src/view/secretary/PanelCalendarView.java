@@ -1,6 +1,8 @@
 package view.secretary;
 
 import controller.SecretaryController;
+import model.Appointment;
+
 import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -22,11 +24,15 @@ public class PanelCalendarView extends JPanel{
     private int month,
     			day,
     			year;
+
+    private String doctor1,
+    			   doctor2,
+    			   doctor3;
     private Boolean displayDoc1,
     				displayDoc2,
     				displayDoc3,
     				dailyORweekly;
-	public PanelCalendarView(SecretaryController vc){
+	public PanelCalendarView(SecretaryController vc, ArrayList<String> namesofDoctors){
 
 		this.vc = vc;
 
@@ -35,11 +41,15 @@ public class PanelCalendarView extends JPanel{
 		this.setBackground(new Color(31, 31, 31));
 		this.setBorder(BorderFactory.createTitledBorder(""));
 
-		this.initParts();
+		this.initParts(namesofDoctors);
 		this.addsetParts();
 		
 	}
-	public void initParts(){
+	public void initParts(ArrayList<String> namesofDoctors){
+
+		doctor1 = namesofDoctors.get(0);
+		doctor2 = namesofDoctors.get(1);
+		doctor3 = namesofDoctors.get(2);
 
 		modelCalendarTable = new DefaultTableModel(){
         	public boolean isCellEditable(int rowIndex, int mColIndex){
@@ -165,39 +175,43 @@ public class PanelCalendarView extends JPanel{
 		displayDoc3 = setting;
 	}
 	
-	public void updateCalendarView(){//(listofAppointmentsDoc1,listofAppointmentsDoc2, listofAppointmentsDoc3 ){
+	public void updateCalendarView(Iterator<Appointment> listofAppointments){
 		
 		masterTable = new TableRendererCalenAgen();
 		masterTable.setCalendarorAgenda(true);
-/*
-		if(displayDoc1){
-			if(dailyORweekly){// true = daily ; false = weekly
-				masterTable.setDailyorWeekly(true);
-				for(int i=0 ; i<48; i++){
-					int ctr = 0;
-					Object cellHour = calendarTable.getValueAt(i, 0);
-					Object cellMinute = calendarTable.getValueAt(i, 1);
 
-					cellHour = Integer.parseInt((String) cellHour); 
-					cellMinute = Integer.parseInt((String) cellMinute); 
+		while(listofAppointments.hasNext()){
 
-					for(Appointment app : listofAppointmentsDoc1){
+			Appointment app = listofAppointments.next();
+
+			if(displayDoc1 && app.getDoctorName().equals(doctor1)){
+
+				if(dailyORweekly){// true = daily ; false = weekly
+					masterTable.setDailyorWeekly(true);
+					for(int i=0 ; i<48; i++){
+						int ctr = 0;
+						Object cellHour = calendarTable.getValueAt(i, 0);
+						Object cellMinute = calendarTable.getValueAt(i, 1);
+
+						cellHour = Integer.parseInt((String) cellHour); 
+						cellMinute = Integer.parseInt((String) cellMinute); 
+
 						if( month == app.getMonth() && day == app.getDay() && year == app.getYear() &&
-							cellHour ==  app.getSHour() && cellMinute == app.getSMin()){
-							calendarTable.setValueAt(app.getName(), i, 2);
-							ctr = app.getEHour() - app.getSHour();
+							(int)cellHour ==  app.getStartHour() && (int)cellMinute == app.getStartMinute()){
+							calendarTable.setValueAt(app.getDoctorName(), i, 2);
+							ctr = app.getEndHour() - app.getStartHour();
 
-							if(app.getSMin() - app.getEMin() == 0 ){
+							if(app.getStartMinute() - app.getEndMinute() == 0 ){
 								ctr = i + (ctr*2)-1;
 							}
-							else if(app.getSMin() - app.getEMin() == -30  ){
+							else if(app.getStartMinute() - app.getEndMinute() == -30  ){
 								ctr = i + (ctr*2);
 							}
-							else if (app.getSMin() - app.getEMin() == 30  ){
+							else if (app.getStartMinute() - app.getEndMinute() == 30  ){
 								ctr = i + (ctr*2)-2;
 							}
 
-							if(app.isFree()){
+							if(app.isAvailable()){
 								for(int j=i; j<ctr; j++)
 									masterTable.addGreen(j);
 							}
@@ -208,37 +222,36 @@ public class PanelCalendarView extends JPanel{
 
 							
 						}
+						
 					}
 				}
-			}
-			else{
-				masterTable.setDailyorWeekly(false);
-				for(int i=0 ; i<48; i++){
-					int ctr = 0;
-					Object cellHour = calendarTable.getValueAt(i, 0);
-					Object cellMinute = calendarTable.getValueAt(i, 1);
+				else{
+					masterTable.setDailyorWeekly(false);
+					for(int i=0 ; i<48; i++){
+						int ctr = 0;
+						Object cellHour = calendarTable.getValueAt(i, 0);
+						Object cellMinute = calendarTable.getValueAt(i, 1);
 
-					cellHour = Integer.parseInt((String) cellHour); 
-					cellMinute = Integer.parseInt((String) cellMinute); 
+						cellHour = Integer.parseInt((String) cellHour); 
+						cellMinute = Integer.parseInt((String) cellMinute); 
 
-					for(Appointment app : listofAppointmentsDoc1){
 						for(int k=0; k<5; k++){
 							if( month == app.getMonth() && day+k == app.getDay() && year == app.getYear() &&
-								cellHour ==  app.getSHour() && cellMinute == app.getSMin()){
-								calendarTable.setValueAt(app.getName(), i, 2);
-								ctr = app.getEHour() - app.getSHour();
+								(int)cellHour ==  app.getStartHour() && (int)cellMinute == app.getStartMinute()){
+								calendarTable.setValueAt(app.getDoctorName(), i, 2);
+								ctr = app.getEndHour() - app.getStartHour();
 
-								if(app.getSMin() - app.getEMin() == 0 ){
+								if(app.getStartMinute() - app.getEndMinute() == 0 ){
 									ctr = i + (ctr*2)-1;
 								}
-								else if(app.getSMin() - app.getEMin() == -30  ){
+								else if(app.getStartMinute() - app.getEndMinute() == -30  ){
 									ctr = i + (ctr*2);
 								}
-								else if (app.getSMin() - app.getEMin() == 30  ){
+								else if (app.getStartMinute() - app.getEndMinute() == 30  ){
 									ctr = i + (ctr*2)-2;
 								}
 
-								if(app.isFree()){
+								if(app.isAvailable()){
 									for(int j=i; j<ctr; j++){
 										masterTable.addGreen(j);
 										masterTable.addGreen(k);
@@ -255,19 +268,192 @@ public class PanelCalendarView extends JPanel{
 								
 							}
 						}
+						
 					}
 				}
 			}
-		}
-			
+				
 
-		if(displayDoc2){
-			
+			if(displayDoc2 && app.getDoctorName().equals(doctor2)){
+				if(dailyORweekly){// true = daily ; false = weekly
+					masterTable.setDailyorWeekly(true);
+					for(int i=0 ; i<48; i++){
+						int ctr = 0;
+						Object cellHour = calendarTable.getValueAt(i, 0);
+						Object cellMinute = calendarTable.getValueAt(i, 1);
+
+						cellHour = Integer.parseInt((String) cellHour); 
+						cellMinute = Integer.parseInt((String) cellMinute); 
+
+						if( month == app.getMonth() && day == app.getDay() && year == app.getYear() &&
+							(int) cellHour ==  app.getStartHour() && (int)cellMinute == app.getStartMinute()){
+							calendarTable.setValueAt(app.getDoctorName(), i, 2);
+							ctr = app.getEndHour() - app.getStartHour();
+
+							if(app.getStartMinute() - app.getEndMinute() == 0 ){
+								ctr = i + (ctr*2)-1;
+							}
+							else if(app.getStartMinute() - app.getEndMinute() == -30  ){
+								ctr = i + (ctr*2);
+							}
+							else if (app.getStartMinute() - app.getEndMinute() == 30  ){
+								ctr = i + (ctr*2)-2;
+							}
+
+							if(app.isAvailable()){
+								for(int j=i; j<ctr; j++)
+									masterTable.addGreen(j);
+							}
+							else{
+								for(int j=i; j<ctr; j++)
+									masterTable.addRed(j);
+							}
+
+							
+						}
+						
+					}
+				}
+				else{
+					masterTable.setDailyorWeekly(false);
+					for(int i=0 ; i<48; i++){
+						int ctr = 0;
+						Object cellHour = calendarTable.getValueAt(i, 0);
+						Object cellMinute = calendarTable.getValueAt(i, 1);
+
+						cellHour = Integer.parseInt((String) cellHour); 
+						cellMinute = Integer.parseInt((String) cellMinute); 
+
+						for(int k=0; k<5; k++){
+							if( month == app.getMonth() && day == app.getDay() && year == app.getYear() &&
+									(int) cellHour ==  app.getStartHour() && (int)cellMinute == app.getStartMinute()){
+									calendarTable.setValueAt(app.getDoctorName(), i, 2);
+									ctr = app.getEndHour() - app.getStartHour();
+
+									if(app.getStartMinute() - app.getEndMinute() == 0 ){
+										ctr = i + (ctr*2)-1;
+									}
+									else if(app.getStartMinute() - app.getEndMinute() == -30  ){
+										ctr = i + (ctr*2);
+									}
+									else if (app.getStartMinute() - app.getEndMinute() == 30  ){
+										ctr = i + (ctr*2)-2;
+									}
+
+								if(app.isAvailable()){
+									for(int j=i; j<ctr; j++){
+										masterTable.addGreen(j);
+										masterTable.addGreen(k);
+									}
+
+								}
+								else{
+									for(int j=i; j<ctr; j++){
+										masterTable.addRed(j);
+										masterTable.addRed(k);
+									}
+								}
+
+								
+							}
+						}
+						
+					}
+				}
+			}
+			if(displayDoc3 && app.getDoctorName().equals(doctor3)){
+				if(dailyORweekly){// true = daily ; false = weekly
+					masterTable.setDailyorWeekly(true);
+					for(int i=0 ; i<48; i++){
+						int ctr = 0;
+						Object cellHour = calendarTable.getValueAt(i, 0);
+						Object cellMinute = calendarTable.getValueAt(i, 1);
+
+						cellHour = Integer.parseInt((String) cellHour); 
+						cellMinute = Integer.parseInt((String) cellMinute); 
+
+						if( month == app.getMonth() && day == app.getDay() && year == app.getYear() &&
+								(int) cellHour ==  app.getStartHour() && (int)cellMinute == app.getStartMinute()){
+								calendarTable.setValueAt(app.getDoctorName(), i, 2);
+								ctr = app.getEndHour() - app.getStartHour();
+
+								if(app.getStartMinute() - app.getEndMinute() == 0 ){
+									ctr = i + (ctr*2)-1;
+								}
+								else if(app.getStartMinute() - app.getEndMinute() == -30  ){
+									ctr = i + (ctr*2);
+								}
+								else if (app.getStartMinute() - app.getEndMinute() == 30  ){
+									ctr = i + (ctr*2)-2;
+								}
+
+							if(app.isAvailable()){
+								for(int j=i; j<ctr; j++)
+									masterTable.addGreen(j);
+							}
+							else{
+								for(int j=i; j<ctr; j++)
+									masterTable.addRed(j);
+							}
+
+							
+						}
+						
+					}
+				}
+				else{
+					masterTable.setDailyorWeekly(false);
+					for(int i=0 ; i<48; i++){
+						int ctr = 0;
+						Object cellHour = calendarTable.getValueAt(i, 0);
+						Object cellMinute = calendarTable.getValueAt(i, 1);
+
+						cellHour = Integer.parseInt((String) cellHour); 
+						cellMinute = Integer.parseInt((String) cellMinute); 
+
+						for(int k=0; k<5; k++){
+							if( month == app.getMonth() && day == app.getDay() && year == app.getYear() &&
+									(int) cellHour ==  app.getStartHour() && (int)cellMinute == app.getStartMinute()){
+									calendarTable.setValueAt(app.getDoctorName(), i, 2);
+									ctr = app.getEndHour() - app.getStartHour();
+
+									if(app.getStartMinute() - app.getEndMinute() == 0 ){
+										ctr = i + (ctr*2)-1;
+									}
+									else if(app.getStartMinute() - app.getEndMinute() == -30  ){
+										ctr = i + (ctr*2);
+									}
+									else if (app.getStartMinute() - app.getEndMinute() == 30  ){
+										ctr = i + (ctr*2)-2;
+									}
+
+								if(app.isAvailable()){
+									for(int j=i; j<ctr; j++){
+										masterTable.addGreen(j);
+										masterTable.addGreen(k);
+									}
+
+								}
+								else{
+									for(int j=i; j<ctr; j++){
+										masterTable.addRed(j);
+										masterTable.addRed(k);
+									}
+								}
+
+								
+							}
+						}
+						
+					}
+				}
+			}
+
+
+
 		}
-		if(displayDoc3){
-			
-		}
-*/
+		
+
 	}
 
 
