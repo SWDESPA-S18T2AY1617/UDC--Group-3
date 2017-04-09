@@ -527,7 +527,10 @@ public class PanelCreate extends JPanel {
 							
 							if(!docController.addAppointment(a))
 								JOptionPane.showMessageDialog(null, "Cannot add appointment because of overlap.", "Cannot add appointment", JOptionPane.WARNING_MESSAGE);
-							else JOptionPane.showMessageDialog(null, "Successfully added appointment!");
+							else {
+								JOptionPane.showMessageDialog(null, "Successfully added appointment!");
+								docController.updateView();
+							}
 						}
 						if(isWeekend())
 							JOptionPane.showMessageDialog(null, "Weekend appointments are not applicable.");
@@ -659,7 +662,10 @@ public class PanelCreate extends JPanel {
 							}
 							
 						}
-						JOptionPane.showMessageDialog(null, "Successfully added " + successAdd + " appointment(s)!");
+						
+							JOptionPane.showMessageDialog(null, "Successfully added appointment!");
+							docController.updateView();
+						
 					}
 				} else JOptionPane.showMessageDialog(null, "Time values invalid.");
 			}
