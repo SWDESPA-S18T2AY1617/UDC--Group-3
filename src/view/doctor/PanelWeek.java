@@ -330,7 +330,10 @@ public class PanelWeek extends JPanel {
 									
 									if(!docController.addAppointment(a))
 										JOptionPane.showMessageDialog(null, "Cannot add appointment because of overlap.", "Cannot add appointment", JOptionPane.WARNING_MESSAGE);
-									else JOptionPane.showMessageDialog(null, "Successfully added appointment!");
+									else {
+										JOptionPane.showMessageDialog(null, "Successfully added appointment!");
+										docController.updateView();
+									}
 									
 								} else {
 									JOptionPane.showMessageDialog(null, "Invalid time input", "Cannot modify appointment", JOptionPane.WARNING_MESSAGE);

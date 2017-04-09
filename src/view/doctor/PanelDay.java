@@ -256,7 +256,10 @@ public class PanelDay extends JPanel {
 								
 								if(!docController.addAppointment(a))
 									JOptionPane.showMessageDialog(null, "Cannot add appointment because of overlap.", "Cannot add appointment", JOptionPane.WARNING_MESSAGE);
-								else JOptionPane.showMessageDialog(null, "Successfully added appointment!");
+								else {
+									JOptionPane.showMessageDialog(null, "Successfully added appointment!");
+									docController.updateView();
+								}
 							} 
 							if(!pmd.isValidTime()) {
 								JOptionPane.showMessageDialog(null, "Invalid time value.", "Cannot modify appointment", JOptionPane.WARNING_MESSAGE);
