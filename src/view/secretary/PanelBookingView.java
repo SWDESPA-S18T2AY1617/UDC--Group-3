@@ -201,7 +201,7 @@ public class PanelBookingView extends JPanel{
 	class btnSave_Action implements ActionListener{
 		public void actionPerformed (ActionEvent e){
 		//	vc.setAppointment();
-
+			vc.setAppointment();
 			bookDetails.setText("");
 			vc.setCalendarPanel();
 		}

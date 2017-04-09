@@ -178,13 +178,13 @@ public class PanelAgendaView extends JPanel{
 				masterTable.setDailyorWeekly(false);
 
 				for(int i = 0; i<5; i++){
-					if( month == ap.getMonth() && day+i == ap.getDay() && year == ap.getYear()){
+					if( month == app.getMonth() && day+i == app.getDay() && year == app.getYear()){
 						agendaTable.setValueAt(app.getStartHour() + ":" +
 											   app.getStartMinute()/10 + "0 ::" +
 											   app.getEndHour() +":" +
 											   app.getEndMinute()/10+"0  for"+
 											   app.getDoctorName(), row, 0);
-						if(ap.isAvailable()){
+						if(app.isAvailable()){
 							masterTable.addGreen(row);
 							masterTable.addGreen(i);
 						}
@@ -210,7 +210,7 @@ public class PanelAgendaView extends JPanel{
 										   app.getEndHour() +":" +
 										   app.getEndMinute()/10+"0  for"+
 										   app.getDoctorName(), row, 0);
-					if(app.isFree())
+					if(app.isAvailable())
 						masterTable.addGreen(row);
 					else
 						masterTable.addRed(row);
@@ -229,7 +229,7 @@ public class PanelAgendaView extends JPanel{
 											   app.getEndHour() +":" +
 											   app.getEndMinute()/10+"0  for"+
 											   app.getDoctorName(), row, 0);
-						if(app.isFree()){
+						if(app.isAvailable()){
 							masterTable.addGreen(row);
 							masterTable.addGreen(i);
 						}
@@ -254,7 +254,7 @@ public class PanelAgendaView extends JPanel{
 										   app.getEndHour() +":" +
 										   app.getEndMinute()/10+"0  for"+
 										   app.getDoctorName(), row, 0);
-					if(app.isFree())
+					if(app.isAvailable())
 						masterTable.addGreen(row);
 					else
 						masterTable.addRed(row);
@@ -272,7 +272,7 @@ public class PanelAgendaView extends JPanel{
 											   app.getEndHour() +":" +
 											   app.getEndMinute()/10+"0  for"+
 											   app.getDoctorName(), row, 0);
-						if(app.isFree()){
+						if(app.isAvailable()){
 							masterTable.addGreen(row);
 							masterTable.addGreen(i);
 						}
@@ -291,5 +291,5 @@ public class PanelAgendaView extends JPanel{
 	}
 
 }
-
+}
 
