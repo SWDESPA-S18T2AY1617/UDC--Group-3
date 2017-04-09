@@ -1,7 +1,6 @@
 package model;
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 public class Appointment {
 	
@@ -42,7 +41,7 @@ public class Appointment {
 		String endMin = String.format("%02d", endTime.get(Calendar.MINUTE));
 
 		if(client != null)
-			temp.append(client.getName());
+			temp.append(client.getName() + "\n");
 		temp.append(startHour + ":" + startMin + " - " + endHour + ":" + endMin + "\n");
 		temp.append("Dr. " + doctor.getName());
 		
@@ -57,8 +56,24 @@ public class Appointment {
 		return startTime;
 	}
 
+	public int getStartHour() {
+		return startTime.get(Calendar.HOUR_OF_DAY);
+	}
+
+	public int getStartMinute() {
+		return startTime.get(Calendar.MINUTE);
+	}
+
 	public Calendar getEndTime() {
 		return endTime;
+	}
+
+	public int getEndHour() {
+		return endTime.get(Calendar.HOUR_OF_DAY);
+	}
+
+	public int getEndMinute() {
+		return endTime.get(Calendar.MINUTE);
 	}
 
 	public void setStartTime(Calendar startTime) {
