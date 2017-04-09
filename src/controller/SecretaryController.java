@@ -1,66 +1,100 @@
 package controller;
 
+import view.secretary.FrameMain;
+import view.secretary.PanelAgendaView;
+import view.secretary.PanelBookingView;
+import view.secretary.PanelCalendarView;
+import view.secretary.PanelHeadline;
+import view.secretary.PanelMiniCalendar;
+
 public class SecretaryController extends ViewController {
+	private FrameMain main;
+	private PanelHeadline hd;
+	private PanelMiniCalendar mnc;
+	private PanelCalendarView cv;
+	private PanelAgendaView av;
+	private PanelBookingView bv;
 
-	//private SecretaryView view;
-	
-	public SecretaryController(MainController controller)
-	{
-		super(controller);
+	private Boolean dailyORweekly; // daily == true ; false == weekly
+	public SecretaryController(MainController mc) { 
+		super(mc);
 		
-		//remember to have an instance of their specific ViewControllers to their views
-		//view = new SecretaryView(this);
-	}
-	
-	public void updateView(/*Maybe an Iterator of Appointments*/)
-	{
-		//will be called by MainController
-		//calendarview.updateCalendarView( send a list or iterator of appoinments that would send all appoints)
-		//agendaView.updateCalendarView( send a list or iterator of appoinments that would send all appoints)
+		main = new FrameMain();
+		hd = new PanelHeadline(this);
+		cv = new PanelCalendarView(this);
+		av = new PanelAgendaView(this);
+		bv = new PanelBookingView(this);
+		mnc = new PanelMiniCalendar(this);
+
+		main.setTop(hd);
+		main.setLeft(mnc);
+		main.setRight(cv);
+		mnc.sendDateToView();
 
 	}
-	/*
-	//check appointments (parameter == filter, can be changed to ArrayList<Integer> if preferred, depends on model implementation)
-	public Iterator<Appointment> checkAppointments(ArrayList<String> filter)//An iterator of appointments will be better
-	{
-		//will call MainController to check appointments from the model
+	public void setCalendarPanel(){
+		main.setRight(cv);
 	}
-	*/
-	public void setAppointment()
-	{
-		//will call MainController and will be called by the view to set appointment to the model
+	public void setAgendaPanel(){
+		main.setRight(av);
+	}
+	public void setBookingPanel(){
+		main.setRight(bv);
+	}
+	public void setWeeklyFormat(){
+		dailyORweekly = false;
+		cv.setToWeekly();
+		av.setToWeekly();
+	}
+	public void setDailyFormat(){
+		dailyORweekly = true;
+		cv.setToDaily();
+		av.setToDaily();
+	}
+	public void setViewDate(int month, int day, int year){ //SETS THE DATE FOR CALENDAR AND AGENDA VIEWS
 
-
-		/* THESE CAN BE USED TO TAKE THE INPUT FIELDS FROM SECRETARY VIEW FROM "PanelBookingView"
-		Integer.parseInt(bookingview.getMonthInput()  = month of appointment
-		Integer.parseInt(bookingview.getDayInput() = day of appointment
-		Integer.parseInt(bookingview.getYearInput() = year of appointment
-		Integer.parseInt(bookingview.getStartH() = starting hour of appointment
-		Integer.parseInt(bookingview.getStartM() = stat minute of appointment
-		Integer.parseInt(bookingview.getEndH() = end hour of appointment
-		Integer.parseInt(bookingview.getEndM() = end minute of appointment
+	//	if( dailyORweekly){ //IF DAILY VIEW
+			cv.setDate(month, day, year);
+			//cv.updateCalendarView();
+			av.setDate(month, day, year);
+			//av.updateAgendaView();
+	//	}
+	//	else{ // IF WEEKLY VIEW
+			//////TRANSFORM "DAY" INTO THE MONDAY OF THAT WEEK. THAT IS ALL WHAT IT NEEDS.
+			///////////////////////// I kinda don't know how to do that for now. 
+			/////////////////////////////////////
+		//	cv.setDate(month, day, year);
+		//	cv.updateCalendarView();
+		//	av.setDate(month, day, year);
+		//	av.updateAgendaView();
+	//	}
+	}
+	public void setDoc1(Boolean setting){
+		cv.setDoc1(setting);
+		av.setDoc1(setting);
+	}
+	public void setDoc2(Boolean setting){
+		cv.setDoc2(setting);
+		av.setDoc2(setting);
+	}
+	public void setDoc3(Boolean setting){
+		cv.setDoc3(setting);
+		av.setDoc3(setting);
+	}
+	@Override
+	public void updateView() {
+		// TODO Auto-generated method stub
 		
-
-		// which of the three doctors the booked appointment's for
-		if(bookingview.getInputChoice().equals("Doctor1")){
-			//SEND ALL APPROPRIATE APPONTMENT DATA TO WHEREEVER FOR DOCTOR NUMBUH 1
-		}
-		else if(bookingview.getInputChoice().equals("Doctor2")){
-			//SEND ALL APPROPRIATE APPONTMENT DATA TO WHEREEVER FOR DOCTOR NUMBUH 2
-			
-		}
-		else if(bookingview.getInputChoice().equals("Doctor3")){
-			//SEND ALL APPROPRIATE APPONTMENT DATA TO WHEREEVER FOR DOCTOR NUMBUH 3
-			
-		}*/
-		this.updateView();
 	}
-	
-	public void cancelAppointment()
-	{
-		//will call MainController and will be called by the view to cancel appointment
+	@Override
+	public void setAppointment() {
+		// TODO Auto-generated method stub
 		
-		this.updateView();
+	}
+	@Override
+	public void cancelAppointment() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

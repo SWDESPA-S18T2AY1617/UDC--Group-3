@@ -3,13 +3,16 @@ package view.secretary;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
+
+import controller.SecretaryController;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.border.Border;
 
 public class PanelBookingView extends JPanel{
-	private ViewController vc;
+	private SecretaryController vc;
 
 	private JTextArea bookDetails;
 	private JRadioButton radioDoc1,
@@ -32,8 +35,8 @@ public class PanelBookingView extends JPanel{
 				   lblDesc;
 	private int currYear;
 
-	public PanelBookingView(ViewController vc){
-		this.vc = vc;
+	public PanelBookingView(SecretaryController secretaryController){
+		this.vc = secretaryController;
 			
 		this.setSize(550, 500);
 		this.setLayout(null);

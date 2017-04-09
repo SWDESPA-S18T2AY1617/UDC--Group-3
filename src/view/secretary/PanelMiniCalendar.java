@@ -6,10 +6,13 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
+
+import controller.SecretaryController;
+
 import javax.swing.border.Border;
 
 public class PanelMiniCalendar extends JPanel{
-	private ViewController vc;
+	private SecretaryController vc;
 
     private JLabel monthLabel, 
     			   yearLabel,
@@ -33,8 +36,8 @@ public class PanelMiniCalendar extends JPanel{
 			   cellDay;
 	private Boolean highlight;
 
-	public PanelMiniCalendar(ViewController vc){
-		this.vc = vc;
+	public PanelMiniCalendar(SecretaryController secretaryController){
+		this.vc = secretaryController;
 
         this.setSize( 350, 500);
 		this.setLayout(null);
