@@ -176,7 +176,7 @@ public class PanelCalendarView extends JPanel{
 					cellHour = Integer.parseInt((String) cellHour); 
 					cellMinute = Integer.parseInt((String) cellMinute); 
 
-					for(/*Appointment temp*/ : /*listofAppointmentsDoc1){
+					for(/*Appointment temp : /*listofAppointmentsDoc1){
 						if( givenMonth == temp.getMonth() &&
 							givenDay == temp.getDay() &&
 							givenYear == temp.getYear() &&
@@ -210,7 +210,7 @@ public class PanelCalendarView extends JPanel{
 					cellMinute = Integer.parseInt((String) cellMinute); 
 
 					for(int j=0; j<5;j++){
-						for(/*Appointment temp*/ : /*listofAppointmentsDoc1){
+						for(/*Appointment temp : /*listofAppointmentsDoc1){
 							if( month == temp.getMonth() && day == temp.getDay()+j &&
 								year == temp.getYear() &&
 								cellHour ==  temp.getSHour() && cellMinute == temp.getSMin()){
@@ -249,7 +249,7 @@ public class PanelCalendarView extends JPanel{
 					cellHour = Integer.parseInt((String) cellHour); 
 					cellMinute = Integer.parseInt((String) cellMinute); 
 
-					for(/*Appointment temp*/ : /*listofAppointmentsDoc2){
+					for(/*Appointment temp : /*listofAppointmentsDoc2){
 						if( givenMonth == temp.getMonth() &&
 							givenDay == temp.getDay() &&
 							givenYear == temp.getYear() &&
@@ -283,7 +283,7 @@ public class PanelCalendarView extends JPanel{
 					cellMinute = Integer.parseInt((String) cellMinute); 
 
 					for(int j=0; j<5;j++){
-						for(/*Appointment temp*/ : /*listofAppointmentsDoc2){
+						for(/*Appointment temp : /*listofAppointmentsDoc2){
 							if( month == temp.getMonth() && day == temp.getDay()+j &&
 								year == temp.getYear() &&
 								cellHour ==  temp.getSHour() && cellMinute == temp.getSMin()){
@@ -320,7 +320,7 @@ public class PanelCalendarView extends JPanel{
 					cellHour = Integer.parseInt((String) cellHour); 
 					cellMinute = Integer.parseInt((String) cellMinute); 
 
-					for(/*Appointment temp*/ : /*listofAppointmentsDoc3){
+					for(/*Appointment temp : /*listofAppointmentsDoc3){
 						if( givenMonth == temp.getMonth() &&
 							givenDay == temp.getDay() &&
 							givenYear == temp.getYear() &&
@@ -354,7 +354,7 @@ public class PanelCalendarView extends JPanel{
 					cellMinute = Integer.parseInt((String) cellMinute); 
 
 					for(int j=0; j<5;j++){
-						for(/*Appointment temp*/ : /*listofAppointmentsDoc3){
+						for(/*Appointment temp : listofAppointmentsDoc3){
 							if( month == temp.getMonth() && day == temp.getDay()+j &&
 								year == temp.getYear() &&
 								cellHour ==  temp.getSHour() && cellMinute == temp.getSMin()){

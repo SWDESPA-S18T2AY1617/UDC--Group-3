@@ -48,11 +48,11 @@ public class ViewController{
 	}
 	public void setViewDate(int month, int day, int year){ //SETS THE DATE FOR CALENDAR AND AGENDA VIEWS
 
-		if( daily){ //IF DAILY VIEW
+		if( dailyORweekly){ //IF DAILY VIEW
 			cv.setDate(month, day, year);
-			cv.updateCalendarView();
+			//cv.updateCalendarView();
 			av.setDate(month, day, year);
-			av.updateAgendaView();
+			//av.updateAgendaView();
 		}
 		else{ // IF WEEKLY VIEW
 			//////TRANSFORM "DAY" INTO THE MONDAY OF THAT WEEK. THAT IS ALL WHAT IT NEEDS.
