@@ -7,12 +7,16 @@ import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import view.doctor.*;
 
 import model.CalendarPointers;
+import model.Doctor;
 
 public class DoctorController extends ViewController {
+	
+	private Doctor d;
 	
 	private FrameMain f;
 	private PanelCalendar pc;
@@ -30,7 +34,10 @@ public class DoctorController extends ViewController {
 
 	public DoctorController(MainController controller) {
 		super(controller);
-		
+	}
+	
+	public void createAndShowGUI() {
+		System.out.println("gui");
 		f = new FrameMain();
 		pc = new PanelCalendar(this, super.getYearBound(), super.getMonthBound(), super.getDayBound());
 		pm = new PanelMenu(this, super.getYearBound(), super.getMonthBound(), super.getDayBound());
@@ -39,12 +46,14 @@ public class DoctorController extends ViewController {
 		pw = new PanelWeek(this, super.getYearBound(), super.getMonthBound(), super.getDayBound());
 		pd = new PanelDay(this);
 		
+		pc.setDoctorName(d.getName());
 		f.setLeftPanel(pc);
 		f.setTopPanel(pm);
 		f.setRightPanel(pw.getPanelTable());
 		
 		// TEST
 		this.setAppointments(super.getYearBound(), super.getMonthBound(), super.getDayBound());
+		f.setVisible(true);
 	}
 
 	/**
@@ -55,14 +64,12 @@ public class DoctorController extends ViewController {
 	 * @param day		
 	 * @param activity 	list of appointments during the week / list of all appointments 
 	 */
-	public void updateAll(int year, int month, int day, Iterator<TestAppointment> activity) {
-		ArrayList<TestAppointment> act = new ArrayList<>();
-		while (activity != null && activity.hasNext())
-			act.add(activity.next());
-		pc.update(month, year, day);
-		pa.update(month, day, year, act.iterator());
-		pm.update(month, day, year);
-		pw.update(month, day, year, act.iterator());
+	public void updateAll(Iterator<TestAppointment> activity) {
+		
+		pc.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr());
+		pa.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), activity);
+		pm.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr());
+		pw.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), activity);
 	}
 
 	/**
@@ -113,6 +120,33 @@ public class DoctorController extends ViewController {
 		pw.showUnavailable(show);
 	}
 
+	public boolean showDoctorWho() {
+		System.out.println("open sesame");
+		FrameDoctorWho fdw = new FrameDoctorWho();
+		JDialog d1 = new JDialog();
+		d1.setLocationRelativeTo(null);
+		d1.setSize(new Dimension(400, 180));
+		d1.setContentPane(fdw);
+		d1.setModal(true);
+		d1.setVisible(true);
+		System.out.println("close sesame");
+		
+		if(fdw.getNewDoctor() == 0) {
+			System.out.println("old doc");
+			try {
+				return true;
+			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(null, "Invalid input!");
+			}
+		} else if(fdw.getNewDoctor() == 1) {
+			System.out.println("new doc");
+			Doctor d = new Doctor(fdw.getNewDocName());
+			this.d = d;
+			return true;
+		}
+		return false;
+	}
+	
 	// testing
 	private void setAppointments(int year, int month, int day) {
 		List listA = new ArrayList<TestAppointment>();
@@ -189,7 +223,7 @@ public class DoctorController extends ViewController {
 		pa.update(year, month, day, listA.iterator());
 		pa.updateWeek(year, month, day, listA.iterator());
 	}
-
+	
 	@Override
 	public void updateView() {
 		// TODO Auto-generated method stub
