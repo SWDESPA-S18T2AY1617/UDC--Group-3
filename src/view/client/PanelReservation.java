@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 
 import javax.swing.BorderFactory;
@@ -195,7 +196,7 @@ public class PanelReservation extends JPanel {
 			for (int i = 0; i < activityList.size(); i++) {
 				DecimalFormat d = new DecimalFormat("00");
 
-				String date = (activityList.get(i).getMonth() + 1) + "/" + (activityList.get(i).getDay()) + "/" + activityList.get(i).getYear();
+				String date = (activityList.get(i).getMonth() + 1) + "\\" + (activityList.get(i).getDay()) + "\\" + activityList.get(i).getYear();
 				String time = activityList.get(i).getStartHour() + ":" + d.format(activityList.get(i).getStartMinute()) + " - " + activityList.get(i).getEndHour() + ":"
 						+ d.format(activityList.get(i).getEndMinute());
 
@@ -228,8 +229,17 @@ public class PanelReservation extends JPanel {
 				for (int i = agendaTable.getRowCount() - 1; i >= 0; i--) {
 					if (agendaTable.getValueAt(i, 1) != null) {
 						
-						String[] sArr = (String[]) agendaTable.getValueAt(i, 0);
-						controller.cancelAppointment(/*Integer.parseInt(sArr[3])*/);
+						String sArr = (String) agendaTable.getValueAt(i, 0);
+						String[] r = sArr.split("\\\\");
+						
+						String t = (String) agendaTable.getValueAt(i, 1);
+						String[] tArr = t.split(":");
+						String[] a = tArr[1].split("-");
+
+						Calendar c = Calendar.getInstance();
+						c.set(Integer.parseInt(r[2]), Integer.parseInt(r[0]),  Integer.parseInt(r[1]),  Integer.parseInt(tArr[0]),  Integer.parseInt(a[0]));
+						
+						controller.cancelAppointment(c);
 					}
 				}
 				setAgendaColumn(2);
