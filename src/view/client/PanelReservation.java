@@ -174,9 +174,9 @@ public class PanelReservation extends JPanel {
 			agendaTable.getColumnModel().getColumn(2).setPreferredWidth(55);
 		}
 	}
-	public void setTableValues(int month, int day, int year) {
+	public void setTableValues(int month, int day, int year/*,Iterator<Appointment> activity*/) {
 		System.out.println("Setting table values");
-		// ArrayList<Activity> activityList = new ArrayList<>();
+		// ArrayList<Appointment> activityList = new ArrayList<>();
 		//activityList = new ArrayList<>();
 		int rwCnt = 0;
 
@@ -197,7 +197,6 @@ public class PanelReservation extends JPanel {
 				System.out.println("searching for act");
 				if (activityList.get(i).isMonth(month) && activityList.get(i).isDay(day)
 						&& activityList.get(i).isYear(year)) {
-					System.out.println("add activity to agenda");
 					String[] sArr = activityList.get(i).toStringArr();
 
 					modelAgendaTable.setValueAt(sArr, rwCnt, 0);
@@ -210,33 +209,6 @@ public class PanelReservation extends JPanel {
 		revalidate();
 		repaint();
 		*/
-	}
-/*
-	public void setTableValues(int month, int day, int year, Activity activity) {
-		// FOR TESTING
-		int rwCnt = 0;
-
-		if (activity == null) {
-			System.out.println("No activities.");
-		} else {
-			if (activity.isMonth(month) && activity.isDay(day) && activity.isYear(year)) {
-				String[] sArr = activity.toStringArr();
-
-				for (int i = 0; i < sArr.length; i++) {
-					System.out.println(sArr[i]);
-				}
-
-				modelAgendaTable.setValueAt(sArr, rwCnt, 0);
-				modelAgendaTable.setValueAt(sArr, rwCnt, 1);
-
-				rwCnt++;
-			}
-		}
-
-		revalidate();
-		repaint();
-	}
-*/
 /*	private void addListeners() {
 	//	btnMarkDone.addActionListener(new MarkDone());
 		btnCancel.addActionListener(new DeleteAppointment());
