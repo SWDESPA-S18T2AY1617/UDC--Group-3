@@ -1,6 +1,8 @@
 package view.secretary;
 
 import controller.SecretaryController;
+import model.Appointment;
+
 import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -8,7 +10,6 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
 import javax.swing.border.Border;
-import java.util.Iterator;
 
 public class PanelCalendarView extends JPanel{
 
@@ -44,7 +45,7 @@ public class PanelCalendarView extends JPanel{
 		this.addsetParts();
 		
 	}
-	public void initParts(namesofDoctors){
+	public void initParts(ArrayList<String> namesofDoctors){
 
 		doctor1 = namesofDoctors.get(0);
 		doctor2 = namesofDoctors.get(1);
@@ -174,14 +175,14 @@ public class PanelCalendarView extends JPanel{
 		displayDoc3 = setting;
 	}
 	
-	public void updateCalendarView(Iterator<Appointment> listofappointments){
+	public void updateCalendarView(Iterator<Appointment> listofAppointments){
 		
 		masterTable = new TableRendererCalenAgen();
 		masterTable.setCalendarorAgenda(true);
 
 		while(listofAppointments.hasNext()){
 
-			Appointment app = listofappointments.next();
+			Appointment app = listofAppointments.next();
 
 			if(displayDoc1 && app.getDoctorName().equals(doctor1)){
 
@@ -196,21 +197,21 @@ public class PanelCalendarView extends JPanel{
 						cellMinute = Integer.parseInt((String) cellMinute); 
 
 						if( month == app.getMonth() && day == app.getDay() && year == app.getYear() &&
-							cellHour ==  app.getSHour() && cellMinute == app.getSMin()){
-							calendarTable.setValueAt(app.getName(), i, 2);
-							ctr = app.getEHour() - app.getSHour();
+							(int)cellHour ==  app.getStartHour() && (int)cellMinute == app.getStartMinute()){
+							calendarTable.setValueAt(app.getDoctorName(), i, 2);
+							ctr = app.getEndHour() - app.getStartHour();
 
-							if(app.getSMin() - app.getEMin() == 0 ){
+							if(app.getStartMinute() - app.getEndMinute() == 0 ){
 								ctr = i + (ctr*2)-1;
 							}
-							else if(app.getSMin() - app.getEMin() == -30  ){
+							else if(app.getStartMinute() - app.getEndMinute() == -30  ){
 								ctr = i + (ctr*2);
 							}
-							else if (app.getSMin() - app.getEMin() == 30  ){
+							else if (app.getStartMinute() - app.getEndMinute() == 30  ){
 								ctr = i + (ctr*2)-2;
 							}
 
-							if(app.isFree()){
+							if(app.isAvailable()){
 								for(int j=i; j<ctr; j++)
 									masterTable.addGreen(j);
 							}
@@ -236,21 +237,21 @@ public class PanelCalendarView extends JPanel{
 
 						for(int k=0; k<5; k++){
 							if( month == app.getMonth() && day+k == app.getDay() && year == app.getYear() &&
-								cellHour ==  app.getSHour() && cellMinute == app.getSMin()){
-								calendarTable.setValueAt(app.getName(), i, 2);
-								ctr = app.getEHour() - app.getSHour();
+								(int)cellHour ==  app.getStartHour() && (int)cellMinute == app.getStartMinute()){
+								calendarTable.setValueAt(app.getDoctorName(), i, 2);
+								ctr = app.getEndHour() - app.getStartHour();
 
-								if(app.getSMin() - app.getEMin() == 0 ){
+								if(app.getStartMinute() - app.getEndMinute() == 0 ){
 									ctr = i + (ctr*2)-1;
 								}
-								else if(app.getSMin() - app.getEMin() == -30  ){
+								else if(app.getStartMinute() - app.getEndMinute() == -30  ){
 									ctr = i + (ctr*2);
 								}
-								else if (app.getSMin() - app.getEMin() == 30  ){
+								else if (app.getStartMinute() - app.getEndMinute() == 30  ){
 									ctr = i + (ctr*2)-2;
 								}
 
-								if(app.isFree()){
+								if(app.isAvailable()){
 									for(int j=i; j<ctr; j++){
 										masterTable.addGreen(j);
 										masterTable.addGreen(k);
@@ -285,21 +286,21 @@ public class PanelCalendarView extends JPanel{
 						cellMinute = Integer.parseInt((String) cellMinute); 
 
 						if( month == app.getMonth() && day == app.getDay() && year == app.getYear() &&
-							cellHour ==  app.getSHour() && cellMinute == app.getSMin()){
-							calendarTable.setValueAt(app.getName(), i, 2);
-							ctr = app.getEHour() - app.getSHour();
+							(int) cellHour ==  app.getStartHour() && (int)cellMinute == app.getStartMinute()){
+							calendarTable.setValueAt(app.getDoctorName(), i, 2);
+							ctr = app.getEndHour() - app.getStartHour();
 
-							if(app.getSMin() - app.getEMin() == 0 ){
+							if(app.getStartMinute() - app.getEndMinute() == 0 ){
 								ctr = i + (ctr*2)-1;
 							}
-							else if(app.getSMin() - app.getEMin() == -30  ){
+							else if(app.getStartMinute() - app.getEndMinute() == -30  ){
 								ctr = i + (ctr*2);
 							}
-							else if (app.getSMin() - app.getEMin() == 30  ){
+							else if (app.getStartMinute() - app.getEndMinute() == 30  ){
 								ctr = i + (ctr*2)-2;
 							}
 
-							if(app.isFree()){
+							if(app.isAvailable()){
 								for(int j=i; j<ctr; j++)
 									masterTable.addGreen(j);
 							}
@@ -324,22 +325,22 @@ public class PanelCalendarView extends JPanel{
 						cellMinute = Integer.parseInt((String) cellMinute); 
 
 						for(int k=0; k<5; k++){
-							if( month == app.getMonth() && day+k == app.getDay() && year == app.getYear() &&
-								cellHour ==  app.getSHour() && cellMinute == app.getSMin()){
-								calendarTable.setValueAt(app.getName(), i, 2);
-								ctr = app.getEHour() - app.getSHour();
+							if( month == app.getMonth() && day == app.getDay() && year == app.getYear() &&
+									(int) cellHour ==  app.getStartHour() && (int)cellMinute == app.getStartMinute()){
+									calendarTable.setValueAt(app.getDoctorName(), i, 2);
+									ctr = app.getEndHour() - app.getStartHour();
 
-								if(app.getSMin() - app.getEMin() == 0 ){
-									ctr = i + (ctr*2)-1;
-								}
-								else if(app.getSMin() - app.getEMin() == -30  ){
-									ctr = i + (ctr*2);
-								}
-								else if (app.getSMin() - app.getEMin() == 30  ){
-									ctr = i + (ctr*2)-2;
-								}
+									if(app.getStartMinute() - app.getEndMinute() == 0 ){
+										ctr = i + (ctr*2)-1;
+									}
+									else if(app.getStartMinute() - app.getEndMinute() == -30  ){
+										ctr = i + (ctr*2);
+									}
+									else if (app.getStartMinute() - app.getEndMinute() == 30  ){
+										ctr = i + (ctr*2)-2;
+									}
 
-								if(app.isFree()){
+								if(app.isAvailable()){
 									for(int j=i; j<ctr; j++){
 										masterTable.addGreen(j);
 										masterTable.addGreen(k);
@@ -372,21 +373,21 @@ public class PanelCalendarView extends JPanel{
 						cellMinute = Integer.parseInt((String) cellMinute); 
 
 						if( month == app.getMonth() && day == app.getDay() && year == app.getYear() &&
-							cellHour ==  app.getSHour() && cellMinute == app.getSMin()){
-							calendarTable.setValueAt(app.getName(), i, 2);
-							ctr = app.getEHour() - app.getSHour();
+								(int) cellHour ==  app.getStartHour() && (int)cellMinute == app.getStartMinute()){
+								calendarTable.setValueAt(app.getDoctorName(), i, 2);
+								ctr = app.getEndHour() - app.getStartHour();
 
-							if(app.getSMin() - app.getEMin() == 0 ){
-								ctr = i + (ctr*2)-1;
-							}
-							else if(app.getSMin() - app.getEMin() == -30  ){
-								ctr = i + (ctr*2);
-							}
-							else if (app.getSMin() - app.getEMin() == 30  ){
-								ctr = i + (ctr*2)-2;
-							}
+								if(app.getStartMinute() - app.getEndMinute() == 0 ){
+									ctr = i + (ctr*2)-1;
+								}
+								else if(app.getStartMinute() - app.getEndMinute() == -30  ){
+									ctr = i + (ctr*2);
+								}
+								else if (app.getStartMinute() - app.getEndMinute() == 30  ){
+									ctr = i + (ctr*2)-2;
+								}
 
-							if(app.isFree()){
+							if(app.isAvailable()){
 								for(int j=i; j<ctr; j++)
 									masterTable.addGreen(j);
 							}
@@ -411,22 +412,22 @@ public class PanelCalendarView extends JPanel{
 						cellMinute = Integer.parseInt((String) cellMinute); 
 
 						for(int k=0; k<5; k++){
-							if( month == app.getMonth() && day+k == app.getDay() && year == app.getYear() &&
-								cellHour ==  app.getSHour() && cellMinute == app.getSMin()){
-								calendarTable.setValueAt(app.getName(), i, 2);
-								ctr = app.getEHour() - app.getSHour();
+							if( month == app.getMonth() && day == app.getDay() && year == app.getYear() &&
+									(int) cellHour ==  app.getStartHour() && (int)cellMinute == app.getStartMinute()){
+									calendarTable.setValueAt(app.getDoctorName(), i, 2);
+									ctr = app.getEndHour() - app.getStartHour();
 
-								if(app.getSMin() - app.getEMin() == 0 ){
-									ctr = i + (ctr*2)-1;
-								}
-								else if(app.getSMin() - app.getEMin() == -30  ){
-									ctr = i + (ctr*2);
-								}
-								else if (app.getSMin() - app.getEMin() == 30  ){
-									ctr = i + (ctr*2)-2;
-								}
+									if(app.getStartMinute() - app.getEndMinute() == 0 ){
+										ctr = i + (ctr*2)-1;
+									}
+									else if(app.getStartMinute() - app.getEndMinute() == -30  ){
+										ctr = i + (ctr*2);
+									}
+									else if (app.getStartMinute() - app.getEndMinute() == 30  ){
+										ctr = i + (ctr*2)-2;
+									}
 
-								if(app.isFree()){
+								if(app.isAvailable()){
 									for(int j=i; j<ctr; j++){
 										masterTable.addGreen(j);
 										masterTable.addGreen(k);

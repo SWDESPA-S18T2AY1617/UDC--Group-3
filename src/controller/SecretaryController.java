@@ -28,7 +28,7 @@ public class SecretaryController extends ViewController {
 		cv = new PanelCalendarView(this, mc.getDoctorNames());
 		av = new PanelAgendaView(this, mc.getDoctorNames());
 		bv = new PanelBookingView(this);
-		mnc = new PanelMiniCalendar(this. mc.getDoctorNames());
+		mnc = new PanelMiniCalendar(this, mc.getDoctorNames());
 
 		main.setTop(hd);
 		main.setLeft(mnc);
@@ -48,30 +48,30 @@ public class SecretaryController extends ViewController {
 	public void setWeeklyFormat(){
 		dailyORweekly = false;
 		cv.setToWeekly();
-		cv.updateCalendarView(controller.getAppointments());
+		cv.updateCalendarView(controller.getAllAppointments());
 		av.setToWeekly();
-		av.updateAgendaView(controller.getAppointments());
+		av.updateAgendaView(controller.getAllAppointments());
 	}
 	public void setDailyFormat(){
 		dailyORweekly = true;
 		cv.setToDaily();
-		cv.updateCalendarView(controller.getAppointments());
+		cv.updateCalendarView(controller.getAllAppointments());
 		av.setToDaily();
-		av.updateAgendaView(controller.getAppointments());
+		av.updateAgendaView(controller.getAllAppointments());
 	}
 	public void setViewDate(int month, int day, int year){ //SETS THE DATE FOR CALENDAR AND AGENDA VIEWS
 
 		if( dailyORweekly){ //IF DAILY VIEW
 			cv.setDate(month, day, year);
-		    cv.updateCalendarView();
+		    cv.updateCalendarView(controller.getAllAppointments());
 			av.setDate(month, day, year);
-			av.updateAgendaView(controller.getAppointments());
+			av.updateAgendaView(controller.getAllAppointments());
 		}
 		else{ 
 			cv.setDate(month, day, year);
-			cv.updateCalendarView();
+			cv.updateCalendarView(controller.getAllAppointments());
 			av.setDate(month, day, year);
-			av.updateAgendaView(controller.getAppointments());
+			av.updateAgendaView(controller.getAllAppointments());
 		}
 	}
 	public void setDoc1(Boolean setting){
@@ -88,14 +88,14 @@ public class SecretaryController extends ViewController {
 	}
 	@Override
 	public void updateView() {
-		cv.updateCalendarView(controller.getAppointments());
-		av.updateAgendaView(controller.getAppointments());
+		cv.updateCalendarView(controller.getAllAppointments());
+		av.updateAgendaView(controller.getAllAppointments());
 		
 	}
 	@Override
 	public void setAppointment() {
 		// TODO Auto-generated method stub
-		if ( controller.setAppointment(bv.get)
+		//if ( controller.setAppointment(bv.get)
 		
 	}
 	@Override

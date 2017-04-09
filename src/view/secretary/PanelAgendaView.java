@@ -1,6 +1,8 @@
 package view.secretary;
 
 import controller.SecretaryController;
+import model.Appointment;
+
 import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -142,15 +144,15 @@ public class PanelAgendaView extends JPanel{
 		displayDoc3 = setting;
 	}
 
-	public void updateAgendaView(Iterator<Appointment> listofappointments){
-
+	public void updateAgendaView(Iterator<Appointment> listofAppointments){
+		int row = 0;
 		masterTable = new TableRendererCalenAgen();
 		masterTable.setCalendarorAgenda(false);
 
 
 		while(listofAppointments.hasNext()){
 
-			Appointment app = listofappointments.next();
+			Appointment app = listofAppointments.next();
 
 		if(displayDoc1 && app.getDoctorName().equals(doctor1)){
 			if(dailyORweekly){// true = daily ; false = weekly
@@ -158,10 +160,10 @@ public class PanelAgendaView extends JPanel{
 				masterTable.setDailyorWeekly(true);
 
 				if( month == app.getMonth() && day == app.getDay() && year == app.getYear()){
-					agendaTable.setValueAt(app.getSHour() + ":" +
-										   app.getSMin()/10 + "0 :" +
-										   app.getName(), row, 0);
-					if(app.isFree())
+					agendaTable.setValueAt(app.getStartHour() + ":" +
+										   app.getStartMinute()/10 + "0 :" +
+										   app.getDoctorName(), row, 0);
+					if(app.isAvailable())
 						masterTable.addGreen(row);
 					else
 						masterTable.addRed(row);
@@ -172,14 +174,14 @@ public class PanelAgendaView extends JPanel{
 			else{
 				masterTable.setDailyorWeekly(false);
 
-				for(Appointments app : listofAppointmentsDoc1){
+				for(Appointment ap : listofAppointments){
 
 					for(int i = 0; i<5; i++){
-						if( month == app.getMonth() && day+i == app.getDay() && year == app.getYear()){
-							agendaTable.setValueAt(app.getSHour() + ":" +
-												   app.getSMin()/10 + "0 :" +
-												   app.getName(), row, i);
-							if(app.isFree()){
+						if( month == ap.getMonth() && day+i == ap.getDay() && year == ap.getYear()){
+							agendaTable.setValueAt(ap.getStartHour() + ":" +
+												   ap.getStartMinute()/10 + "0 :" +
+												   ap.getDoctorName(), row, i);
+							if(ap.isAvailable()){
 								masterTable.addGreen(row);
 								masterTable.addGreen(i);
 							}
@@ -215,7 +217,7 @@ public class PanelAgendaView extends JPanel{
 			else{
 				masterTable.setDailyorWeekly(false);
 				
-				for(Appointments app : listofAppointmentsDoc1){
+				for(Appointments app : listofAppointments){
 
 					for(int i = 0; i<5; i++){
 						if( month == app.getMonth() && day+i == app.getDay() && year == app.getYear()){
@@ -257,7 +259,7 @@ public class PanelAgendaView extends JPanel{
 			else{
 				masterTable.setDailyorWeekly(false);
 				
-				for(Appointments app : listofAppointmentsDoc1){
+				for(Appointments app : listofAppointments){
 
 					for(int i = 0; i<5; i++){
 						if( month == app.getMonth() && day+i == app.getDay() && year == app.getYear()){
