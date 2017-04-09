@@ -129,4 +129,36 @@ public class ClientManager {
 		
 		return client;
 	}
+	
+	public ClientDB getClient(int client_id) throws IOException {
+		
+		ClientDB client = null;
+		ResultSet result;
+		
+		String query = "SELECET * FROM " + ClientDB.TABLE_NAME + " WHERE " +
+				ClientDB.CLIENT_ID + " = '" + client_id + "'";
+		
+		DBConnection db = new DBConnection();
+		
+		try {
+			
+			db.select(query);
+			
+			result = db.getResult();
+			
+			result.next();
+			client = new ClientDB();
+			client.setClientID(result.getInt(ClientDB.CLIENT_ID));
+			client.setName(result.getString(ClientDB.CLIENT_NAME));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(db != null) {
+				db.close();
+			}
+		}
+		
+		return client;
+	}
 }
