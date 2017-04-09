@@ -3,10 +3,13 @@ package controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import db.AppointmentDB;
+import db.AppointmentManager;
 import db.ClientDB;
 import db.ClientManager;
 import db.DoctorDB;
 import db.DoctorManager;
+import model.Appointment;
 import model.CalendarModel;
 import model.Client;
 import model.Converter;
@@ -74,7 +77,20 @@ public class MainController {
 	}
 	
 	private void initializeAppointments() {
-		
+		AppointmentManager manager = new AppointmentManager();
+		try {
+			ArrayList<AppointmentDB> list = manager.getAllAppointments();
+			for(int i = 0; i < list.size(); i++) {
+				Appointment appointment = Converter.toAppointment(list.get(i));
+				int doctorId = list.get(i).getDoctor_id();
+				Doctor d = model.getDoctor(doctorId);
+				appointment.setDoctor(d);
+				
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	//called by client or secretary

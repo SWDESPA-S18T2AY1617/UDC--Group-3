@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -24,8 +25,47 @@ public class CalendarModel {
 		sortAppointments();
 	}
 	
-	public void setAppointment() {
-		
+	public Doctor getDoctor(int doctorId) {
+		for(Doctor d : doctors) {
+			if(d.getID() == doctorId)
+				return d;
+		}
+		return null;
+	}
+	
+	public Doctor getDoctorIndex(int i) {
+		return doctors.get(i);
+	}
+	
+	public boolean setAppointment(Client c, ArrayList<Calendar> list) {
+		if(isAllValid(list)) {
+			for(int i = 0; i < list.size(); i++) {
+				for(int j = 0; j < appointments.size(); j++) {
+					if(appointments.get(j).getStart().compareTo(list.get(i)) == 0) {
+						appointments.get(j).setClient(c);
+						j = appointments.size();
+					}
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean isAllValid(ArrayList<Calendar> list) {
+		for(int i = 0; i < list.size(); i++) {
+			boolean b = false;
+			for(int j = 0; j < appointments.size(); j++) {
+				if(appointments.get(j).getStart().compareTo(list.get(i)) == 0) {
+					if(!appointments.get(i).isAvailable())
+						return false;
+					b = true;
+				}
+			}
+			if(b == false) 
+				return false;
+		}
+		return true;
 	}
 	
 	public void addAppointments(ArrayList<Appointment> a) {
@@ -45,6 +85,15 @@ public class CalendarModel {
 
 	public Iterator<Appointment> getAllAppointments() {
 		return appointments.iterator();
+	}
+	
+	public Iterator<Appointment> getAppointments(int year, int month) {
+		ArrayList<Appointment> list = new ArrayList<>();
+		for(int i = 0; i < appointments.size(); i++) {
+			if(appointments.get(i).isYear(year) && appointments.get(i).isMonth(month))
+				list.add(appointments.get(i));
+		}
+		return list.iterator();
 	}
 
 	public void sortAppointments() {
