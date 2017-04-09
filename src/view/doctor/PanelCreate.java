@@ -509,6 +509,11 @@ public class PanelCreate extends JPanel {
 						if(!isWeekend() && isValidTime()) {
 							Calendar start = getFromTime();
 							Calendar end = getToTime();
+							
+							start.clear(Calendar.SECOND);
+							start.clear(Calendar.MILLISECOND);
+							end.clear(Calendar.SECOND);
+							end.clear(Calendar.MILLISECOND);
 						
 							start.set(Calendar.MONTH, getIntSpinMonth());
 							start.set(Calendar.DAY_OF_MONTH, getSpinDay());
@@ -646,7 +651,8 @@ public class PanelCreate extends JPanel {
 							appEnd.set(Calendar.MONTH, listGC.get(i).get(Calendar.MONTH));
 							appEnd.set(Calendar.DAY_OF_MONTH, listGC.get(i).get(Calendar.DAY_OF_MONTH));
 							appEnd.set(Calendar.YEAR, listGC.get(i).get(Calendar.YEAR));
-							
+							appStart.clear(Calendar.SECOND);
+							appStart.clear(Calendar.MILLISECOND);
 							System.out.println("Create appointment " + appStart.get(Calendar.MONTH) + " " + appStart.get(Calendar.DAY_OF_MONTH) + 
 									" " + appStart.get(Calendar.YEAR) + "\n from " + appStart.get(Calendar.HOUR) + ":" + appStart.get(Calendar.MINUTE) + " to " +
 									appEnd.get(Calendar.HOUR) + ":" + appEnd.get(Calendar.MINUTE) + "\n");
