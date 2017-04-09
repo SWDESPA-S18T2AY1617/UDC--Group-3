@@ -9,7 +9,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 import view.client.*;
-
+import model.Appointment;
 import model.CalendarPointers;
 import model.Client;
 
@@ -65,15 +65,15 @@ public class ClientController extends ViewController {
 		f.setRightPanel(pd);
 	}
 
-	public void updateAll(int year, int month, int day) {
+	public void updateAll(Iterator<Appointment> activity) {
 		//ArrayList<Activity> act = new ArrayList<>();
 		//while(activity != null && activity.hasNext())
 		//	act.add(activity.next());
-		pc.update(month, year, day);
-		pa.update(month, day, year);
-		pm.update(month, day, year);
-		pd.update(month, day, year);
-		pw.update(year, month, day);
+		pc.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr());
+		pa.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), activity);
+		pm.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr());
+		pd.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), activity);
+		pw.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), activity);
 	}
 	
 	public void setMainPanel(int panelConstant) {

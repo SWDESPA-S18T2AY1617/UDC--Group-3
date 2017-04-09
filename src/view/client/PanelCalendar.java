@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 import controller.ClientController;
 
@@ -158,6 +159,14 @@ public class PanelCalendar extends JPanel {
 		String s = "" + Month.values()[currMonth].toString() + " " + currYear;
 		
 		monthLabel.setText(s);	
+	}
+	
+	public void getDoctors(ArrayList<String> doctor) {
+		
+		for(int i = 0; i < doctor.size(); i++) {
+			
+			listDoctor.addElement(doctor.get(i));
+		}
 	}
 
 	public void update(int month, int year, int day) {

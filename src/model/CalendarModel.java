@@ -37,6 +37,14 @@ public class CalendarModel {
 		return doctors.get(i);
 	}
 	
+	public ArrayList<String> getDoctorNames() {
+		ArrayList<String> list = new ArrayList<>();
+		for(Doctor d : doctors) {
+			list.add(d.getName());
+		}
+		return list;
+	}
+	
 	public boolean setAppointment(Client c, ArrayList<Calendar> list) {
 		if(isAllValid(list)) {
 			for(int i = 0; i < list.size(); i++) {
@@ -94,6 +102,28 @@ public class CalendarModel {
 				list.add(appointments.get(i));
 		}
 		return list.iterator();
+	}
+	
+	public Iterator<Appointment> getAppointments(int year, int month, ArrayList<String> filter) {
+		ArrayList<Appointment> a = new ArrayList<>();
+		if(filter.contains("All")) {
+			for(Appointment appointment : appointments) {
+				if(appointment.isYear(year) && appointment.isMonth(month))
+					a.add(appointment);
+			}
+		}
+		else {
+			for(Appointment appointment : appointments) {
+				if(appointment.isYear(year) && appointment.isMonth(month) && (filter.contains("Doctor " + appointment.getDoctorID()) || filter.contains("Client " + appointment.getClientID()))) {
+					if(filter.contains("Available") && appointment.isAvailable());
+						a.add(appointment);
+					if(filter.contains("Unavailable") && !appointment.isAvailable());
+						a.add(appointment);
+				}
+			}
+		}
+
+		return a.iterator();
 	}
 
 	public void sortAppointments() {

@@ -18,6 +18,8 @@ import java.awt.Color;
 import javax.swing.border.LineBorder;
 
 import controller.ClientController;
+import model.Appointment;
+import view.doctor.ColorParser;
 
 
 public class PanelDay extends JPanel {
@@ -33,7 +35,9 @@ public class PanelDay extends JPanel {
 	private GridBagConstraints[] gbc;
 	private GridBagConstraints[] gb;
 	private ClientController controller;
-	
+
+	public static final String COLOR_TAKEN = "red";
+	public static final String COLOR_AVAILABLE = "green";
 	public PanelDay(ClientController controller) {
 		
 		this.controller = controller;
@@ -153,21 +157,20 @@ public class PanelDay extends JPanel {
 		scrollAct.setBounds(0, 0, 665, 510);
 	}
 
-	public void update(int month, int day, int year) {
+	public void update(int month, int day, int year,Iterator<Appointment> activity) {
 		
 		this.setPanelValuesNull();
-		//this.setPanelValues(month, day, year, activity);
+		this.setPanelValues(month, day, year, activity);
 		
 	}
-	/*
-	public void setPanelValues(int month, int day, int year,Iterator<Appointment> activity) {
+	public void setPanelValues(int month, int day, int year, Iterator<Appointment> activity) {
 		System.out.println("+++++++++");
 
 		ArrayList<Appointment> activityList = new ArrayList<>();
 		
 		if(activity != null) {
 			while (activity != null && activity.hasNext()) {
-				Activity a = activity.next();
+				Appointment a = activity.next();
 				activityList.add(a);
 				}
 		
@@ -182,7 +185,7 @@ public class PanelDay extends JPanel {
 	
 	public void setAppointment(Appointment act) {
 	
-			JLabel evnt = new JLabel(act.getName());
+			JLabel evnt = new JLabel(act.toString());
 			evnt.setFont(new Font("Sans Serif", Font.BOLD, 14));
 			evnt.setForeground(Color.white);
 		
@@ -192,14 +195,15 @@ public class PanelDay extends JPanel {
 			activitySlot[start].add(evnt);
 			
 			while (start < end) {
+				if(act.isAvailable())
+					activitySlot[start].setBackground(ColorParser.getColor(COLOR_AVAILABLE));
+				else 
+					activitySlot[start].setBackground(ColorParser.getColor(COLOR_TAKEN));
 				
-				activitySlot[start].setBackground(act.getColor());
-
-				start++;
-				}
+				start ++;
 			}
 		}
-		*/
+	
 	public void setPanelValuesNull() {
 		
 		for (int i = 0; i < 48; i++) {

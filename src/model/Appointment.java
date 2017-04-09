@@ -159,8 +159,16 @@ public class Appointment {
 		return endTime;
 	}
 
+	public int getDoctorID() {
+		return doctor.getID();
+	}
+
 	public String getDoctorName() {
 		return doctor.getName();
+	}
+
+	public int getClientID() {
+		return client.getID();
 	}
 	
 	public String getClientName() {

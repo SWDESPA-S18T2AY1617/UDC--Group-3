@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import db.AppointmentDB;
 import db.AppointmentManager;
@@ -85,12 +86,34 @@ public class MainController {
 				int doctorId = list.get(i).getDoctor_id();
 				Doctor d = model.getDoctor(doctorId);
 				appointment.setDoctor(d);
-				
+				if(list.get(i).getClient_id() > 0) {
+					for(int j = 0; j < views.size(); j++) {
+						if(views.get(j) instanceof ClientController) {
+							Client c = ((ClientController) views.get(j)).getClient();
+							if(c.getID() == list.get(i).getClient_id()){
+								appointment.setClient(c);
+							}
+						}
+					}
+				} else if(list.get(i).getClient_id() == 0) {
+					
+				} else {
+					System.out.println("ERROR SETTING CLIENT");
+				}
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	
+	public Iterator<Appointment> getAppointments(int year, int month) {
+		return model.getAppointments(year, month);
+	}
+	
+	public ArrayList<String> getDoctorNames() {
+		return model.getDoctorNames();
 	}
 	
 	//called by client or secretary
