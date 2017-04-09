@@ -24,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import controller.DoctorController;
+import model.Appointment;
 import model.CalendarCalculator;
 import values.AppStrings;
 import values.Month;
@@ -41,7 +42,7 @@ public class PanelAgenda extends JPanel {
 	private JScrollPane scrollAgendaTable;
 
 	private Calendar[] calWeekScope;
-	private List<TestAppointment> listTA;
+	private List<Appointment> listTA;
 	// private ArrayList<Activity> listAppointment;
 
 	private DoctorController docController;
@@ -70,7 +71,7 @@ public class PanelAgenda extends JPanel {
 	private void initComp() {
 		// Calendar scope
 		calWeekScope = new GregorianCalendar[5];
-		listTA = new ArrayList<TestAppointment>();
+		listTA = new ArrayList<Appointment>();
 
 		// Button components
 		// btnMarkDone = new JButton("Mark tasks as completed...");
@@ -163,7 +164,7 @@ public class PanelAgenda extends JPanel {
 		}
 	}
 
-	public void setWeekAppointments(Iterator<TestAppointment> ta) {
+	public void setWeekAppointments(Iterator<Appointment> ta) {
 		listTA.removeAll(listTA);
 
 		while (ta != null && ta.hasNext()) {
@@ -171,7 +172,7 @@ public class PanelAgenda extends JPanel {
 		}
 	}
 
-	public void update(int year, int month, int day, Iterator<TestAppointment> appointments) {
+	public void update(int year, int month, int day, Iterator<Appointment> appointments) {
 
 		this.setWeekScope(year, month, day);
 		this.setWeekAppointments(appointments);
@@ -185,7 +186,7 @@ public class PanelAgenda extends JPanel {
 		this.setTableValues(year, month, day);
 	}
 	
-	public void updateWeek(int year, int month, int day, Iterator<TestAppointment> appointments) {
+	public void updateWeek(int year, int month, int day, Iterator<Appointment> appointments) {
 		this.setWeekScope(year, month, day);
 		this.setWeekAppointments(appointments);
 		this.setTableNull();
@@ -211,7 +212,7 @@ public class PanelAgenda extends JPanel {
 
 		((DefaultTableModel) modelAgendaTable).setRowCount(1);
 
-		for (TestAppointment t : listTA) {
+		for (Appointment t : listTA) {
 			System.out.println("searching for act " + month + " " + day + " " + year);
 
 			if (isToday(t, year, month, day)) {
@@ -241,9 +242,9 @@ public class PanelAgenda extends JPanel {
 
 		((DefaultTableModel) modelAgendaTable).setRowCount(1);
 
-		for (TestAppointment t : listTA) {
+		for (Appointment t : listTA) {
 			System.out.println("searching for act " + month + " " + day + " " + year);
-			System.out.println(t.getName());
+			System.out.println(t.toString());
 			if (isThisWeek(t)) {
 				System.out.println("found");
 				((DefaultTableModel) modelAgendaTable).setRowCount((modelAgendaTable.getRowCount()) + 1);
@@ -265,11 +266,11 @@ public class PanelAgenda extends JPanel {
 		repaint();
 	}
 
-	private boolean isToday(TestAppointment t, int year, int month, int day) {
+	private boolean isToday(Appointment t, int year, int month, int day) {
 		return t.isMonth(month) && t.isDay(day) && t.isYear(year);
 	}
 
-	private boolean isThisWeek(TestAppointment t) {
+	private boolean isThisWeek(Appointment t) {
 		System.out.println("PUTANGINAAAAAAAAAA");
 		for (int i = 0; i < calWeekScope.length; i++) {
 			Calendar c = calWeekScope[i];
@@ -281,169 +282,6 @@ public class PanelAgenda extends JPanel {
 		}
 		return false;
 	}
-
-	/*
-	 * public void update(int month, int day, int year, Iterator<Activity>
-	 * activity) { this.setTableNull(); this.setTableValues(month, day, year,
-	 * activity); this.updateLabel(year, month, day); this.deleteBtnDisable(); }
-	 * 
-	 * public void updateLabel(int year, int month, int day) {
-	 * lblToDoLeft.setText("Unfinished task count: " +
-	 * controller.getToDoLeft(year, month, day)); }
-	 *//*
-		 * public void deleteBtnDisable() {
-		 * 
-		 * boolean flag = false; for (int i = 0; i < agendaTable.getRowCount();
-		 * i++) { if ((agendaTable.getValueAt(i, 0) != null && !((String[])
-		 * agendaTable.getValueAt(i, 0))[1].contains("-") && !((String[])
-		 * agendaTable.getValueAt(i,
-		 * 1))[0].contains(AppStrings.NOEVENTS.toString()) && !((String[])
-		 * agendaTable.getValueAt(i, 1))[2].contains("lightgray"))) { flag =
-		 * true; } } btnMarkDone.setEnabled(flag);
-		 * 
-		 * flag = false; if
-		 * (btnDeleteDone.getText().equalsIgnoreCase("Discard completed tasks"))
-		 * { for (int i = 0; i < agendaTable.getRowCount(); i++) { if
-		 * (((String[]) agendaTable.getValueAt(i,
-		 * 1))[2].contains(Activity.COLOR_TODO_DONE)) { flag = true; } }
-		 * btnDeleteDone.setEnabled(flag); }
-		 * 
-		 * }
-		 * 
-		 * public void TESTupdate(int month, int day, int year, Activity
-		 * activity) { this.setTableNull(); this.setTableValues(month, day,
-		 * year, activity); }
-		 * 
-		 * public void setTableNull() { for (int i = 0; i <
-		 * agendaTable.getRowCount(); i++) { for (int j = 0; j <
-		 * agendaTable.getColumnCount(); j++) { agendaTable.setValueAt(null, i,
-		 * j); } } }
-		 * 
-		 * public void setAgendaColumn(int n) { if (n == 2) {
-		 * modelAgendaTable.setColumnCount(2);
-		 * agendaTable.getColumnModel().getColumn(0).setPreferredWidth(180);
-		 * agendaTable.getColumnModel().getColumn(1).setPreferredWidth(455); }
-		 * else if (n == 3) { modelAgendaTable.setColumnCount(3);
-		 * agendaTable.getColumnModel().getColumn(0).setPreferredWidth(180);
-		 * agendaTable.getColumnModel().getColumn(1).setPreferredWidth(400);
-		 * agendaTable.getColumnModel().getColumn(2).setPreferredWidth(55); } }
-		 * 
-		 * public void setTableValues(int month, int day, int year,
-		 * Iterator<Activity> activity) {
-		 * System.out.println("Setting table values"); // ArrayList<Activity>
-		 * listAppointment = new ArrayList<>(); listAppointment = new
-		 * ArrayList<>(); int rwCnt = 0;
-		 * 
-		 * modelAgendaTable.setRowCount(1); modelAgendaTable.setValueAt(new
-		 * String[] { AppStrings.NOEVENTS.toString(), "", "black", "" }, 0, 0);
-		 * modelAgendaTable.setValueAt(new String[] {
-		 * AppStrings.NOEVENTS.toString(), "", "black", "" }, 0, 1);
-		 * 
-		 * if (activity == null) { System.out.println("No activities."); } else
-		 * { // Iterator -> ArrayList while (activity != null &&
-		 * activity.hasNext()) { listAppointment.add(activity.next()); } if
-		 * (listAppointment.size() > 0)
-		 * modelAgendaTable.setRowCount(listAppointment.size()); for (int i = 0;
-		 * i < listAppointment.size(); i++) {
-		 * System.out.println("searching for act"); if
-		 * (listAppointment.get(i).isMonth(month) &&
-		 * listAppointment.get(i).isDay(day) &&
-		 * listAppointment.get(i).isYear(year)) {
-		 * System.out.println("add activity to agenda"); String[] sArr =
-		 * listAppointment.get(i).toStringArr();
-		 * 
-		 * modelAgendaTable.setValueAt(sArr, rwCnt, 0);
-		 * modelAgendaTable.setValueAt(sArr, rwCnt, 1);
-		 * 
-		 * rwCnt++; } } } revalidate(); repaint(); }
-		 * 
-		 * public void setTableValues(int month, int day, int year, Activity
-		 * activity) { // FOR TESTING int rwCnt = 0;
-		 * 
-		 * if (activity == null) { System.out.println("No activities."); } else
-		 * { if (activity.isMonth(month) && activity.isDay(day) &&
-		 * activity.isYear(year)) { String[] sArr = activity.toStringArr();
-		 * 
-		 * for (int i = 0; i < sArr.length; i++) { System.out.println(sArr[i]);
-		 * }
-		 * 
-		 * modelAgendaTable.setValueAt(sArr, rwCnt, 0);
-		 * modelAgendaTable.setValueAt(sArr, rwCnt, 1);
-		 * 
-		 * rwCnt++; } }
-		 * 
-		 * revalidate(); repaint(); }
-		 * 
-		 * private void addListeners() { btnMarkDone.addActionListener(new
-		 * MarkDone()); btnDeleteDone.addActionListener(new DeleteDone()); }
-		 * 
-		 * class MarkDone implements ActionListener {
-		 * 
-		 * @Override public void actionPerformed(ActionEvent e) { if
-		 * (btnMarkDone.getText().equalsIgnoreCase("Mark tasks as completed..."
-		 * )) { btnMarkDone.setText("Mark as completed");
-		 * btnDeleteDone.setText("Cancel");
-		 * 
-		 * btnMarkDone.setEnabled(true); btnDeleteDone.setEnabled(true);
-		 * 
-		 * setAgendaColumn(3);
-		 * 
-		 * for (int i = 0; i < agendaTable.getRowCount(); i++) { if
-		 * (agendaTable.getValueAt(i, 0) != null && !((String[])
-		 * agendaTable.getValueAt(i, 0))[1].contains("-") && ((String[])
-		 * agendaTable.getValueAt(i, 0))[1].contains(":") && !((String[])
-		 * agendaTable.getValueAt(i, 1))[2].contains("lightgray")) {
-		 * ((AgendaTableModel) agendaTable.getModel()).setCellEditable(i, 2,
-		 * true);
-		 * 
-		 * String[] sArr = (String[]) agendaTable.getValueAt(i, 0); for (int j =
-		 * 0; j < sArr.length; j++) { System.out.println("MARK " + sArr[j]); }
-		 * 
-		 * } else { ((AgendaTableModel)
-		 * agendaTable.getModel()).setCellEditable(i, 2, false); } } } else if
-		 * (btnMarkDone.getText().equalsIgnoreCase("Mark as completed")) {
-		 * btnMarkDone.setText("Mark tasks as completed...");
-		 * btnDeleteDone.setText("Discard completed tasks");
-		 * 
-		 * System.out.println("RWCNT: " + agendaTable.getRowCount());
-		 * 
-		 * for (int i = 0; i < agendaTable.getRowCount(); i++) { if
-		 * (agendaTable.getValueAt(i, 2) != null && (boolean)
-		 * agendaTable.getValueAt(i, 2)) { String[] sArr = (String[])
-		 * agendaTable.getValueAt(i, 0);
-		 * 
-		 * for (int j = 0; j < sArr.length; j++) {
-		 * System.out.println("COMPLETE " + sArr[j]); }
-		 * controller.markDone(Integer.parseInt(sArr[3])); } }
-		 * controller.updateView(); setAgendaColumn(2); }
-		 * 
-		 * }
-		 * 
-		 * }
-		 * 
-		 * class DeleteDone implements ActionListener {
-		 * 
-		 * @Override public void actionPerformed(ActionEvent e) { if
-		 * (btnDeleteDone.getText().equalsIgnoreCase("Cancel")) {
-		 * btnMarkDone.setText("Mark tasks as completed...");
-		 * btnDeleteDone.setText("Discard completed tasks");
-		 * 
-		 * setAgendaColumn(2); } else if
-		 * (btnDeleteDone.getText().equalsIgnoreCase("Discard completed tasks"))
-		 * {
-		 * 
-		 * setAgendaColumn(3);
-		 * 
-		 * for (int i = agendaTable.getRowCount() - 1; i >= 0; i--) { if
-		 * (agendaTable.getValueAt(i, 1) != null && ((String[])
-		 * agendaTable.getValueAt(i, 1))[2].contains(Activity.COLOR_TODO_DONE))
-		 * { String[] sArr = (String[]) agendaTable.getValueAt(i, 0);
-		 * controller.deleteActivity(Integer.parseInt(sArr[3])); } }
-		 * setAgendaColumn(2); } controller.updateView(); }
-		 * 
-		 * }
-		 */
-
 }
 
 class AgendaTableModel extends DefaultTableModel {

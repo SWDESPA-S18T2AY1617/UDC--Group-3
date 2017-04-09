@@ -35,7 +35,9 @@ public class TableRendererAgenda extends DefaultTableCellRenderer {
             	if(value instanceof TestAppointment) {
             		TestAppointment t = (TestAppointment)value;
             		setText(t.getName());
-            		setForeground(t.getColor());
+            		if(t.getTaken())
+            			setForeground(ColorParser.getColor(PanelDay.COLOR_TAKEN));
+            		else setForeground(ColorParser.getColor(PanelDay.COLOR_AVAILABLE));
             		setFont(new Font("Sans Serif", Font.BOLD, 16));
             	}
             }
