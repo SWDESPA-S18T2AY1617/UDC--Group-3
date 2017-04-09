@@ -181,6 +181,17 @@ public class PanelMenu extends JPanel {
 	}
 
 	public void testAddListeners() {
+		btnToday.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dController.setDayCurr(dController.getDayBound());
+				dController.setMonthCurr(dController.getMonthBound());
+				dController.setYearCurr(dController.getYearBound());
+				dController.updateView();
+			}
+			
+		});
 		btnCal.addActionListener(new ActionListener() {
 
 			@Override

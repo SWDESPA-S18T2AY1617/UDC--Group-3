@@ -286,6 +286,7 @@ public class PanelCalendar extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				docController.addMonth();
+				docController.updateView();
 			}
 			
 		});
@@ -294,6 +295,7 @@ public class PanelCalendar extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				docController.subMonth();
+				docController.updateView();
 			}
 			
 		});
@@ -308,12 +310,14 @@ public class PanelCalendar extends JPanel {
 				if(table.getValueAt(row, col) != null) {
 					int day = (Integer)table.getValueAt(row, col);
 					docController.setDayCurr(day);
+					docController.updateView();
 				}
 				else {
 					int[] indexes = getIndexOfDay(1);
 					int day = (Integer)table.getValueAt(indexes[0], indexes[1]);
 					setSelectedCell(1);
 					docController.setDayCurr(day);
+					docController.updateView();
 				}
 			}
 		});
