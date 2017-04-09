@@ -45,6 +45,8 @@ public class PanelCalendar extends JPanel {
 		// Add panel components
 		this.addPlaceComp();
 		
+		this.getDoctors();
+		
 		// Add table cell content
 		this.update(currMonth, currYear, currDay);
 		
@@ -161,11 +163,11 @@ public class PanelCalendar extends JPanel {
 		monthLabel.setText(s);	
 	}
 	
-	public void getDoctors(ArrayList<String> doctor) {
+	private void getDoctors() {
 		
-		for(int i = 0; i < doctor.size(); i++) {
+		for(int i = 0; i < controller.getDoctorName().size(); i ++) {
 			
-			listDoctor.addElement(doctor.get(i));
+			listDoctor.addElement(controller.getDoctorName().get(i));
 		}
 	}
 

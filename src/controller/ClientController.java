@@ -24,6 +24,7 @@ public class ClientController extends ViewController {
 	private PanelDay pd;
 	private PanelWeek pw;
 	private PanelReservation pa;
+	private MainController controller;
 	
 	public static final int PANEL_DAY = 1;
 	public static final int PANEL_RESERVATION = 2;
@@ -33,6 +34,7 @@ public class ClientController extends ViewController {
 	public ClientController(MainController controller)
 	{
 		super(controller);
+		this.controller = controller;
 		
 		f = new FrameMain();
 		pc = new PanelCalendar(this, super.getYearBound(), super.getMonthBound(), super.getDayBound());
@@ -60,6 +62,7 @@ public class ClientController extends ViewController {
 		pw = new PanelWeek(this, super.getYearBound(), super.getMonthBound(), super.getDayBound());
 		pd = new PanelDay(this);
 		
+		f.setFTitle(client.getName());
 		f.setLeftPanel(pc);
 		f.setTopPanel(pm);
 		f.setRightPanel(pd);
@@ -102,10 +105,9 @@ public class ClientController extends ViewController {
 		return client;
 	}
 	
-	public void updateView(/*Maybe an Iterator of Appointments*/)
-	{
-		//will be called by MainController
+	public ArrayList<String> getDoctorName() {
 		
+		return this.getDoctorName();
 	}
 	/*
 	//check appointments (parameter == filter, can be changed to ArrayList<Integer> if preferred, depends on model implementation)
@@ -114,18 +116,27 @@ public class ClientController extends ViewController {
 		//will call MainController to check appointments from the model
 	}
 	*/
-	public void setAppointment()
-	{
-		//will call MainController and will be called by the view to set appointment to the model
-		
-		this.updateView();
-	}
 	
-	public void cancelAppointment()
-	{
-		//will call MainController and will be called by the view to cancel appointment
+	public void updateView() {
+		// TODO Auto-generated method stub
 		
-		this.updateView();
+	}
+
+	public boolean setAppointment(Client c, Calendar start, Calendar end) {
+		// TODO Auto-generated method stub
+		return controller.setAppointment(c, start, end);
+		
+	}
+
+	public void cancelAppointment(Calendar start) {
+		// TODO Auto-generated method stub
+		controller.cancelAppointment(start);
+	}
+
+	@Override
+	public void setAppointment() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

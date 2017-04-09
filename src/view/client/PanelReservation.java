@@ -12,6 +12,7 @@ import java.util.Iterator;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -30,6 +31,7 @@ public class PanelReservation extends JPanel {
 
 	//private JButton btnMarkDone;
 	private JButton btnCancel;
+	private JList appointments;
 
 	private AgendaTableModel modelAgendaTable;
 	private JScrollPane scrollAgendaTable;
@@ -47,7 +49,6 @@ public class PanelReservation extends JPanel {
 
 		// Initialize panel components
 		this.initComp();
-		this.controller = controller;
 
 		// Add panel components
 		this.addPlaceComp();
@@ -136,6 +137,7 @@ public class PanelReservation extends JPanel {
 					flag = true;
 				}
 			}
+		
 			btnCancel.setEnabled(flag);
 		}
 	
@@ -210,11 +212,11 @@ public class PanelReservation extends JPanel {
 	}
 	private void addListeners() {
 		
-		btnCancel.addActionListener(new DeleteAppointment());
+		btnCancel.addActionListener(new CancelAppointment());
 	}
 	
 
-	class DeleteAppointment implements ActionListener {
+	class CancelAppointment implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {

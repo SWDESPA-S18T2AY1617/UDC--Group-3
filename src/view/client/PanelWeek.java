@@ -132,7 +132,7 @@ public class PanelWeek extends JPanel {
 				for(int j = 0; j < calWeekScope.length; j++) {
 					if (activityList.get(i).isMonth(calWeekScope[j].get(Calendar.MONTH)) && activityList.get(i).isDay(calWeekScope[j].get(Calendar.DAY_OF_MONTH))
 							&& activityList.get(i).isYear(calWeekScope[j].get(Calendar.YEAR))) {
-						setEvent(activityList.get(i));
+						setAppointment(activityList.get(i));
 					}
 				}
 				
@@ -140,7 +140,7 @@ public class PanelWeek extends JPanel {
 		}
 	}
 
-	public void setEvent(Appointment act) {
+	public void setAppointment(Appointment act) {
 
 		JLabel evnt = new JLabel(act.toString());
 		evnt.setFont(new Font("Sans Serif", Font.BOLD, 14));

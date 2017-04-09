@@ -35,7 +35,6 @@ import values.Month;
 public class PanelCreate extends JPanel{
 	
 	//private JTextField jtxtTitle;
-	private ButtonGroup bg;
 	private JLabel lblTo;
 	private JLabel lblTColon;
 	private JLabel lblFColon;
@@ -74,7 +73,6 @@ public class PanelCreate extends JPanel{
 		lblFColon = new JLabel(":");
 		btnSave = new JButton("Save");
 		btnDiscard = new JButton("Discard");
-		bg = new ButtonGroup();
 
 		// initialize spinners
 		SpinnerModel model = new SpinnerNumberModel(00, 00, 23, 1);
@@ -270,16 +268,13 @@ public class PanelCreate extends JPanel{
 			end.set(Calendar.HOUR, getSpinToHour());
 			end.set(Calendar.MINUTE, getSpinToMinutes());
 			
-			Appointment a = new Appointment(start, end);
-			//	if(controller.isActivityValid(a)) {
-				//	controller.addActivity(a);
-				//	JOptionPane.showMessageDialog(null, "Event Successfully Created!", "Event Created", JOptionPane.INFORMATION_MESSAGE);
-			//}
-			//else
-			//		JOptionPane.showMessageDialog(null, "Event Invalid", "Failed", JOptionPane.ERROR_MESSAGE);
-		//	}
-		//	else
-			//	JOptionPane.showMessageDialog(null, "Fill Up All Fields", "Warning", JOptionPane.WARNING_MESSAGE);
+			controller.setAppointment(controller.getClient(), start, end);
+				if(controller.setAppointment(controller.getClient(), start, end)) {
+					JOptionPane.showMessageDialog(null, "Appointment Successfully Created!", "Event Created", JOptionPane.INFORMATION_MESSAGE);
+			}
+			else
+					JOptionPane.showMessageDialog(null, "Appointment cannot be added", "Failed", JOptionPane.ERROR_MESSAGE);
+			
 			
 		}
 	}

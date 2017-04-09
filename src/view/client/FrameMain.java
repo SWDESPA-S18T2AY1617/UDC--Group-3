@@ -9,7 +9,7 @@ public class FrameMain extends JFrame {
 	private JPanel rightPanel;
 
 	public FrameMain() {
-		super("Client View");
+
 
 		this.setResizable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -35,6 +35,11 @@ public class FrameMain extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 		//testPanels();
+	}
+	
+	public void setFTitle(String n) {
+		
+		this.setTitle(n);
 	}
 
 	public void setTopPanel(JPanel panel) {
