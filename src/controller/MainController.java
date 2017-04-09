@@ -117,25 +117,37 @@ public class MainController {
 		return model.getDoctorNames();
 	}
 	
+	public void updateAll() {
+		for(ViewController vc : views)
+			vc.updateView();
+	}
+	
 	//called by client or secretary
 	public void cancelAppointment(Calendar start) {
 		model.cancelAppointment(start);
+		updateAll();
 	}
 	
 	//called by doctor
 	public void deleteAppointment(Calendar start) {
 		model.deleteAppointment(start);
+		updateAll();
 	}
 	
 	//called by client or secretary
 	public boolean setAppointment(Client c, Calendar start, Calendar end) {
-		return model.setAppointment(c, start, end);
+		if(model.setAppointment(c, start, end)) {
+			updateAll();
+			return true;
+		}
+		else return false;
 	}
 	
 	//called by doctor
 	public boolean addAppointment(Appointment appointment) {
 		if(model.isAppointmentValid(appointment)) {
 			model.addAppointment(appointment);
+			updateAll();
 			return true;
 		}
 		else {
