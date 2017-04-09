@@ -119,7 +119,7 @@ public class MainController {
 	
 	//called by client or secretary
 	public void cancelAppointment(Calendar start) {
-		
+		model.cancelAppointment(start);
 	}
 	
 	//called by doctor
