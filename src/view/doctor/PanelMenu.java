@@ -43,7 +43,6 @@ public class PanelMenu extends JPanel {
 
 	private Image imgIcon;
 	private JLabel lblIcon;
-	// private Controller controller;
 
 	private DoctorController dController;
 

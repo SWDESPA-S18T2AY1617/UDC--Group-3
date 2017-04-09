@@ -25,7 +25,7 @@ import java.awt.event.*;
 
 public class PanelCalendar extends JPanel {
 
-	private JLabel monthLabel, filterLabel;
+	private JLabel monthLabel, filterLabel, doctorLabel;
 	private JButton btnPrev, btnNext;
 	private JScrollPane scrollCalendarTable;
 
@@ -67,6 +67,7 @@ public class PanelCalendar extends JPanel {
 
 	public void initComp(int currMonth) {
 		monthLabel = new JLabel(Month.values()[currMonth].toString());
+		doctorLabel = new JLabel("Welcome Dr. ");
 		filterLabel = new JLabel("Filter");
 		btnPrev = new JButton("<");
 		btnNext = new JButton(">");
@@ -74,6 +75,7 @@ public class PanelCalendar extends JPanel {
 		chckAvailable = new JCheckBox("Available");
 		chckUnavailable = new JCheckBox("Unavailable");
 		
+		doctorLabel.setFont(new Font("Sans Serif", Font.BOLD, 14));
 		filterLabel.setFont(new Font("Sans Serif", Font.BOLD, 16));
 		
 		btnCreate.setForeground(Color.WHITE);
@@ -82,7 +84,6 @@ public class PanelCalendar extends JPanel {
 		btnCreate.setOpaque(true);
 		btnCreate.setFocusPainted(false);
 		btnCreate.setBackground(new Color(77, 148, 179));
-		//btnCreate.setBorder(BorderFactory.createEmptyBorder());
 		btnCreate.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 		btnNext.setForeground(Color.GRAY);
@@ -146,16 +147,22 @@ public class PanelCalendar extends JPanel {
 		this.add(filterLabel);
 		this.add(chckAvailable);
 		this.add(chckUnavailable);
-
+		this.add(doctorLabel);
+		
 		// Place components on layout (includes setting of size)
-		monthLabel.setBounds(15, 70, 100, 20);
-		btnPrev.setBounds(150, 65, 25, 25);
-		btnNext.setBounds(180, 65, 25, 25);
-		btnCreate.setBounds(15, 15, 190, 40);
-		scrollCalendarTable.setBounds(15, 100, 190, 205);
-		filterLabel.setBounds(15, 310, 100, 40);
-		chckAvailable.setBounds(30, 345, 100, 40);
-		chckUnavailable.setBounds(30, 385, 120, 40);
+		monthLabel.setBounds(15, 100, 100, 20);
+		btnPrev.setBounds(150, 95, 25, 25);
+		btnNext.setBounds(180, 95, 25, 25);
+		doctorLabel.setBounds(15, 10, 190, 30);
+		btnCreate.setBounds(15, 45, 190, 40);
+		scrollCalendarTable.setBounds(15, 130, 190, 205);
+		filterLabel.setBounds(15, 340, 100, 40);
+		chckAvailable.setBounds(30, 375, 100, 40);
+		chckUnavailable.setBounds(30, 415, 120, 40);
+	}
+	
+	public void setDoctorName(String name) {
+		doctorLabel.setText("Welcome Dr. " + name);
 	}
 	
 	private void createDateLabel(int currMonth, int currYear) {
@@ -169,15 +176,6 @@ public class PanelCalendar extends JPanel {
 		// Enable previous and next buttons
 		btnPrev.setEnabled(true);
 		btnNext.setEnabled(true);
-
-		/*
-		// If month is January and 100 years less than current year
-		if (month == 0 && year <= Integer.parseInt((String) cmbYear.getItemAt(0)))
-			btnPrev.setEnabled(false);
-		// If month is December and 100 years more than current year
-		if (month == 11 && year >= Integer.parseInt((String) (cmbYear.getItemAt(cmbYear.getItemCount() - 1))))
-			btnNext.setEnabled(false);
-		*/
 
 		// Set month label to current month
 		this.createDateLabel(month, year);

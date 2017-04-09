@@ -1,5 +1,6 @@
 package view.doctor;
 
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -11,19 +12,22 @@ public class TestGUI {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
-		//ViewController vw = new ViewController(2017, 10, 29);
-		MainController mc = new MainController();
-		DoctorController dc = new DoctorController(mc);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				MainController mc = new MainController();
+				DoctorController dc = new DoctorController(mc);
+				if(dc.showDoctorWho()) {
+					dc.createAndShowGUI();
+				}
+			}
+		});
 	}
 }
