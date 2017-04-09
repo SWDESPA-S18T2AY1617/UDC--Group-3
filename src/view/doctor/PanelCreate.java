@@ -518,7 +518,10 @@ public class PanelCreate extends JPanel {
 							end.set(Calendar.DAY_OF_MONTH, getSpinDay());
 							end.set(Calendar.YEAR, getSpinYear());
 							
-							docController.setAppointment();
+							Appointment a = new Appointment(start, end);
+							if(!docController.addAppointment(a))
+								JOptionPane.showMessageDialog(null, "Cannot add appointment because of overlap.", "Cannot add appointment", JOptionPane.WARNING_MESSAGE);
+							else JOptionPane.showMessageDialog(null, "Successfully added appointment!");
 						}
 						if(isWeekend())
 							JOptionPane.showMessageDialog(null, "Weekend appointments are not applicable.");
@@ -623,6 +626,7 @@ public class PanelCreate extends JPanel {
 								System.out.println("week pointer " + gc.get(Calendar.WEEK_OF_YEAR) + " date: " + sdf.format(gc.getTime()));
 							}
 						}
+						int successAdd = 0;
 						
 						for(int i = 0; i < listGC.size(); i++) {
 							GregorianCalendar appStart = (GregorianCalendar) start.clone();
@@ -640,11 +644,13 @@ public class PanelCreate extends JPanel {
 								Appointment a = new Appointment(appStart, appEnd);
 								if(!docController.addAppointment(a))
 									JOptionPane.showMessageDialog(null, "Cannot add appointment because of overlap.", "Cannot add appointment", JOptionPane.WARNING_MESSAGE);
+								else successAdd++;
 							}
 							System.out.println("Create appointment " + appStart.get(Calendar.MONTH) + " " + appStart.get(Calendar.DAY_OF_MONTH) + 
 									" " + appStart.get(Calendar.YEAR) + "\n from " + appStart.get(Calendar.HOUR) + ":" + appStart.get(Calendar.MINUTE) + " to " +
 									appEnd.get(Calendar.HOUR) + ":" + appEnd.get(Calendar.MINUTE) + "\n");
 						}
+						JOptionPane.showMessageDialog(null, "Successfully added " + successAdd + " appointment(s)!");
 					}
 				} else JOptionPane.showMessageDialog(null, "Time values invalid.");
 			}
