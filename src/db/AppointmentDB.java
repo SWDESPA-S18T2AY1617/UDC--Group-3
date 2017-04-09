@@ -17,23 +17,19 @@ public class AppointmentDB {
 	private String date;
 	private int client_id;
 	private int doctor_id;
-	private String type;
 	
 	public AppointmentDB() { }
-
+	
+	//didnt include client id in constructor kasi may possibility na walang client
+	//setClient_id n lng if meron
 	public AppointmentDB(int appointment_id, String start_time, String end_time, 
-					   String date, int person_id, String type) {
+					   String date, int doctor_id) {
 		super();
 		this.appointment_id = appointment_id;
 		this.start_time = start_time;
 		this.end_time = end_time;
 		this.date = date;
-		this.type = type;
-		
-		if(type.equals("Client"))
-			this.client_id = person_id;
-		else if(type.equals("Doctor"))
-			this.doctor_id = person_id;
+		this.doctor_id = doctor_id;
 	}
 
 	public int getAppointment_id() {
@@ -82,14 +78,6 @@ public class AppointmentDB {
 
 	public void setDoctor_id(int doctor_id) {
 		this.doctor_id = doctor_id;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
 	}
 
 }

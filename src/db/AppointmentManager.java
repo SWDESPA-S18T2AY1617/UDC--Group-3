@@ -28,7 +28,6 @@ public class AppointmentManager {
 				appointment.setStart_time(result.getString(AppointmentDB.COL_STARTTIME));
 				appointment.setEnd_time(result.getString(AppointmentDB.COL_ENDTIME));
 				appointment.setDate(result.getString(AppointmentDB.COL_DATE));
-				appointment.setType(result.getString(AppointmentDB.COL_TYPE));
 				appointment.setClient_id(result.getInt(AppointmentDB.COL_CLIENTID));
 				appointment.setDoctor_id(result.getInt(AppointmentDB.COL_DOCTORID));
 				
@@ -51,10 +50,10 @@ public class AppointmentManager {
 		
 		String query = "INSERT INTO " + AppointmentDB.TABLE_NAME + " (" +
 				AppointmentDB.COL_STARTTIME + ", " + AppointmentDB.COL_ENDTIME +
-				", " + AppointmentDB.COL_DATE + ", " + AppointmentDB.COL_TYPE + ", " + 
+				", " + AppointmentDB.COL_DATE + ", " +  
 				AppointmentDB.COL_CLIENTID + ", " + AppointmentDB.COL_DOCTORID + ") VALUES ('" + 
 				appointment.getStart_time() + "', '" + appointment.getEnd_time() + "', '" +
-				appointment.getDate() + "', '" + appointment.getType() + "', '" + 
+				appointment.getDate() + "', '" +  
 				appointment.getClient_id() + "', '" + appointment.getDoctor_id() + "')";
 		
 		DBConnection db = new DBConnection();
@@ -117,7 +116,6 @@ public class AppointmentManager {
 			appointment.setStart_time(result.getString(AppointmentDB.COL_STARTTIME));
 			appointment.setEnd_time(result.getString(AppointmentDB.COL_ENDTIME));
 			appointment.setDate(result.getString(AppointmentDB.COL_DATE));
-			appointment.setType(result.getString(AppointmentDB.COL_TYPE));
 			appointment.setClient_id(result.getInt(AppointmentDB.COL_CLIENTID));
 			appointment.setDoctor_id(result.getInt(AppointmentDB.COL_DOCTORID));
 			
