@@ -392,7 +392,7 @@ public class PanelWeek extends JPanel {
 
 	public void setEvent(Appointment act) {
 
-		JLabel evnt = new JLabel(act.toString());
+		JLabel evnt = new JLabel(act.toStringDrClient());
 		evnt.setFont(new Font("Sans Serif", Font.BOLD, 14));
 		evnt.setForeground(Color.white);
 

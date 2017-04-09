@@ -26,6 +26,7 @@ import javax.swing.table.TableModel;
 import controller.DoctorController;
 import model.Appointment;
 import model.CalendarCalculator;
+import model.Client;
 import values.AppStrings;
 import values.Month;
 
@@ -87,7 +88,7 @@ public class PanelAgenda extends JPanel {
 		// lblToDoLeft.setFont(new Font("Sans Serif", Font.PLAIN, 14));
 
 		// Table components
-		modelAgendaTable = new AgendaTableModel(100, 3);
+		modelAgendaTable = new AgendaTableModel(100, 4);
 
 		agendaTable = new JTable(modelAgendaTable) {
 			@Override
@@ -103,7 +104,7 @@ public class PanelAgenda extends JPanel {
 			}
 		};
 
-		((DefaultTableModel) modelAgendaTable).setColumnCount(3);
+		((DefaultTableModel) modelAgendaTable).setColumnCount(4);
 		((DefaultTableModel) modelAgendaTable).setRowCount(1);
 
 		scrollAgendaTable = new JScrollPane(agendaTable);
@@ -118,7 +119,8 @@ public class PanelAgenda extends JPanel {
 		agendaTable.setRowHeight(30);
 		agendaTable.getColumnModel().getColumn(0).setPreferredWidth(125);
 		agendaTable.getColumnModel().getColumn(1).setPreferredWidth(125);
-		agendaTable.getColumnModel().getColumn(2).setPreferredWidth(385);
+		agendaTable.getColumnModel().getColumn(2).setPreferredWidth(162);
+		agendaTable.getColumnModel().getColumn(3).setPreferredWidth(162);
 		agendaTable.getColumnModel().setColumnMargin(20);
 		agendaTable.setFocusable(false);
 		agendaTable.setRowSelectionAllowed(false);
@@ -227,7 +229,11 @@ public class PanelAgenda extends JPanel {
 				modelAgendaTable.setValueAt(date, rwCnt, 0);
 				modelAgendaTable.setValueAt(time, rwCnt, 1);
 				modelAgendaTable.setValueAt(t, rwCnt, 2);
-
+				if(!t.isAvailable()) {
+					modelAgendaTable.setValueAt(t, rwCnt, 3);
+				}
+					
+				
 				rwCnt++;
 			}
 		}

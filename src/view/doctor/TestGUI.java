@@ -6,6 +6,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import controller.DoctorController;
 import controller.MainController;
+import model.Doctor;
 
 public class TestGUI {
 	public static void main(String[] args) {
@@ -23,7 +24,7 @@ public class TestGUI {
 		
 		MainController mc = new MainController();
 		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
+			public void run() {/*
 				DoctorController dc = new DoctorController(mc);
 				if(dc.showDoctorWho()) {
 					dc.createGUI();
@@ -36,6 +37,10 @@ public class TestGUI {
 				}
 				
 				System.out.println("hhhhhuuuuuuuuuuhhhhhhuuuuuuu");
+				*/
+				DoctorController dc = new DoctorController(mc, new Doctor("Mike"));
+				dc.createGUI();
+				dc.showGUI();
 			}
 			
 		});

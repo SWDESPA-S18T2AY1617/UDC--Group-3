@@ -503,13 +503,14 @@ public class PanelCreate extends JPanel {
 					System.out.println("Repeat appointment " + getRepeatEndAfter() + " times. " + getRepeats() + ". "
 							+ "Every " + getRepeatsEvery() + " units.");
 
-					// Set first appointment
+					// GET TIMES
 					Calendar start = getFromTime();
 					Calendar end = getToTime();
 
 					// Check if there are conflicts
 					// if there is none, create appointment
 
+					// GET DATES
 					if (getRepeats().equalsIgnoreCase("daily")) {
 						ArrayList<GregorianCalendar> listGC = new ArrayList<GregorianCalendar>();
 
