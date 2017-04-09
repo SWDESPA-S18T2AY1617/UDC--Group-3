@@ -187,6 +187,14 @@ public class Appointment {
 		return client == null;
 	}
 	
+	public Doctor getDoctor() {
+		return doctor;
+	}
+	
+	public Client getClient() {
+		return client;
+	}
+	
 	public boolean isOverlapping(Appointment activity) {
 		return this.startTime.before(activity.getEnd()) && activity.getStart().before(this.endTime);
 	}
