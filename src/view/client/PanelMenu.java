@@ -140,7 +140,7 @@ public class PanelMenu extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			controller.setMainPanel(ClientViewController.PANEL_DAY);
+			controller.setMainPanel(ClientController.PANEL_DAY);
 		}
 	}
 	
@@ -148,7 +148,7 @@ public class PanelMenu extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			controller.setMainPanel(ClientViewController.PANEL_WEEK);
+			controller.setMainPanel(ClientController.PANEL_WEEK);
 		}
 	}
 	
@@ -156,7 +156,7 @@ public class PanelMenu extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			controller.setMainPanel(ClientViewController.PANEL_RESERVATION);
+			controller.setMainPanel(ClientController.PANEL_RESERVATION);
 		}
 	}
 	

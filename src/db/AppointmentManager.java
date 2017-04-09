@@ -131,5 +131,33 @@ public class AppointmentManager {
 		
 		return appointment;		
 	}
+	
+	public int getCurrAutoInc() throws IOException{
+		ResultSet result;
+		int ctr = 0;
+		
+		String query = "SELECT `AUTO_INCREMENT` FROM INFORMATION_SCHEMA.TABLES" +
+				   	   " WHERE TABLE_SCHEMA = 'udc_db' AND TABLE_NAME = '" + AppointmentDB.TABLE_NAME + "'";
+	
+		DBConnection db = new DBConnection();
+		
+		try {
+			// result : successful or not successful
+			db.select(query);
+			
+			result = db.getResult();
+			result.next();
+			
+			ctr = result.getInt("AUTO_INCREMENT");			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(db != null) {
+				db.close();
+			}
+		}
+		
+		return ctr;		
+	}
 
 }

@@ -288,7 +288,7 @@ public class PanelCalendar extends JPanel {
 	class BtnCreate implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			controller.setMainPanel(ClientViewController.PANEL_CREATE);
+			controller.setMainPanel(ClientController.PANEL_CREATE);
 			if(btnCreate.isEnabled())
 				btnCreate.setEnabled(false);
 		}
