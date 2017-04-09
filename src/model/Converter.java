@@ -1,12 +1,11 @@
 package model;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
 
 import db.AppointmentDB;
 import db.ClientDB;
 import db.ClientManager;
+import db.DoctorDB;
 import db.DoctorManager;
 
 public class Converter {

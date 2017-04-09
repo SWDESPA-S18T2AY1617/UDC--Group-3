@@ -6,15 +6,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 //import db.DBConnection;
-//import db.Doctor;
+//import db.DoctorDB;
 
 public class DoctorManager{
 
-	public ArrayList<Doctor> getAllDoctors() throws IOException{
-		ArrayList<Doctor> doctorList = new ArrayList<Doctor>();
-		Doctor doctor = null;
+	public ArrayList<DoctorDB> getAllDoctors() throws IOException{
+		ArrayList<DoctorDB> doctorList = new ArrayList<DoctorDB>();
+		DoctorDB doctor = null;
 		
-		String query = "SELECT * FROM " + Doctor.TABLE_NAME;
+		String query = "SELECT * FROM " + DoctorDB.TABLE_NAME;
 		
 		DBConnection db = new DBConnection();
 		
@@ -24,9 +24,9 @@ public class DoctorManager{
 			ResultSet result = db.getResult();
 			
 			while(result.next()){
-				doctor = new Doctor();
-				doctor.setDoctor_id(result.getInt(Doctor.COL_DOCTORID));
-				doctor.setName(result.getString(Doctor.COL_NAME));
+				doctor = new DoctorDB();
+				doctor.setDoctor_id(result.getInt(DoctorDB.COL_DOCTORID));
+				doctor.setName(result.getString(DoctorDB.COL_NAME));
 				
 				doctorList.add(doctor);
 			}
@@ -41,11 +41,11 @@ public class DoctorManager{
 		return doctorList;
 	}
 	
-	public boolean addDoctor(Doctor doctor) throws IOException{
+	public boolean addDoctor(DoctorDB doctor) throws IOException{
 		boolean result;
 		
-		String query = "INSERT INTO " + Doctor.TABLE_NAME + " ("
-		+ Doctor.COL_NAME + ") VALUES ('" + doctor.getName() + "')";
+		String query = "INSERT INTO " + DoctorDB.TABLE_NAME + " ("
+		+ DoctorDB.COL_NAME + ") VALUES ('" + doctor.getName() + "')";
 		
 		DBConnection db = new DBConnection();
 		
@@ -60,12 +60,12 @@ public class DoctorManager{
 		return result;
 	}
 	
-	public Doctor getDoctor(String name) throws IOException{
-		Doctor doctor = null;
+	public DoctorDB getDoctor(String name) throws IOException{
+		DoctorDB doctor = null;
 		ResultSet result;
 		
-		String query = "SELECT * FROM " + Doctor.TABLE_NAME +
-						" WHERE " + Doctor.COL_NAME + " = '" + name + " '";
+		String query = "SELECT * FROM " + DoctorDB.TABLE_NAME +
+						" WHERE " + DoctorDB.COL_NAME + " = '" + name + " '";
 			
 		DBConnection db = new DBConnection();
 		
@@ -75,9 +75,9 @@ public class DoctorManager{
 			result = db.getResult();
 			
 			result.next();
-			doctor = new Doctor();
-			doctor.setDoctor_id(result.getInt(Doctor.COL_DOCTORID));
-			doctor.setName(result.getString(Doctor.COL_NAME));
+			doctor = new DoctorDB();
+			doctor.setDoctor_id(result.getInt(DoctorDB.COL_DOCTORID));
+			doctor.setName(result.getString(DoctorDB.COL_NAME));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -90,5 +90,54 @@ public class DoctorManager{
 		return doctor;
 	}
 	
+	public DoctorDB getDoctor(int id) throws IOException{
+		DoctorDB doctor = null;
+		ResultSet result;
+		
+		String query = "SELECT * FROM " + DoctorDB.TABLE_NAME +
+						" WHERE " + DoctorDB.COL_DOCTORID + " = '" + id + " '";
+			
+		DBConnection db = new DBConnection();
+		
+		try{
+			db.select(query);
+			
+			result = db.getResult();
+			
+			result.next();
+			doctor = new DoctorDB();
+			doctor.setDoctor_id(result.getInt(DoctorDB.COL_DOCTORID));
+			doctor.setName(result.getString(DoctorDB.COL_NAME));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(db != null) {
+				db.close();
+			}
+		}
+		
+		return doctor;
+	}
+	
+	public boolean deleteDoctor(DoctorDB doctor) throws IOException{
+		boolean result;
+		
+		String query = "DELETE FROM " + DoctorDB.TABLE_NAME + 
+						" WHERE " + DoctorDB.COL_DOCTORID + " = '" +
+						doctor.getDoctor_id() + "'";
+		
+		DBConnection db = new DBConnection();
+		
+		try{
+			result = db.editRow(query);
+		} finally{
+			if(db != null){
+				db.close();
+			}
+		}
+		
+		return result;
+	}
 	
 }

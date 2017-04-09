@@ -1,6 +1,6 @@
 package db;
 
-public class Doctor{
+public class DoctorDB{
 	
 	public static final String TABLE_NAME = "Doctor";
 	public static final String COL_DOCTORID = "doctor_id";
@@ -9,9 +9,9 @@ public class Doctor{
 	private int doctor_id;
 	private String name;
 	
-	public Doctor(){}
+	public DoctorDB(){}
 	
-	public Doctor(int doctor_id, String name){
+	public DoctorDB(int doctor_id, String name){
 		super();
 		this.doctor_id = doctor_id;
 		this.name = name;
