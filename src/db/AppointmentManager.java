@@ -9,11 +9,11 @@ import db.DBConnection;
 
 public class AppointmentManager {
 	
-	public ArrayList<Appointment> getAllAppointments() throws IOException{
-		ArrayList<Appointment> appointmentList = new ArrayList<Appointment>();
-		Appointment appointment = null;
+	public ArrayList<AppointmentDB> getAllAppointments() throws IOException{
+		ArrayList<AppointmentDB> appointmentList = new ArrayList<AppointmentDB>();
+		AppointmentDB appointment = null;
 		
-		String query = "SELECT * FROM " + Appointment.TABLE_NAME;
+		String query = "SELECT * FROM " + AppointmentDB.TABLE_NAME;
 		
 		DBConnection db = new DBConnection();
 		
@@ -23,14 +23,14 @@ public class AppointmentManager {
 			ResultSet result = db.getResult();
 			
 			while(result.next()) { // .next returns a whole row from the table
-				appointment = new Appointment();
-				appointment.setAppointment_id(result.getInt(Appointment.COL_APPOINTMENTID));
-				appointment.setStart_time(result.getString(Appointment.COL_STARTTIME));
-				appointment.setEnd_time(result.getString(Appointment.COL_ENDTIME));
-				appointment.setDate(result.getString(Appointment.COL_DATE));
-				appointment.setType(result.getString(Appointment.COL_TYPE));
-				appointment.setClient_id(result.getInt(Appointment.COL_CLIENTID));
-				appointment.setDoctor_id(result.getInt(Appointment.COL_DOCTORID));
+				appointment = new AppointmentDB();
+				appointment.setAppointment_id(result.getInt(AppointmentDB.COL_APPOINTMENTID));
+				appointment.setStart_time(result.getString(AppointmentDB.COL_STARTTIME));
+				appointment.setEnd_time(result.getString(AppointmentDB.COL_ENDTIME));
+				appointment.setDate(result.getString(AppointmentDB.COL_DATE));
+				appointment.setType(result.getString(AppointmentDB.COL_TYPE));
+				appointment.setClient_id(result.getInt(AppointmentDB.COL_CLIENTID));
+				appointment.setDoctor_id(result.getInt(AppointmentDB.COL_DOCTORID));
 				
 				appointmentList.add(appointment);
 			}
@@ -46,13 +46,13 @@ public class AppointmentManager {
 		return appointmentList;
 	}
 	
-	public boolean addAppointment(Appointment appointment) throws IOException{
+	public boolean addAppointment(AppointmentDB appointment) throws IOException{
 		boolean result;
 		
-		String query = "INSERT INTO " + Appointment.TABLE_NAME + " (" +
-				Appointment.COL_STARTTIME + ", " + Appointment.COL_ENDTIME +
-				", " + Appointment.COL_DATE + ", " + Appointment.COL_TYPE + ", " + 
-				Appointment.COL_CLIENTID + ", " + Appointment.COL_DOCTORID + ") VALUES ('" + 
+		String query = "INSERT INTO " + AppointmentDB.TABLE_NAME + " (" +
+				AppointmentDB.COL_STARTTIME + ", " + AppointmentDB.COL_ENDTIME +
+				", " + AppointmentDB.COL_DATE + ", " + AppointmentDB.COL_TYPE + ", " + 
+				AppointmentDB.COL_CLIENTID + ", " + AppointmentDB.COL_DOCTORID + ") VALUES ('" + 
 				appointment.getStart_time() + "', '" + appointment.getEnd_time() + "', '" +
 				appointment.getDate() + "', '" + appointment.getType() + "', '" + 
 				appointment.getClient_id() + "', '" + appointment.getDoctor_id() + "')";
@@ -71,11 +71,11 @@ public class AppointmentManager {
 		return result;
 	}
 	
-	public boolean deleteAppointment(Appointment appointment) throws IOException{
+	public boolean deleteAppointment(AppointmentDB appointment) throws IOException{
 		boolean result;
 		
-		String query = "DELETE FROM " + Appointment.TABLE_NAME + 
-				       " WHERE " + Appointment.COL_APPOINTMENTID + " = '" + 
+		String query = "DELETE FROM " + AppointmentDB.TABLE_NAME + 
+				       " WHERE " + AppointmentDB.COL_APPOINTMENTID + " = '" + 
 				       appointment.getAppointment_id() + "'";
 		
 		DBConnection db = new DBConnection();
@@ -93,15 +93,15 @@ public class AppointmentManager {
 	}
 	
 	//how would the appointment be retrieved from the db? would it be by the time or what?
-	public Appointment getAppointment(String what, String wew) throws IOException{
+	public AppointmentDB getAppointment(String what, String wew) throws IOException{
 		
-		Appointment appointment = null;
+		AppointmentDB appointment = null;
 		ResultSet result;
 
 		//I intentionally left the error below to remind mahself what to edit here
-		String query = "SELECT * FROM " + Appointment.TABLE_NAME +
-					   " WHERE " + Appointment.COL_ + " = '" + what + 
-					   "' AND " + Appointment.COL_ + " = '" + wew + "'";
+		String query = "SELECT * FROM " + AppointmentDB.TABLE_NAME +
+					   " WHERE " + AppointmentDB.COL_ + " = '" + what + 
+					   "' AND " + AppointmentDB.COL_ + " = '" + wew + "'";
 		
 		DBConnection db = new DBConnection();
 		
@@ -112,14 +112,14 @@ public class AppointmentManager {
 			result = db.getResult();
 			
 			result.next();
-			appointment = new Appointment();
-			appointment.setAppointment_id(result.getInt(Appointment.COL_APPOINTMENTID));
-			appointment.setStart_time(result.getString(Appointment.COL_STARTTIME));
-			appointment.setEnd_time(result.getString(Appointment.COL_ENDTIME));
-			appointment.setDate(result.getString(Appointment.COL_DATE));
-			appointment.setType(result.getString(Appointment.COL_TYPE));
-			appointment.setClient_id(result.getInt(Appointment.COL_CLIENTID));
-			appointment.setDoctor_id(result.getInt(Appointment.COL_DOCTORID));
+			appointment = new AppointmentDB();
+			appointment.setAppointment_id(result.getInt(AppointmentDB.COL_APPOINTMENTID));
+			appointment.setStart_time(result.getString(AppointmentDB.COL_STARTTIME));
+			appointment.setEnd_time(result.getString(AppointmentDB.COL_ENDTIME));
+			appointment.setDate(result.getString(AppointmentDB.COL_DATE));
+			appointment.setType(result.getString(AppointmentDB.COL_TYPE));
+			appointment.setClient_id(result.getInt(AppointmentDB.COL_CLIENTID));
+			appointment.setDoctor_id(result.getInt(AppointmentDB.COL_DOCTORID));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
