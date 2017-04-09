@@ -59,9 +59,9 @@ public class ViewController{
 			///////////////////////// I kinda don't know how to do that for now. 
 			/////////////////////////////////////
 			cv.setDate(month, day, year);
-			cv.updateCalendarView();
+		//	cv.updateCalendarView();
 			av.setDate(month, day, year);
-			av.updateAgendaView();
+		//	av.updateAgendaView();
 		}
 	}
 	public void setDoc1(Boolean setting){
