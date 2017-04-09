@@ -118,13 +118,13 @@ public class MainController {
 	}
 	
 	//called by client or secretary
-	public void cancelAppointment() {
+	public void cancelAppointment(Calendar start) {
 		
 	}
 	
 	//called by doctor
-	public void deleteAppointment() {
-		
+	public void deleteAppointment(Calendar start) {
+		model.deleteAppointment(start);
 	}
 	
 	//called by client or secretary

@@ -69,6 +69,20 @@ public class CalendarModel {
 		return false;
 	}
 	
+	public void deleteAppointment(Calendar start) {
+		for(Appointment a : appointments) {
+			if(a.getStart().compareTo(start) == 0)
+				appointments.remove(a);
+		}
+	}
+	
+	public void cancelAppointment(Calendar start) {
+		for(Appointment a : appointments) {
+			if(a.getStart().compareTo(start) == 0)
+				a.setClient(null);
+		}
+	}
+	
 	public void addAppointments(ArrayList<Appointment> a) {
 		appointments.addAll(a);
 		sortAppointments();
