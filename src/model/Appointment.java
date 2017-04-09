@@ -149,6 +149,10 @@ public class Appointment {
 		return endTime;
 	}
 
+	public String getDoctorName() {
+		return doctor.getName();
+	}
+	
 	public void setStartTime(Calendar startTime) {
 		this.startTime = startTime;
 	}

@@ -9,8 +9,10 @@ import java.util.List;
 
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import view.doctor.*;
+import javax.swing.SwingUtilities;
 
+import view.doctor.*;
+import model.Appointment;
 import model.CalendarPointers;
 import model.Doctor;
 
@@ -36,7 +38,12 @@ public class DoctorController extends ViewController {
 		super(controller);
 	}
 	
-	public void createAndShowGUI() {
+	public DoctorController(MainController controller, Doctor d) {
+		super(controller);
+		this.d = d;
+	}
+	
+	public void createGUI() {
 		System.out.println("gui");
 		f = new FrameMain();
 		pc = new PanelCalendar(this, super.getYearBound(), super.getMonthBound(), super.getDayBound());
@@ -53,7 +60,7 @@ public class DoctorController extends ViewController {
 		
 		// TEST
 		this.setAppointments(super.getYearBound(), super.getMonthBound(), super.getDayBound());
-		f.setVisible(true);
+		System.out.println("donecreateandshow");
 	}
 
 	/**
@@ -64,12 +71,13 @@ public class DoctorController extends ViewController {
 	 * @param day		
 	 * @param activity 	list of appointments during the week / list of all appointments 
 	 */
-	public void updateAll(Iterator<TestAppointment> activity) {
+	public void updateAll(Iterator<Appointment> activity) {
 		
 		pc.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr());
-		pa.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), activity);
 		pm.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr());
+		pa.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), activity);
 		pw.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), activity);
+		pd.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), activity);
 	}
 
 	/**
@@ -103,6 +111,14 @@ public class DoctorController extends ViewController {
 		}
 	}
 
+	public Doctor getDoctor() {
+		return d;
+	}
+	
+	public void setDoctor(Doctor d) {
+		this.d = d;
+	}
+	
 	public boolean isTaskFiltered() {
 		return pc.isTaskSelected();
 	}
@@ -138,10 +154,12 @@ public class DoctorController extends ViewController {
 			} catch (NumberFormatException e) {
 				JOptionPane.showMessageDialog(null, "Invalid input!");
 			}
+			return true;
 		} else if(fdw.getNewDoctor() == 1) {
 			System.out.println("new doc");
 			Doctor d = new Doctor(fdw.getNewDocName());
 			this.d = d;
+			
 			return true;
 		}
 		return false;
@@ -149,10 +167,10 @@ public class DoctorController extends ViewController {
 	
 	// testing
 	private void setAppointments(int year, int month, int day) {
-		List listA = new ArrayList<TestAppointment>();
+		List listA = new ArrayList<Appointment>();
 		Calendar start;
 		Calendar end;
-		TestAppointment t;
+		Appointment t;
 
 		// NOVEMBER 5 - 05:00 - 6:00
 		start = new GregorianCalendar(year, month, day + 5);
@@ -163,8 +181,7 @@ public class DoctorController extends ViewController {
 		end.set(Calendar.HOUR, 6);
 		end.set(Calendar.MINUTE, 0);
 
-		t = new TestAppointment("appointment", start, end);
-		t.setTaken(true);
+		t = new Appointment(d, start, end);
 		listA.add(t);
 
 
@@ -176,7 +193,7 @@ public class DoctorController extends ViewController {
 		end.set(Calendar.HOUR, 9);
 		end.set(Calendar.MINUTE, 0);
 
-		t = new TestAppointment("appointment", start, end);
+		t = new Appointment(d, start, end);
 		listA.add(t);
 
 		start = new GregorianCalendar(year, month, day + 4);
@@ -187,7 +204,7 @@ public class DoctorController extends ViewController {
 		end.set(Calendar.HOUR, 12);
 		end.set(Calendar.MINUTE, 0);
 
-		t = new TestAppointment("appointment", start, end);
+		t = new Appointment(d, start, end);
 		//t.setTaken(true);
 		listA.add(t);
 
@@ -200,7 +217,7 @@ public class DoctorController extends ViewController {
 		end.set(Calendar.HOUR, 19);
 		end.set(Calendar.MINUTE, 0);
 
-		t = new TestAppointment("appointment", start, end);
+		t = new Appointment(new Doctor("Shirley Chu"), start, end);
 
 		listA.add(t);
 
@@ -213,8 +230,7 @@ public class DoctorController extends ViewController {
 		end.set(Calendar.HOUR, 5);
 		end.set(Calendar.MINUTE, 0);
 
-		t = new TestAppointment("appointment", start, end);
-		t.setTaken(true);
+		t = new Appointment(d, start, end);
 		listA.add(t);
 
 		System.out.println("iterator size " + listA.size());
@@ -222,6 +238,10 @@ public class DoctorController extends ViewController {
 		pd.update(month, day, year, listA.iterator());
 		pa.update(year, month, day, listA.iterator());
 		pa.updateWeek(year, month, day, listA.iterator());
+	}
+	
+	public void showGUI() {
+		f.setVisible(true);
 	}
 	
 	@Override
