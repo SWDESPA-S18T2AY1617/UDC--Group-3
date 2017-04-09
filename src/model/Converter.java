@@ -47,7 +47,8 @@ public class Converter {
 	
 	public static AppointmentDB toAppointmentDB(Appointment appointment) throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		AppointmentDB appointmentDB = new AppointmentDB(appointment.getID(), sdf.format(appointment.getStart().getTime()), sdf.format(appointment.getEnd().getTime()), "", appointment.getDoctor().getID());
+		System.out.println(appointment.getID());
+		AppointmentDB appointmentDB = new AppointmentDB(appointment.getID(), sdf.format(appointment.getStart().getTime()), sdf.format(appointment.getEnd().getTime()), sdf.format(appointment.getEnd().getTime()), appointment.getDoctor().getID());
 		if(appointment.getClient() != null) {
 			appointmentDB.setClient_id(appointment.getClient().getID());
 		}
