@@ -59,20 +59,20 @@ public class ClientController extends ViewController {
 	
 	public void setMainPanel(int panelConstant) {
 		switch(panelConstant) {
-			case ClientViewController.PANEL_DAY :
+			case ClientController.PANEL_DAY :
 				f.setRightPanel(pd);
 				pc.enableBtnCreate();
 				break;
-		     case ClientViewController.PANEL_RESERVATION :
+		     case ClientController.PANEL_RESERVATION :
 				f.setRightPanel(pa);
 				pc.enableBtnCreate();
 				break;
 				
-			case ClientViewController.PANEL_CREATE :
+			case ClientController.PANEL_CREATE :
 				f.setRightPanel(pcr);
 				pm.unselectToggleBtns();
 				break;
-			case ClientViewController.PANEL_WEEK:
+			case ClientController.PANEL_WEEK:
 				f.setRightPanel(pw);
 				pc.enableBtnCreate();
 				break;
