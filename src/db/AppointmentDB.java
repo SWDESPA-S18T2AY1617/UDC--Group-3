@@ -1,6 +1,6 @@
 package db;
 
-public class Appointment {
+public class AppointmentDB {
 	
 	public static final String TABLE_NAME = "appointment"; 
 	public static final String COL_APPOINTMENTID = "appointment_id"; 
@@ -19,9 +19,9 @@ public class Appointment {
 	private int doctor_id;
 	private String type;
 	
-	public Appointment() { }
+	public AppointmentDB() { }
 
-	public Appointment(int appointment_id, String start_time, String end_time, 
+	public AppointmentDB(int appointment_id, String start_time, String end_time, 
 					   String date, int person_id, String type) {
 		super();
 		this.appointment_id = appointment_id;

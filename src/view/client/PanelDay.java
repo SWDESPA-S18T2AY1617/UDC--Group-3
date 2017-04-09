@@ -17,6 +17,8 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 
+import controller.ClientController;
+
 
 public class PanelDay extends JPanel {
 	
@@ -30,9 +32,11 @@ public class PanelDay extends JPanel {
 	private String[] milTime;
 	private GridBagConstraints[] gbc;
 	private GridBagConstraints[] gb;
+	private ClientController controller;
 	
-	public PanelDay() {
+	public PanelDay(ClientController controller) {
 		
+		this.controller = controller;
 		this.setLayout(null);
 		this.setSize(new Dimension (670, 830));
 		this.initComp();
@@ -156,31 +160,28 @@ public class PanelDay extends JPanel {
 		
 	}
 	/*
-	public void setPanelValues(int month, int day, int year,activity) {
+	public void setPanelValues(int month, int day, int year,Iterator<Appointment> activity) {
 		System.out.println("+++++++++");
 
-		ArrayList<Activity> activityList = new ArrayList<>();
+		ArrayList<Appointment> activityList = new ArrayList<>();
 		
 		if(activity != null) {
 			while (activity != null && activity.hasNext()) {
 				Activity a = activity.next();
 				activityList.add(a);
-				System.out.println(a.getName());
 				}
 		
 			for(int i = 0; i < activityList.size(); i++) {
 				if(activityList.get(i).isMonth(month) && activityList.get(i).isDay(day) && activityList.get(i).isYear(year)) {
 					
-					setEvent(activityList.get(i));
+					setAppointment(activityList.get(i));
 				}
 			}
 		}	
 	}
 	
-	public void setAppointment(Activity act) {
-		
-		if(act instanceof Event) {
-			
+	public void setAppointment(Appointment act) {
+	
 			JLabel evnt = new JLabel(act.getName());
 			evnt.setFont(new Font("Sans Serif", Font.BOLD, 14));
 			evnt.setForeground(Color.white);
@@ -196,17 +197,6 @@ public class PanelDay extends JPanel {
 
 				start++;
 				}
-			}
-			else
-			{
-				int index = act.getStartHour() * 2 + act.getStartMinute() / 30;
-				JLabel evnt = new JLabel(act.getName());
-				evnt.setFont(new Font("Sans Serif", Font.BOLD, 14));
-				evnt.setForeground(Color.white);
-				
-				activitySlot[index].add(evnt);
-				activitySlot[index].setBackground(act.getColor());
-				
 			}
 		}
 		*/

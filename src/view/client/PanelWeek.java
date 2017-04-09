@@ -12,6 +12,7 @@ import java.util.Iterator;
 
 import javax.swing.*;
 
+import controller.ClientController;
 import model.CalendarCalculator;
 import values.Month;
 import view.doctor.TestAppointment;
@@ -21,9 +22,11 @@ public class PanelWeek extends JPanel {
 	private JTabbedPane dayTab;
 	private PanelSlots[] days;
 	private Calendar[] calWeekScope;
+	private ClientController controller;
 	
-	public PanelWeek(int year, int month, int day) {
+	public PanelWeek(ClientController controller, int year, int month, int day) {
 		
+		this.controller = controller;
 		this.setLayout(new GridLayout(1,1));
 		this.setPreferredSize(new Dimension(670, 830));
 		this.setBackground(Color.decode("#F5E1DF"));
@@ -110,15 +113,14 @@ public class PanelWeek extends JPanel {
 		}
 	}
 	
-	public void setPanelValues(int month, int day, int year) {
+	public void setPanelValues(int month, int day, int year/*,Iterator<Appointment> activity*/) {
 
-	/*	ArrayList<TestAppointment> activityList = new ArrayList<>();
+	/*	ArrayList<Appointment> activityList = new ArrayList<>();
 
 		if (activity != null) {
 			while (activity != null && activity.hasNext()) {
 				TestAppointment a = activity.next();
 				activityList.add(a);
-				System.out.println(a.getName());
 			}
 
 			for (int i = 0; i < activityList.size(); i++) {
@@ -133,7 +135,7 @@ public class PanelWeek extends JPanel {
 		}
 	}
 
-	public void setEvent(TestAppointment act) {
+	public void setEvent(Appointment act) {
 
 		JLabel evnt = new JLabel(act.getName());
 		evnt.setFont(new Font("Sans Serif", Font.BOLD, 14));

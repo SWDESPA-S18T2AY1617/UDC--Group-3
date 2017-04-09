@@ -9,11 +9,11 @@ import db.DBConnection;
 
 public class ClientManager {
 	
-	public ArrayList<Client> getAllClients() throws IOException {
-		ArrayList<Client> clientList = new ArrayList<Client> ();
-		Client client = null;
+	public ArrayList<ClientDB> getAllClients() throws IOException {
+		ArrayList<ClientDB> clientList = new ArrayList<ClientDB> ();
+		ClientDB client = null;
 		
-		String query = "SELECT * FROM " + Client.TABLE_NAME;
+		String query = "SELECT * FROM " + client.TABLE_NAME;
 		
 		DBConnection db = new DBConnection();
 		
@@ -23,9 +23,9 @@ public class ClientManager {
 			ResultSet result = db.getResult();
 			
 			while(result.next()) {
-				client = new Client();
-				client.setClientID(result.getInt(Client.CLIENT_ID));
-				client.setName(result.getString(Client.CLIENT_NAME));
+				client = new ClientDB();
+				client.setClientID(result.getInt(client.CLIENT_ID));
+				client.setName(result.getString(client.CLIENT_NAME));
 				
 				clientList.add(client);
 			}
@@ -39,11 +39,11 @@ public class ClientManager {
 		return clientList;
 	}
 	
-	public boolean addClient(Client client) throws IOException {
+	public boolean addClient(ClientDB client) throws IOException {
 		boolean result;
 		
-		String query = "INSERT INTO" + Client.TABLE_NAME + " (" + Client.CLIENT_ID + ", " 
-		+ Client.CLIENT_NAME + ") VALUES ('" + client.getClientID() + "', '" + client.getName() + "')";
+		String query = "INSERT INTO" + client.TABLE_NAME + " (" + client.CLIENT_ID + ", " 
+		+ client.CLIENT_NAME + ") VALUES ('" + client.getClientID() + "', '" + client.getName() + "')";
 		
 		DBConnection db = new DBConnection();
 		
@@ -58,11 +58,11 @@ public class ClientManager {
 		return result;
 	}
 	
-	public boolean deleteClient(Client client) throws IOException {
+	public boolean deleteClient(ClientDB client) throws IOException {
 		boolean result;
 		
-		String query = "DELETE FROM " + Client.TABLE_NAME + " WHERE " 
-						+ Client.CLIENT_ID + " = '" + client.getClientID() +"'";
+		String query = "DELETE FROM " + client.TABLE_NAME + " WHERE " 
+						+ client.CLIENT_ID + " = '" + client.getClientID() +"'";
 		
 		DBConnection db = new DBConnection();
 		
@@ -77,12 +77,12 @@ public class ClientManager {
 		return result;
 	}
 	
-	public boolean updateClient(Client client) throws IOException {
+	public boolean updateClient(ClientDB client) throws IOException {
 		boolean result;
 		
-		String query = "UPDATE " + Client.TABLE_NAME +
-					   "SET " + Client.CLIENT_ID + " = '" + client.getClientID()
-					   + "' WHERE " + Client.CLIENT_NAME + " = '" + client.getName() + "'";
+		String query = "UPDATE " + client.TABLE_NAME +
+					   "SET " + client.CLIENT_ID + " = '" + client.getClientID()
+					   + "' WHERE " + client.CLIENT_NAME + " = '" + client.getName() + "'";
 		
 		DBConnection db = new DBConnection();
 		
@@ -97,14 +97,14 @@ public class ClientManager {
 		return result;
 	}
 	
-	public Client getClient(int client_id, String name) throws IOException {
+	public ClientDB getClient(int client_id, String name) throws IOException {
 		
-		Client client = null;
+		ClientDB client = null;
 		ResultSet result;
 		
-		String query = "SELECET * FROM " + Client.TABLE_NAME + " WHERE " +
-						Client.CLIENT_ID + " = '" + client_id + "' AND " +
-						Client.CLIENT_NAME + " = '" + name + "'";
+		String query = "SELECET * FROM " + client.TABLE_NAME + " WHERE " +
+						client.CLIENT_ID + " = '" + client_id + "' AND " +
+						client.CLIENT_NAME + " = '" + name + "'";
 		
 		DBConnection db = new DBConnection();
 		
@@ -115,9 +115,9 @@ public class ClientManager {
 			result = db.getResult();
 			
 			result.next();
-			client = new Client();
-			client.setClientID(result.getInt(Client.CLIENT_ID));
-			client.setName(result.getString(Client.CLIENT_NAME));
+			client = new client();
+			client.setClientID(result.getInt(client.CLIENT_ID));
+			client.setName(result.getString(client.CLIENT_NAME));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

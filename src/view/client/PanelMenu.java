@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.border.Border;
 
+import controller.ClientController;
 import values.Month;
 
 public class PanelMenu extends JPanel {
@@ -27,10 +28,10 @@ public class PanelMenu extends JPanel {
 	private JToggleButton btnDay;
 	private JToggleButton btnReservation;
 	private JToggleButton btnWeek;
-	
-	private Controller controller;
 
-	public PanelMenu(Controller controller, int year, int month, int day) {
+	private ClientController controller;
+
+	public PanelMenu(ClientController controller, int year, int month, int day) {
 		this.controller = controller;
 		
 		this.setLayout(null);

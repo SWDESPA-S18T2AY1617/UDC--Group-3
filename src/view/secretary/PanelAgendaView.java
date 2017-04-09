@@ -142,7 +142,7 @@ public class PanelAgendaView extends JPanel{
 		if(displayDoc1){
 			if(dailyORweekly){// true = daily ; false = weekly
 
-				for(/*Appointments app*/ : /*listofAppointmentsDoc1){
+				for(/*Appointments app : /*listofAppointmentsDoc1){
 					if( month == app.getMonth() && // or anything similar to compare them.
 						day == app.getDay() && 
 						year == app.getYear())
@@ -155,7 +155,7 @@ public class PanelAgendaView extends JPanel{
 			}
 			else{
 
-				for(/*Appointments app*/ : /*listofAppointmentsDoc1){
+				for(/*Appointments app : /*listofAppointmentsDoc1){
 					for(int i = 0; i<5; i++){
 						if( month == app.getMonth() && day+i == app.getDay() && year == app.getYear())// or anything similar to compare them.
 							agendaTable.setValueAt(app.getSHour() + ":" +
@@ -171,7 +171,7 @@ public class PanelAgendaView extends JPanel{
 		if(displayDoc2){
 			if(dailyORweekly){// true = daily ; false = weekly
 
-				for(/*Appointments app*/ : /*listofAppointmentsDoc2){
+				for(/*Appointments app : /*listofAppointmentsDoc2){
 					if( month == app.getMonth() && // or anything similar to compare them.
 						day == app.getDay() && 
 						year == app.getYear())
@@ -184,7 +184,7 @@ public class PanelAgendaView extends JPanel{
 			}
 			else{
 
-				for(/*Appointments app*/ : /*listofAppointmentsDoc2){
+				for(/*Appointments app : /*listofAppointmentsDoc2){
 					for(int i = 0; i<5; i++){
 						if( month == app.getMonth() && day+i == app.getDay() && year == app.getYear())// or anything similar to compare them.
 							agendaTable.setValueAt(app.getSHour() + ":" +
@@ -199,7 +199,7 @@ public class PanelAgendaView extends JPanel{
 		if(displayDoc3){
 			if(dailyORweekly){// true = daily ; false = weekly
 
-				for(/*Appointments app*/ : /*listofAppointmentsDoc3){
+				for(/*Appointments app : /*listofAppointmentsDoc3){
 					if( month == app.getMonth() && // or anything similar to compare them.
 						day == app.getDay() && 
 						year == app.getYear())
@@ -212,7 +212,7 @@ public class PanelAgendaView extends JPanel{
 			}
 			else{
 
-				for(/*Appointments app*/ : /*listofAppointmentsDoc3){
+				for(/*Appointments app : /*listofAppointmentsDoc3){
 					for(int i = 0; i<5; i++){
 						if( month == app.getMonth() && day+i == app.getDay() && year == app.getYear())// or anything similar to compare them.
 							agendaTable.setValueAt(app.getSHour() + ":" +

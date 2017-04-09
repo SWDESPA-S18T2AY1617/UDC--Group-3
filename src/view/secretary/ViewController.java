@@ -48,21 +48,21 @@ public class ViewController{
 	}
 	public void setViewDate(int month, int day, int year){ //SETS THE DATE FOR CALENDAR AND AGENDA VIEWS
 
-		if( daily){ //IF DAILY VIEW
+	//	if( dailyORweekly){ //IF DAILY VIEW
 			cv.setDate(month, day, year);
-			cv.updateCalendarView();
+			//cv.updateCalendarView();
 			av.setDate(month, day, year);
-			av.updateAgendaView();
-		}
-		else{ // IF WEEKLY VIEW
+			//av.updateAgendaView();
+	//	}
+	//	else{ // IF WEEKLY VIEW
 			//////TRANSFORM "DAY" INTO THE MONDAY OF THAT WEEK. THAT IS ALL WHAT IT NEEDS.
 			///////////////////////// I kinda don't know how to do that for now. 
 			/////////////////////////////////////
-			cv.setDate(month, day, year);
+		//	cv.setDate(month, day, year);
 		//	cv.updateCalendarView();
-			av.setDate(month, day, year);
+		//	av.setDate(month, day, year);
 		//	av.updateAgendaView();
-		}
+	//	}
 	}
 	public void setDoc1(Boolean setting){
 		cv.setDoc1(setting);
