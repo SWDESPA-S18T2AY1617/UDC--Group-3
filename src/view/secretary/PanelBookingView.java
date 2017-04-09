@@ -9,7 +9,7 @@ import java.util.*;
 import javax.swing.border.Border;
 
 public class PanelBookingView extends JPanel{
-	private SecretaryController sc;
+	private ViewController vc;
 
 	private JTextArea bookDetails;
 	private JRadioButton radioDoc1,
@@ -32,8 +32,8 @@ public class PanelBookingView extends JPanel{
 				   lblDesc;
 	private int currYear;
 
-	public PanelBookingView(SecretaryController sc){
-		this.sc = sc;
+	public PanelBookingView(ViewController vc){
+		this.vc = vc;
 			
 		this.setSize(550, 500);
 		this.setLayout(null);
@@ -64,7 +64,10 @@ public class PanelBookingView extends JPanel{
 		addDay = new JComboBox();
 		for (int i = 1; i <= 31; i++)
 			addDay.addItem(String.valueOf(i));
+
 		addYear = new JComboBox();
+		for (int i = 2017; i <= 2017+100; i++)
+			addYear.addItem(String.valueOf(i));
 
 		SpinnerModel starthourModel = new SpinnerNumberModel(0, 0, 24, 1);
 		SpinnerModel endhourModel = new SpinnerNumberModel(0, 0, 24, 1);
@@ -85,25 +88,27 @@ public class PanelBookingView extends JPanel{
 		bookDetails.setFont(new Font("Charlemagne STD", Font.BOLD, 15));
 		bookDetails.setBackground(new Color(120, 120, 120));
 		bookDetails.setForeground(new Color(240, 240, 240));
+		bookDetails.setLineWrap(true);
+		bookDetails.setWrapStyleWord(true);
 
 		radioDoc1.setFont(new Font("Charlemagne STD", Font.BOLD, 15));
 		radioDoc1.setForeground(new Color(120, 120, 120));
 		radioDoc1.setOpaque(false);
 		radioDoc1.setContentAreaFilled(false);
-		radioDoc1.setActionCommand("Doctor 1");
+		radioDoc1.setActionCommand("Doctor1");
 		radioDoc1.setSelected(true);
 
 		radioDoc2.setFont(new Font("Charlemagne STD", Font.BOLD, 15));
 		radioDoc2.setForeground(new Color(120, 120, 120));
 		radioDoc2.setOpaque(false);
 		radioDoc2.setContentAreaFilled(false);
-		radioDoc2.setActionCommand("Doctor 2");
+		radioDoc2.setActionCommand("Doctor2");
 
 		radioDoc3.setFont(new Font("Charlemagne STD", Font.BOLD, 15));
 		radioDoc3.setForeground(new Color(120, 120, 120));
 		radioDoc3.setOpaque(false);
 		radioDoc3.setContentAreaFilled(false);
-		radioDoc3.setActionCommand("Doctor 3");
+		radioDoc3.setActionCommand("Doctor3");
 		
 		radioGroup.add(radioDoc1);
 		radioGroup.add(radioDoc2);
@@ -120,7 +125,6 @@ public class PanelBookingView extends JPanel{
 
 		lblDate.setForeground(new Color(120, 120, 120));
 		lblDate.setFont(new Font("Charlemagne STD", Font.BOLD, 15));
-
 
 		btnDiscard.setFont(new Font("Charlemagne STD", Font.BOLD, 15));
 		btnDiscard.setForeground(new Color(120, 120, 120));
@@ -164,14 +168,14 @@ public class PanelBookingView extends JPanel{
 		lblDashTime.setBounds(360, 120, 100, 40);
 		lblDate.setBounds(100, 90, 100, 40);
 
-		addMonth.setBounds(50, 120, 50, 40);
-		addDay.setBounds(100, 120, 50, 40);
-		addYear.setBounds(150, 120, 50, 40);
+		addMonth.setBounds(50, 120, 50, 30);
+		addDay.setBounds(100, 120, 50, 30);
+		addYear.setBounds(150, 120, 70, 30);
 
-		timeStartHour.setBounds(250, 120, 50, 40);
-		timeStartMinute.setBounds(300, 120, 50, 40);
-		timeEndHour.setBounds(410, 120, 50, 40);
-		timeEndMinute.setBounds(460, 120, 50, 40);
+		timeStartHour.setBounds(250, 120, 50, 30);
+		timeStartMinute.setBounds(300, 120, 50, 30);
+		timeEndHour.setBounds(410, 120, 50, 30);
+		timeEndMinute.setBounds(460, 120, 50, 30);
 
 		lblDesc.setBounds(50, 170, 180, 40);
 		bookDetails.setBounds(50, 210, 420, 200);
@@ -185,20 +189,55 @@ public class PanelBookingView extends JPanel{
 	}
 	public void setYearCombo(int currYear){
 		this.currYear = currYear;
-		for (int i = currYear; i <= currYear+100; i++)
-			addYear.addItem(String.valueOf(i));
+		
 	}
 	class btnDiscard_Action implements ActionListener{
 		public void actionPerformed (ActionEvent e){
 			bookDetails.setText("");
-			sc.setCalendarPanel();
+			vc.setCalendarPanel();
 		}
 	}
 	class btnSave_Action implements ActionListener{
 		public void actionPerformed (ActionEvent e){
+			vc.setAppointment();
+
 			bookDetails.setText("");
-			sc.setCalendarPanel();
+			vc.setCalendarPanel();
 		}
+	}
+	public String getRadioButtonChoice(){
+		return radioGroup.getSelection().getActionCommand();
+	}
+	public String getBookingDetails(){
+		return bookDetails.getText().trim();
+	}
+	
+	public String getMonthInput(){
+		return addMonth.getSelectedItem().toString();
+	}
+	
+	public String getDayInput(){
+		return addDay.getSelectedItem().toString();
+	}
+	
+	public String getYearInput(){
+		return addYear.getSelectedItem().toString();
+	}
+	
+	public String getStartH(){
+		return timeStartHour.getValue().toString();
+	}
+	
+	public String getStartM(){
+		return timeStartMinute.getValue().toString();
+	}
+	
+	public String getEndH(){
+		return timeEndHour.getValue().toString();
+	}
+	
+	public String getEndM(){
+		return timeEndMinute.getValue().toString();
 	}
 	
 }

@@ -156,7 +156,7 @@ public class PanelDay extends JPanel {
 		
 	}
 	/*
-	public void setPanelValues(int month, int day, int year) {
+	public void setPanelValues(int month, int day, int year,activity) {
 		System.out.println("+++++++++");
 
 		ArrayList<Activity> activityList = new ArrayList<>();
@@ -167,7 +167,7 @@ public class PanelDay extends JPanel {
 				activityList.add(a);
 				System.out.println(a.getName());
 				}
-			
+		
 			for(int i = 0; i < activityList.size(); i++) {
 				if(activityList.get(i).isMonth(month) && activityList.get(i).isDay(day) && activityList.get(i).isYear(year)) {
 					
@@ -177,7 +177,7 @@ public class PanelDay extends JPanel {
 		}	
 	}
 	
-	public void setEvent(Activity act) {
+	public void setAppointment(Activity act) {
 		
 		if(act instanceof Event) {
 			
@@ -209,7 +209,7 @@ public class PanelDay extends JPanel {
 				
 			}
 		}
-	*/
+		*/
 	public void setPanelValuesNull() {
 		
 		for (int i = 0; i < 48; i++) {

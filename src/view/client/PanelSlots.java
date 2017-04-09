@@ -151,14 +151,14 @@ public class PanelSlots extends JPanel {
 			
 			scrollAct.setBounds(0, 0, 665, 485);
 		}
-		
+	/*	
 		public void update(int month, int day, int year) {
 			
 			this.setPanelValuesNull();
 			//this.setPanelValues(month, day, year, activity);
 			
 		}
-	/*	
+		
 		public void setPanelValues(int month, int day, int year, Iterator<Activity> activity) {
 			System.out.println("+++++++++");
 
@@ -216,12 +216,16 @@ public class PanelSlots extends JPanel {
 		public void setPanelValuesNull() {
 			
 			for (int i = 0; i < 48; i++) {
-				activitySlot[i].setBackground(Color.WHITE);
+				activitySlot[i].setBackground(Color.LIGHT_GRAY);
 				activitySlot[i].removeAll();
 				activitySlot[i].revalidate();
 				activitySlot[i].repaint();
 			}
 			
+		}
+
+		public JPanel[] getActivitySlot() {
+			return activitySlot;
 		}
 
 }
