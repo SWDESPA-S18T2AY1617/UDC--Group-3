@@ -11,10 +11,11 @@ import javax.swing.JOptionPane;
 import view.client.*;
 
 import model.CalendarPointers;
+import model.Client;
 
 public class ClientController extends ViewController {
 	
-	//private ClientView view;
+	private Client client;
 	
 	private FrameMain f;
 	private PanelCalendar pc;
@@ -32,6 +33,24 @@ public class ClientController extends ViewController {
 	public ClientController(MainController controller)
 	{
 		super(controller);
+		
+		f = new FrameMain();
+		pc = new PanelCalendar(this, super.getYearBound(), super.getMonthBound(), super.getDayBound());
+		pm = new PanelMenu(this, super.getYearBound(), super.getMonthBound(), super.getDayBound());
+		pcr = new PanelCreate(this, super.getYearBound(), super.getMonthBound(), super.getDayBound());
+		pa = new PanelReservation(this, super.getYearBound(), super.getMonthBound(), super.getDayBound());
+		pw = new PanelWeek(this, super.getYearBound(), super.getMonthBound(), super.getDayBound());
+		pd = new PanelDay(this);
+		
+		f.setLeftPanel(pc);
+		f.setTopPanel(pm);
+		f.setRightPanel(pd);
+	}
+	
+	public ClientController(MainController controller, Client client)
+	{
+		super(controller);
+		this.client = client;
 		
 		f = new FrameMain();
 		pc = new PanelCalendar(this, super.getYearBound(), super.getMonthBound(), super.getDayBound());
