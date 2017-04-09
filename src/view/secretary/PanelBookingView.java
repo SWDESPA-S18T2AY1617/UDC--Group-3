@@ -210,32 +210,32 @@ public class PanelBookingView extends JPanel{
 		return bookDetails.getText().trim();
 	}
 	
-	public String getMonthInput(){
-		return addMonth.getSelectedItem().toString();
+	public int getMonthInput(){
+		return Integer.parseInt(addMonth.getSelectedItem().toString());
 	}
 	
-	public String getDayInput(){
-		return addDay.getSelectedItem().toString();
+	public int getDayInput(){
+		return Integer.parseInt(addDay.getSelectedItem().toString());
 	}
 	
-	public String getYearInput(){
-		return addYear.getSelectedItem().toString();
+	public int getYearInput(){
+		return Integer.parseInt(addYear.getSelectedItem().toString());
 	}
 	
-	public String getStartH(){
-		return timeStartHour.getValue().toString();
+	public int getStartH(){
+		return Integer.parseInt(timeStartHour.getValue().toString());
 	}
 	
-	public String getStartM(){
-		return timeStartMinute.getValue().toString();
+	public int getStartM(){
+		return Integer.parseInt(timeStartMinute.getValue().toString());
 	}
 	
-	public String getEndH(){
-		return timeEndHour.getValue().toString();
+	public int getEndH(){
+		return Integer.parseInt(timeEndHour.getValue().toString());
 	}
 	
-	public String getEndM(){
-		return timeEndMinute.getValue().toString();
+	public int getEndM(){
+		return Integer.parseInt(timeEndMinute.getValue().toString());
 	}
 	
 }

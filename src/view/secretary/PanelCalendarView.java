@@ -361,7 +361,7 @@ public class PanelCalendarView extends JPanel{
 					}
 				}
 			}
-			if(displayDoc3 && app.getDoctorName().equals(doctor1)){
+			if(displayDoc3 && app.getDoctorName().equals(doctor3)){
 				if(dailyORweekly){// true = daily ; false = weekly
 					masterTable.setDailyorWeekly(true);
 					for(int i=0 ; i<48; i++){
