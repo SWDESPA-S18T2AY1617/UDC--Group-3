@@ -1,10 +1,13 @@
 package model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
+
+import db.AppointmentManager;
 
 public class CalendarModel {
 	// private ArrayList<Appointment> appointments;
@@ -22,6 +25,16 @@ public class CalendarModel {
 	
 	public void addAppointment(Appointment a) {
 		appointments.add(a);
+		AppointmentManager manager = new AppointmentManager();
+		try {
+			manager.addAppointment(Converter.toAppointmentDB(a));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		sortAppointments();
 	}
 	
@@ -54,6 +67,17 @@ public class CalendarModel {
 					appointment.setDoctor(a.getDoctor());
 					appointments.add(appointment);
 					appointments.remove(a);
+					AppointmentManager manager = new AppointmentManager();
+					try {
+						manager.addAppointment(Converter.toAppointmentDB(appointment));
+						manager.deleteAppointment(Converter.toAppointmentDB(a));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					return true;
 				} else return false;
 			}
@@ -71,15 +95,35 @@ public class CalendarModel {
 	
 	public void deleteAppointment(Calendar start) {
 		for(Appointment a : appointments) {
-			if(a.getStart().compareTo(start) == 0)
+			if(a.getStart().compareTo(start) == 0) {
+				AppointmentManager manager = new AppointmentManager();
+				try {
+					manager.deleteAppointment(Converter.toAppointmentDB(a));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				appointments.remove(a);
+			}
 		}
 	}
 	
 	public void cancelAppointment(Calendar start) {
 		for(Appointment a : appointments) {
-			if(a.getStart().compareTo(start) == 0)
+			if(a.getStart().compareTo(start) == 0) {
+				AppointmentManager manager = new AppointmentManager();
 				a.setClient(null);
+				appointments.remove(a);
+				Appointment appointment = new Appointment(a.getDoctor(), a.getStart(), a.getEnd());
+				try {
+					manager.deleteAppointment(Converter.toAppointmentDB(a));
+					manager.addAppointment(Converter.toAppointmentDB(appointment));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
 		}
 	}
 	
