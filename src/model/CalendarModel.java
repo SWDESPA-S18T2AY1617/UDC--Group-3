@@ -8,48 +8,46 @@ import java.util.Iterator;
 public class CalendarModel {
 	// private ArrayList<Appointment> appointments;
 	private ArrayList<Doctor> doctors;
+	private ArrayList<Appointment> appointments;
 
 	public CalendarModel() {
 		doctors = new ArrayList<>();
+		appointments = new ArrayList<>();
 	}
 
 	public void addDoctor(Doctor d) {
 		doctors.add(d);
 	}
 	
+	public void addAppointment(Appointment a) {
+		appointments.add(a);
+		sortAppointments();
+	}
 	
-
-	public ArrayList<Appointment> getAppointments(int doctorId) {
-		ArrayList<Appointment> a = new ArrayList<>();
-		for (Doctor doctor : doctors) {
-			if (doctor.getID() == doctorId) {
-				Iterator<Appointment> iterator = doctor.getAppointments();
-				while (iterator.hasNext()) {
-					Appointment appointment = iterator.next();
-					a.add(appointment);
-				}
-				return a;
-			}
-		}
-
-		return a;
+	public void setAppointment() {
+		
 	}
-
-	public ArrayList<Appointment> getAllAppointments() {
+	
+	public void addAppointments(ArrayList<Appointment> a) {
+		appointments.addAll(a);
+		sortAppointments();
+	}
+	
+	public Iterator<Appointment> getAppointments(int doctorId) {
 		ArrayList<Appointment> a = new ArrayList<>();
-		for (Doctor doctor : doctors) {
-			Iterator<Appointment> iterator = doctor.getAppointments();
-			while (iterator.hasNext()) {
-				Appointment appointment = iterator.next();
+		for(Appointment appointment : appointments) {
+			if(appointment.getID() == doctorId)
 				a.add(appointment);
-			}
 		}
 
-		sortAppointments(a);
-		return a;
+		return a.iterator();
 	}
 
-	public void sortAppointments(ArrayList<Appointment> appointments) {
+	public Iterator<Appointment> getAllAppointments() {
+		return appointments.iterator();
+	}
+
+	public void sortAppointments() {
 		Collections.sort(appointments, new Comparator<Appointment>() {
 			public int compare(Appointment s1, Appointment s2) {
 				int n = s1.getYear() - s2.getYear();
