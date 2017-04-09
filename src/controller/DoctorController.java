@@ -79,8 +79,7 @@ public class DoctorController extends ViewController {
 		pa.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), activity);
 		pw.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), activity);
 		pd.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), activity);
-		
-		
+
 	}
 
 	/**
@@ -257,8 +256,11 @@ public class DoctorController extends ViewController {
 	
 	@Override
 	public void updateView() {
-		// TODO Auto-generated method stub
-		
+		pc.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr());
+		pm.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr());
+		pa.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), controller.get3MonthAppointments(super.getYearCurr(), super.getMonthCurr()));
+		pw.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), controller.get3MonthAppointments(super.getYearCurr(), super.getMonthCurr()));
+		pd.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), controller.get3MonthAppointments(super.getYearCurr(), super.getMonthCurr()));
 	}
 
 	@Override

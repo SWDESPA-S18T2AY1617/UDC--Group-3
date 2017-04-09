@@ -32,7 +32,7 @@ public class MainController {
 	
 	private void initiateViews() {
 		// get info from DB for clients and doctors
-		initiateSecretary();
+		//initiateSecretary();
 		initiateClient();
 		initiateDoctor();
 	}
@@ -111,6 +111,10 @@ public class MainController {
 	
 	public Iterator<Appointment> getAppointments(int year, int month) {
 		return model.getAppointments(year, month);
+	}
+	
+	public Iterator<Appointment> get3MonthAppointments(int year, int month) {
+		return model.get3MonthAppointments(year, month);
 	}
 	
 	public Iterator<Appointment> getAllAppointments() {
