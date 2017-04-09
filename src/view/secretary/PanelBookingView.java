@@ -1,11 +1,9 @@
 package view.secretary;
 
+import controller.SecretaryController;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
-
-import controller.SecretaryController;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -35,8 +33,8 @@ public class PanelBookingView extends JPanel{
 				   lblDesc;
 	private int currYear;
 
-	public PanelBookingView(SecretaryController secretaryController){
-		this.vc = secretaryController;
+	public PanelBookingView(SecretaryController vc){
+		this.vc = vc;
 			
 		this.setSize(550, 500);
 		this.setLayout(null);

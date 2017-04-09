@@ -35,6 +35,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import controller.DoctorController;
+import model.Appointment;
 //import controller.Controller;
 //import model.Activity;
 //import model.ActivityFactory;
@@ -386,6 +387,17 @@ public class PanelCreate extends JPanel {
 	public int getRepeatEndAfter() {
 		return (Integer) cbEndAfter.getSelectedItem();
 	}
+	
+	public boolean isValidTime() {
+		if((getSpinFromHour() > getSpinToHour() || (getSpinFromHour() == getSpinToHour() && getSpinFromMinutes() >= getSpinToMinutes()) ))
+			return false;
+		else return true;
+		
+	}
+	
+	public boolean isWeekend() {
+		return getSpinDate().get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY || getSpinDate().get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY;
+	}
 
 	public void resetDay() {
 		this.spinDay.setValue(((SpinnerNumberModel) (spinDay.getModel())).getMinimum());
@@ -492,113 +504,149 @@ public class PanelCreate extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (jrbOnce.isSelected()) {
-					Calendar start = getFromTime();
-					Calendar end = getToTime();
+				if(isValidTime()) {
+					if (jrbOnce.isSelected()) {
+						if(!isWeekend() && isValidTime()) {
+							Calendar start = getFromTime();
+							Calendar end = getToTime();
+						
+							start.set(Calendar.MONTH, getIntSpinMonth());
+							start.set(Calendar.DAY_OF_MONTH, getSpinDay());
+							start.set(Calendar.YEAR, getSpinYear());
+							
+							end.set(Calendar.MONTH, getIntSpinMonth());
+							end.set(Calendar.DAY_OF_MONTH, getSpinDay());
+							end.set(Calendar.YEAR, getSpinYear());
+							
+							docController.setAppointment();
+						}
+						if(isWeekend())
+							JOptionPane.showMessageDialog(null, "Weekend appointments are not applicable.");
+						if(!isValidTime())
+							JOptionPane.showMessageDialog(null, "Time values invalid.");
+					} else if (jrbRecurring.isSelected()) {
+						System.out.println("Repeat appointment " + getRepeatEndAfter() + " times. " + getRepeats() + ". "
+								+ "Every " + getRepeatsEvery() + " units.");
 
-					// Check if there are conflicts
-					// if there is none, create appointment
+						// GET TIMES
+						Calendar start = getFromTime();
+						Calendar end = getToTime();
 
-				} else if (jrbRecurring.isSelected()) {
-					System.out.println("Repeat appointment " + getRepeatEndAfter() + " times. " + getRepeats() + ". "
-							+ "Every " + getRepeatsEvery() + " units.");
-
-					// GET TIMES
-					Calendar start = getFromTime();
-					Calendar end = getToTime();
-
-					// Check if there are conflicts
-					// if there is none, create appointment
-
-					// GET DATES
-					if (getRepeats().equalsIgnoreCase("daily")) {
+						// Check if there are conflicts
+						// if there is none, create appointment
+						
 						ArrayList<GregorianCalendar> listGC = new ArrayList<GregorianCalendar>();
+						// GET DATES
+						if (getRepeats().equalsIgnoreCase("daily")) {
+							listGC = new ArrayList<GregorianCalendar>();
 
-						// Start setting repetitions
-						int currYear = getSpinYear();
-						int currDay = getSpinDay();
-						int currMonth = getIntSpinMonth();
-						int maxMonth = CalendarCalculator.getNoDays(currYear, currMonth);
-						listGC.add(new GregorianCalendar(currYear, currMonth, currDay));
+							// Start setting repetitions
+							int currYear = getSpinYear();
+							int currDay = getSpinDay();
+							int currMonth = getIntSpinMonth();
+							int maxMonth = CalendarCalculator.getNoDays(currYear, currMonth);
+							listGC.add(new GregorianCalendar(currYear, currMonth, currDay));
 
-						for (int i = 1; i < getRepeatEndAfter(); i++) {
+							for (int i = 1; i < getRepeatEndAfter(); i++) {
 
-							// advance day according to repeatsEvery value
-							for (int j = 0; j < getRepeatsEvery(); j++) {
-								currDay++;
-								if (currDay > maxMonth) {
-									currMonth = CalendarCalculator.getNextMonth(currMonth);
-									if (Month.values()[currMonth] == Month.JANUARY) {
-										currYear++;
+								// advance day according to repeatsEvery value
+								for (int j = 0; j < getRepeatsEvery(); j++) {
+									currDay++;
+									if (currDay > maxMonth) {
+										currMonth = CalendarCalculator.getNextMonth(currMonth);
+										if (Month.values()[currMonth] == Month.JANUARY) {
+											currYear++;
+										}
+										maxMonth = CalendarCalculator.getNoDays(currYear, currMonth);
+										currDay = 1;
 									}
-									maxMonth = CalendarCalculator.getNoDays(currYear, currMonth);
-									currDay = 1;
 								}
+
+								// Check if there are conflicts
+								// if there is none, create appointment
+								listGC.add(new GregorianCalendar(currYear, currMonth, currDay));
 							}
 
-							// Check if there are conflicts
-							// if there is none, create appointment
-							listGC.add(new GregorianCalendar(currYear, currMonth, currDay));
-						}
+							for (GregorianCalendar gc : listGC) {
+								System.out.println("dates: " + gc.toString());
+							}
+						} else if (getRepeats().equalsIgnoreCase("weekly")) {
+							listGC = new ArrayList<GregorianCalendar>();
 
-						for (GregorianCalendar gc : listGC) {
-							System.out.println("dates: " + gc.toString());
-						}
-					} else if (getRepeats().equalsIgnoreCase("weekly")) {
-						ArrayList<GregorianCalendar> listGC = new ArrayList<GregorianCalendar>();
+							// Start setting repetitions
+							int currYear = getSpinYear();
+							int currDay = getSpinDay();
+							int currMonth = getIntSpinMonth();
 
-						// Start setting repetitions
-						int currYear = getSpinYear();
-						int currDay = getSpinDay();
-						int currMonth = getIntSpinMonth();
-
-						GregorianCalendar g = new GregorianCalendar(currYear, currMonth, currDay);
-						listGC.add(g);
-						
-						for (int i = 1; i < getRepeatEndAfter(); i++) {
-
-							g = new GregorianCalendar(currYear, currMonth, currDay);
-							g.add(Calendar.DAY_OF_YEAR, 7 * getRepeatsEvery());
+							GregorianCalendar g = new GregorianCalendar(currYear, currMonth, currDay);
 							listGC.add(g);
 							
-							currMonth = g.get(Calendar.MONTH);
-							currDay = g.get(Calendar.DAY_OF_MONTH);
-							currYear = g.get(Calendar.YEAR);
-						}
-						
-						SimpleDateFormat sdf = new SimpleDateFormat("MM dd yyyy");
-						for (GregorianCalendar gc : listGC) {
-							System.out.println("week pointer " + gc.get(Calendar.WEEK_OF_YEAR) + " date: " + sdf.format(gc.getTime()));
-						}
-					} else if (getRepeats().equalsIgnoreCase("monthly")) {
-						ArrayList<GregorianCalendar> listGC = new ArrayList<GregorianCalendar>();
+							for (int i = 1; i < getRepeatEndAfter(); i++) {
 
-						// Start setting repetitions
-						int currYear = getSpinYear();
-						int currDay = getSpinDay();
-						int currMonth = getIntSpinMonth();
-						
-						GregorianCalendar g = new GregorianCalendar(currYear, currMonth, currDay);
-						listGC.add(g);
-						
-						for (int i = 1; i < getRepeatEndAfter(); i++) {
+								g = new GregorianCalendar(currYear, currMonth, currDay);
+								g.add(Calendar.DAY_OF_YEAR, 7 * getRepeatsEvery());
+								listGC.add(g);
+								
+								currMonth = g.get(Calendar.MONTH);
+								currDay = g.get(Calendar.DAY_OF_MONTH);
+								currYear = g.get(Calendar.YEAR);
+							}
+							
+							SimpleDateFormat sdf = new SimpleDateFormat("MM dd yyyy");
+							for (GregorianCalendar gc : listGC) {
+								System.out.println("week pointer " + gc.get(Calendar.WEEK_OF_YEAR) + " date: " + sdf.format(gc.getTime()));
+							}
+						} else if (getRepeats().equalsIgnoreCase("monthly")) {
+							listGC = new ArrayList<GregorianCalendar>();
 
-							g = new GregorianCalendar(currYear, currMonth, currDay);
-							g.add(Calendar.MONTH, 1 * getRepeatsEvery());
+							// Start setting repetitions
+							int currYear = getSpinYear();
+							int currDay = getSpinDay();
+							int currMonth = getIntSpinMonth();
+							
+							GregorianCalendar g = new GregorianCalendar(currYear, currMonth, currDay);
 							listGC.add(g);
 							
-							currMonth = g.get(Calendar.MONTH);
-							currDay = g.get(Calendar.DAY_OF_MONTH);
-							currYear = g.get(Calendar.YEAR);
+							for (int i = 1; i < getRepeatEndAfter(); i++) {
+
+								g = new GregorianCalendar(currYear, currMonth, currDay);
+								g.add(Calendar.MONTH, 1 * getRepeatsEvery());
+								listGC.add(g);
+								
+								currMonth = g.get(Calendar.MONTH);
+								currDay = g.get(Calendar.DAY_OF_MONTH);
+								currYear = g.get(Calendar.YEAR);
+							}
+							
+							SimpleDateFormat sdf = new SimpleDateFormat("MM dd yyyy");
+							for (GregorianCalendar gc : listGC) {
+								System.out.println("week pointer " + gc.get(Calendar.WEEK_OF_YEAR) + " date: " + sdf.format(gc.getTime()));
+							}
 						}
 						
-						SimpleDateFormat sdf = new SimpleDateFormat("MM dd yyyy");
-						for (GregorianCalendar gc : listGC) {
-							System.out.println("week pointer " + gc.get(Calendar.WEEK_OF_YEAR) + " date: " + sdf.format(gc.getTime()));
+						for(int i = 0; i < listGC.size(); i++) {
+							GregorianCalendar appStart = (GregorianCalendar) start.clone();
+							appStart.set(Calendar.MONTH, listGC.get(i).get(Calendar.MONTH));
+							appStart.set(Calendar.DAY_OF_MONTH, listGC.get(i).get(Calendar.DAY_OF_MONTH));
+							appStart.set(Calendar.YEAR, listGC.get(i).get(Calendar.YEAR));
+							GregorianCalendar appEnd = (GregorianCalendar) end.clone();
+							appEnd.set(Calendar.MONTH, listGC.get(i).get(Calendar.MONTH));
+							appEnd.set(Calendar.DAY_OF_MONTH, listGC.get(i).get(Calendar.DAY_OF_MONTH));
+							appEnd.set(Calendar.YEAR, listGC.get(i).get(Calendar.YEAR));
+							
+							if(isWeekend())
+								JOptionPane.showMessageDialog(null, "Weekend appointments are not applicable.");
+							else {
+								Appointment a = new Appointment(appStart, appEnd);
+								if(!docController.addAppointment(a))
+									JOptionPane.showMessageDialog(null, "Cannot add appointment because of overlap.", "Cannot add appointment", JOptionPane.WARNING_MESSAGE);
+							}
+							System.out.println("Create appointment " + appStart.get(Calendar.MONTH) + " " + appStart.get(Calendar.DAY_OF_MONTH) + 
+									" " + appStart.get(Calendar.YEAR) + "\n from " + appStart.get(Calendar.HOUR) + ":" + appStart.get(Calendar.MINUTE) + " to " +
+									appEnd.get(Calendar.HOUR) + ":" + appEnd.get(Calendar.MINUTE) + "\n");
 						}
 					}
-
-				}
+				} else JOptionPane.showMessageDialog(null, "Time values invalid.");
 			}
 
 		});

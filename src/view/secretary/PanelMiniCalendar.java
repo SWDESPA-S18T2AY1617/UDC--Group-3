@@ -1,14 +1,12 @@
 package view.secretary;
 
+import controller.SecretaryController;
 import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
-
-import controller.SecretaryController;
-
 import javax.swing.border.Border;
 
 public class PanelMiniCalendar extends JPanel{
@@ -36,8 +34,8 @@ public class PanelMiniCalendar extends JPanel{
 			   cellDay;
 	private Boolean highlight;
 
-	public PanelMiniCalendar(SecretaryController secretaryController){
-		this.vc = secretaryController;
+	public PanelMiniCalendar(SecretaryController vc){
+		this.vc = vc;
 
         this.setSize( 350, 500);
 		this.setLayout(null);
@@ -62,8 +60,7 @@ public class PanelMiniCalendar extends JPanel{
 		chckDoc2 = new JCheckBox("DOCTOR 2 GOES HERE ");
 		chckDoc3 = new JCheckBox("DOCTOR 3 GOES HERE ");
 
-		highlight = true;
-		cellDay = dayBound;
+		
 
 		monthLabel.setForeground(new Color(120, 120, 120));
 		yearLabel.setForeground(new Color(120, 120, 120));
@@ -98,6 +95,9 @@ public class PanelMiniCalendar extends JPanel{
 		dayBound = cal.get(GregorianCalendar.DAY_OF_MONTH);
 		monthBound = cal.get(GregorianCalendar.MONTH);
 		yearBound = cal.get(GregorianCalendar.YEAR);
+
+		highlight = true;
+		cellDay = dayBound;
 
 		calendarTable.setShowGrid(true);
 		calendarTable.getParent().setBackground(calendarTable.getBackground()); //Set background

@@ -62,13 +62,13 @@ public class PanelWeek extends JPanel {
 	private GridBagConstraints[] gbc;
 	private GridBagConstraints[] gb;
 	
-	private DoctorController dController;
+	private DoctorController docController;
 	public static final String COLOR_TAKEN = "lightgray";
 	public static final String COLOR_AVAILABLE = "green";
 
-	public PanelWeek(DoctorController dController, int year, int month, int day) {
+	public PanelWeek(DoctorController docController, int year, int month, int day) {
 		
-		this.dController = dController;
+		this.docController = docController;
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 
 		this.setPreferredSize(new Dimension(670, 830));
@@ -280,8 +280,6 @@ public class PanelWeek extends JPanel {
 						int choice = JOptionPane.showConfirmDialog(null, pmd, "Modify Activity", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 						
 						if(pmd.toDelete()) {
-							// TODO Delete selected appointment
-							
 							// Appointment date
 							Calendar date = calWeekScope[column];
 							
@@ -291,24 +289,45 @@ public class PanelWeek extends JPanel {
 							
 							System.out.println(date.toString());
 							
-							// Get appointment from list which matches the above starting time and date
-							// -> then delete the appointment
+							Calendar calDelete = (Calendar) calWeekScope[column].clone();
+							calDelete.set(Calendar.HOUR, timeH);
+							calDelete.set(Calendar.MINUTE, timeM);
+							
+							docController.deleteAppointment(calDelete);
 							
 						} else {
 							if(choice == JOptionPane.OK_OPTION) {
 								if(pmd.isValidTime()) {
-									// TODO Delete selected appointment, then add new appointment
-									
 									// Appointment date
 									Calendar date = calWeekScope[column];
+									
 									// Original starting time
 									int timeH = index / 2;
 									int timeM = 30 * (index % 2);
 									
-									// Get appointment from list which matches the above starting time and date
-									/* appointment.newDate( */pmd.getSpinDate();
-									/* appointment.newStartTime( */pmd.getFromTime();
-									/* appointment.newEndTime( */pmd.getToTime();
+									System.out.println(date.toString());
+									
+									Calendar calDelete = (Calendar) calWeekScope[column].clone();
+									calDelete.set(Calendar.HOUR, timeH);
+									calDelete.set(Calendar.MINUTE, timeM);
+									
+									docController.deleteAppointment(calDelete);
+									
+									// Create appointment
+									Calendar start = pmd.getFromTime();
+									Calendar end = pmd.getToTime();
+								
+									start.set(Calendar.MONTH, pmd.getIntSpinMonth());
+									start.set(Calendar.DAY_OF_MONTH, pmd.getSpinDay());
+									start.set(Calendar.YEAR, pmd.getSpinYear());
+									
+									end.set(Calendar.MONTH, pmd.getIntSpinMonth());
+									end.set(Calendar.DAY_OF_MONTH, pmd.getSpinDay());
+									end.set(Calendar.YEAR, pmd.getSpinYear());
+									
+									Appointment a = new Appointment(start, end);
+									if(!docController.addAppointment(a))
+										JOptionPane.showMessageDialog(null, "Cannot add appointment because of overlap.", "Cannot add appointment", JOptionPane.WARNING_MESSAGE);
 									
 								} else {
 									JOptionPane.showMessageDialog(null, "Invalid time input", "Cannot modify appointment", JOptionPane.WARNING_MESSAGE);
@@ -407,7 +426,7 @@ public class PanelWeek extends JPanel {
 				
 				StringBuilder sb = new StringBuilder(act.toString());
 				
-				if(dController.getDoctor().getName().equalsIgnoreCase(act.getDoctorName())) {
+				if(docController.getDoctor().getName().equalsIgnoreCase(act.getDoctorName())) {
 					activitySlot[48 * i + start].add(arrBtnRemove[48 * i + start]);
 					arrBtnRemove[48 * i + start].setVisible(false);
 				}
@@ -420,7 +439,7 @@ public class PanelWeek extends JPanel {
 					} else activitySlot[48 * i + start].setBackground(ColorParser.getColor(COLOR_TAKEN));				
 					
 					activitySlot[48 * i + start].setBorder(BorderFactory.createEmptyBorder());
-					if(activitySlot[48 * i + start].getBackground() != ColorParser.getColor(COLOR_TAKEN) && dController.getDoctor().getName().equalsIgnoreCase(act.getDoctorName())) {
+					if(activitySlot[48 * i + start].getBackground() != ColorParser.getColor(COLOR_TAKEN) && docController.getDoctor().getName().equalsIgnoreCase(act.getDoctorName())) {
 						
 						activitySlot[48 * i + start].addMouseListener(new MouseAdapter() {
 							@Override

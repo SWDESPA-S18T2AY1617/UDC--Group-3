@@ -34,7 +34,7 @@ public class DoctorController extends ViewController {
 	public static final int PANEL_AGENDA_DAY = 3;
 	public static final int PANEL_AGENDA_WEEK = 4;
 	public static final int PANEL_CREATE = 5;
-
+	
 	public DoctorController(MainController controller) {
 		super(controller);
 	}
@@ -79,6 +79,8 @@ public class DoctorController extends ViewController {
 		pa.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), activity);
 		pw.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), activity);
 		pd.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), activity);
+		
+		
 	}
 
 	/**
@@ -245,6 +247,14 @@ public class DoctorController extends ViewController {
 		f.setVisible(true);
 	}
 	
+	public void deleteAppointment(Calendar start) {
+		controller.deleteAppointment(start);
+	}
+	
+	public boolean addAppointment(Appointment appointment) {
+		return controller.addAppointment(appointment);
+	}
+	
 	@Override
 	public void updateView() {
 		// TODO Auto-generated method stub
@@ -259,7 +269,6 @@ public class DoctorController extends ViewController {
 
 	@Override
 	public void cancelAppointment() {
-		// TODO Auto-generated method stub
 		
 	}
 }
