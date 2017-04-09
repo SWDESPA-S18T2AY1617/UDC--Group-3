@@ -5,19 +5,16 @@ import values.Month;
 import model.CalendarCalculator;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
-import java.util.*;
 import javax.swing.table.*;
 
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.*;
+
+import controller.ClientController;
 
 public class PanelCalendar extends JPanel {
 
@@ -31,10 +28,9 @@ public class PanelCalendar extends JPanel {
 	private JScrollPane doctorPane;
 	private JList<String> doctorList;
 	private DefaultListModel<String> listDoctor;
-	
-	private Controller controller;
+	private ClientController controller;
 
-	public PanelCalendar(Controller controller, int currYear, int currMonth, int currDay) {
+	public PanelCalendar(ClientController controller, int currYear, int currMonth, int currDay) {
 		this.controller = controller;
 		
 		// Set panel properties
@@ -316,13 +312,13 @@ public class PanelCalendar extends JPanel {
 			int col = table.getSelectedColumn();
 			if(table.getValueAt(row, col) != null) {
 				int day = (Integer)table.getValueAt(row, col);
-				controller.setDayToday(day);
+				controller.setDayCurr(day);
 			}
 			else {
 				int[] indexes = getIndexOfDay(1);
 				int day = (Integer)table.getValueAt(indexes[0], indexes[1]);
 				setSelectedCell(1);
-				controller.setDayToday(day);
+				controller.setDayCurr(day);
 			}
 		}
 

@@ -1,15 +1,82 @@
 package controller;
 
+import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+import view.client.*;
+
+import model.CalendarPointers;
+
 public class ClientController extends ViewController {
 	
 	//private ClientView view;
+	
+	private FrameMain f;
+	private PanelCalendar pc;
+	private PanelMenu pm;
+	private PanelCreate pcr;
+	private PanelDay pd;
+	private PanelWeek pw;
+	private PanelReservation pa;
+	
+	public static final int PANEL_DAY = 1;
+	public static final int PANEL_RESERVATION = 2;
+	public static final int PANEL_WEEK = 3;
+	public static final int PANEL_CREATE = 4;
 	
 	public ClientController(MainController controller)
 	{
 		super(controller);
 		
-		//remember to have an instance of their specific ViewControllers to their views
-		//view = new ClientView(this);
+		f = new FrameMain();
+		pc = new PanelCalendar(this, super.getYearBound(), super.getMonthBound(), super.getDayBound());
+		pm = new PanelMenu(this, super.getYearBound(), super.getMonthBound(), super.getDayBound());
+		pcr = new PanelCreate(this, super.getYearBound(), super.getMonthBound(), super.getDayBound());
+		pa = new PanelReservation(this, super.getYearBound(), super.getMonthBound(), super.getDayBound());
+		pw = new PanelWeek(this, super.getYearBound(), super.getMonthBound(), super.getDayBound());
+		pd = new PanelDay(this);
+		
+		f.setLeftPanel(pc);
+		f.setTopPanel(pm);
+		f.setRightPanel(pd);
+	}
+	
+	public void updateAll(int year, int month, int day) {
+		//ArrayList<Activity> act = new ArrayList<>();
+		//while(activity != null && activity.hasNext())
+		//	act.add(activity.next());
+		pc.update(month, year, day);
+		pa.update(month, day, year);
+		pm.update(month, day, year);
+		pd.update(month, day, year);
+		pw.update(year, month, day);
+	}
+	
+	public void setMainPanel(int panelConstant) {
+		switch(panelConstant) {
+			case ClientViewController.PANEL_DAY :
+				f.setRightPanel(pd);
+				pc.enableBtnCreate();
+				break;
+		     case ClientViewController.PANEL_RESERVATION :
+				f.setRightPanel(pa);
+				pc.enableBtnCreate();
+				break;
+				
+			case ClientViewController.PANEL_CREATE :
+				f.setRightPanel(pcr);
+				pm.unselectToggleBtns();
+				break;
+			case ClientViewController.PANEL_WEEK:
+				f.setRightPanel(pw);
+				pc.enableBtnCreate();
+				break;
+		}
 	}
 	
 	public void updateView(/*Maybe an Iterator of Appointments*/)

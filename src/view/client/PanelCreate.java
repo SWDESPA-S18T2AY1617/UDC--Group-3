@@ -14,13 +14,10 @@ import java.util.GregorianCalendar;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
-import javax.swing.ButtonModel;
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerListModel;
@@ -29,6 +26,8 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import controller.ClientController;
+import model.Appointment;
 import model.CalendarCalculator;
 import model.CalendarModel;
 import values.Month;
@@ -53,9 +52,9 @@ public class PanelCreate extends JPanel{
 	private JSpinner spinDay;
 	private JSpinner spinYear;
 	
-	private Controller controller;
+	private ClientController controller;
 
-	public PanelCreate(Controller controller, int year, int month, int day) {
+	public PanelCreate(ClientController controller, int year, int month, int day) {
 		this.controller = controller;
 		
 		this.setLayout(null);
@@ -263,7 +262,26 @@ public class PanelCreate extends JPanel{
 	class BtnSave implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+
+			Calendar start = new GregorianCalendar(getSpinYear(), getIntSpinMonth(), getSpinDay());
+			start.set(Calendar.SECOND, 0);
+			Calendar end = (Calendar) start.clone();
+			start.set(Calendar.HOUR, getSpinFromHour());
+			start.set(Calendar.MINUTE, getSpinFromMinutes());
+			end.set(Calendar.HOUR, getSpinToHour());
+			end.set(Calendar.MINUTE, getSpinToMinutes());
+			if(!getTitle().equals("")) {
+				Appointment a = new Appointment(start, end);
+			//	if(controller.isActivityValid(a)) {
+				//	controller.addActivity(a);
+				//	JOptionPane.showMessageDialog(null, "Event Successfully Created!", "Event Created", JOptionPane.INFORMATION_MESSAGE);
+			//}
+			//else
+			//		JOptionPane.showMessageDialog(null, "Event Invalid", "Failed", JOptionPane.ERROR_MESSAGE);
+		//	}
+		//	else
+			//	JOptionPane.showMessageDialog(null, "Fill Up All Fields", "Warning", JOptionPane.WARNING_MESSAGE);
+			}	
 		}
 	}
 	

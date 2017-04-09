@@ -1,11 +1,15 @@
 package view.client;
 
+import controller.ClientController;
+import controller.MainController;
+
 public class Test {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		new Controller();
+		MainController mc = new MainController();
+		ClientController dc = new ClientController(mc);
 	}
 
 }

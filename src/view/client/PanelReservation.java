@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.RowFilter.Entry;
 import javax.swing.table.DefaultTableModel;
 
+import controller.ClientController;
 import values.AppStrings;
 
 public class PanelReservation extends JPanel {
@@ -32,9 +33,9 @@ public class PanelReservation extends JPanel {
 	private JScrollPane scrollAgendaTable;
 
 
-	private Controller controller;
+	private ClientController controller;
 
-	public PanelReservation(Controller controller) {
+	public PanelReservation(ClientController controller, int year, int month, int day) {
 
 		// Set panel properties
 		this.setLayout(null);
