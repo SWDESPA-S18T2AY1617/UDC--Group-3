@@ -6,7 +6,9 @@ import view.secretary.PanelBookingView;
 import view.secretary.PanelCalendarView;
 import view.secretary.PanelHeadline;
 import view.secretary.PanelMiniCalendar;
+import model.Client;
 import java.util.Calendar;
+import javax.swing.JOptionPane;
 
 public class SecretaryController extends ViewController {
 	private FrameMain main;
@@ -94,8 +96,20 @@ public class SecretaryController extends ViewController {
 	}
 	@Override
 	public void setAppointment() {
+		Client temp = new Client(bv.getClientName())
 		// TODO Auto-generated method stub
-		//if ( controller.setAppointment(bv.get)
+		//getMonthInput, getDayInput, getYearInput
+		//getStartH, getStartM
+		//getEndH, getEndM
+		Calendar start = Calendar.getInstance();
+		start.set(bv.getYearInput(), bv.getMonthInput(), bv.getDayInput(), bv.getStartH(), bc.getStartM() );
+		Calendar end = Calendar.getInstance();
+		end.set(bv.getYearInput(), bv.getMonthInput(), bv.getDayInput(), bv.getEndH(), bc.getEndM() );
+
+		if(controller.setAppointment(temp, start, end))
+			JOptionPane.showMessageDialog(null, "Appointment reserved!");
+		else
+			JOptionPane.showMessageDialog(null, "Appointment booking error, please try again.");
 		
 	}
 	@Override
@@ -105,66 +119,3 @@ public class SecretaryController extends ViewController {
 	}
 
 }
-
-/* book appointment on behalf of client
-	public void setAppointment()
-	{	
-		//inputData.get(0) = month of appointment
-		//inputData..get(1) = day of appointment
-		//inputData..get(2) = year of appointment
-		//inputData..get(3) = start hour of appointment
-		//inputData..get(4) = stat minute of appointment
-		//inputData.get(5) = end hour of appointment
-		//inputData..get(6) = end minute of appointment
-
-		// which of the three doctors the booked appointment's for
-		if(bv.getInputChoice().equals("Doctor1")){
-			//SEND ALL APPROPRIATE DATA TO WHEREEVER FOR DOCTOR NUMBUH 1
-		}
-		else if(bv.getInputChoice().equals("Doctor2")){
-			//SEND ALL APPROPRIATE DATA TO WHEREEVER FOR DOCTOR NUMBUH 1
-			
-		}
-		else if(bv.getInputChoice().equals("Doctor3")){
-			//SEND ALL APPROPRIATE DATA TO WHEREEVER FOR DOCTOR NUMBUH 1
-			
-		}
-public String getRadioButtonChoice(){
-		return radioGroup.getSelection().getActionCommand();
-	}
-	
-	public String getEventDeets(){
-		return eventTitle.getText().trim();
-	}
-	
-	public String getMonthInput(){
-		return addMonth.getSelectedItem().toString();
-	}
-	
-	public String getDayInput(){
-		return addDay.getSelectedItem().toString();
-	}
-	
-	public String getYearInput(){
-		return addYear.getSelectedItem().toString();
-	}
-	
-	public String getStartH(){
-		return timeStartHour.getValue().toString();
-	}
-	
-	public String getStartM(){
-		return timeStartMinute.getValue().toString();
-	}
-	
-	public String getEndH(){
-		return timeEndHour.getValue().toString();
-	}
-	
-	public String getEndM(){
-		return timeEndMinute.getValue().toString();
-	}
-		
-		
-		this.updateView();
-	}*/
