@@ -34,7 +34,7 @@ import values.Month;
 
 public class PanelCreate extends JPanel{
 	
-	private JTextField jtxtTitle;
+	//private JTextField jtxtTitle;
 	private ButtonGroup bg;
 	private JLabel lblTo;
 	private JLabel lblTColon;
@@ -68,7 +68,7 @@ public class PanelCreate extends JPanel{
 
 	private void initComp(int year, int month, int day) {
 		// initialize swing components
-		jtxtTitle = new JTextField();
+		//jtxtTitle = new JTextField();
 		lblTo = new JLabel("to");
 		lblTColon = new JLabel(":");
 		lblFColon = new JLabel(":");
@@ -111,7 +111,7 @@ public class PanelCreate extends JPanel{
 		btnDiscard.setContentAreaFilled(false); 
 		btnDiscard.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
-		jtxtTitle.setFont(new Font("Sans Serif", Font.PLAIN, 16));
+		//jtxtTitle.setFont(new Font("Sans Serif", Font.PLAIN, 16));
 		lblTo.setFont(new Font("Sans Serif", Font.BOLD, 16));
 		lblTColon.setFont(new Font("Sans Serif", Font.BOLD, 16));
 		lblFColon.setFont(new Font("Sans Serif", Font.BOLD, 16));
@@ -128,7 +128,7 @@ public class PanelCreate extends JPanel{
 
 	private void addPlaceComp() {
 		// add components to panel
-		this.add(jtxtTitle);
+		//this.add(jtxtTitle);
 		this.add(lblTo);
 		this.add(lblFColon);
 		this.add(lblTColon);
@@ -153,7 +153,7 @@ public class PanelCreate extends JPanel{
 		lblTColon.setBounds(410, 110, 10, 40);
 		spinToMinutes.setBounds(420, 110, 50, 40);
 		
-		jtxtTitle.setBounds(15, 15, 460, 40);
+		//jtxtTitle.setBounds(15, 15, 460, 40);
 		spinMonth.setBounds(15, 110, 60, 40);
 		spinDay.setBounds(75, 110, 40, 40);
 		spinYear.setBounds(115, 110, 70, 40);
@@ -161,7 +161,7 @@ public class PanelCreate extends JPanel{
 		btnSave.setBounds(270, 170, 90, 40);
 		btnDiscard.setBounds(380, 170, 90, 40);
 	}
-	
+/*	
 	public String getSelectedRB() {
 		for (Enumeration<AbstractButton> buttons = this.bg.getElements(); buttons.hasMoreElements();) {
 			AbstractButton button = buttons.nextElement();
@@ -172,7 +172,7 @@ public class PanelCreate extends JPanel{
 
 		return "";
 	}
-	
+
 	public void clearTFTitle() {
 		this.jtxtTitle.setText("");
 	}
@@ -180,7 +180,7 @@ public class PanelCreate extends JPanel{
 	public String getTitle() {
 		return jtxtTitle.getText();
 	}
-	
+	*/
 	public int getIntSpinMonth() {
 		return Month.getIndexShortString((String)spinMonth.getValue());
 	}
@@ -242,7 +242,6 @@ public class PanelCreate extends JPanel{
 	}
 	
 	public void clearAll() {
-		this.clearTFTitle();
 		this.spinFromMinutes.setValue(((SpinnerNumberModel)(spinFromMinutes.getModel())).getMinimum());
 		this.spinFromHour.setValue(((SpinnerNumberModel)(spinFromHour.getModel())).getMinimum());
 		this.spinToMinutes.setValue(((SpinnerNumberModel)(spinToMinutes.getModel())).getMinimum());
@@ -270,8 +269,8 @@ public class PanelCreate extends JPanel{
 			start.set(Calendar.MINUTE, getSpinFromMinutes());
 			end.set(Calendar.HOUR, getSpinToHour());
 			end.set(Calendar.MINUTE, getSpinToMinutes());
-			if(!getTitle().equals("")) {
-				Appointment a = new Appointment(start, end);
+			
+			Appointment a = new Appointment(start, end);
 			//	if(controller.isActivityValid(a)) {
 				//	controller.addActivity(a);
 				//	JOptionPane.showMessageDialog(null, "Event Successfully Created!", "Event Created", JOptionPane.INFORMATION_MESSAGE);
@@ -281,7 +280,7 @@ public class PanelCreate extends JPanel{
 		//	}
 		//	else
 			//	JOptionPane.showMessageDialog(null, "Fill Up All Fields", "Warning", JOptionPane.WARNING_MESSAGE);
-			}	
+			
 		}
 	}
 	

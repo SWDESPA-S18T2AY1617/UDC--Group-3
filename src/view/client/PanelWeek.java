@@ -13,8 +13,10 @@ import java.util.Iterator;
 import javax.swing.*;
 
 import controller.ClientController;
+import model.Appointment;
 import model.CalendarCalculator;
 import values.Month;
+import view.doctor.ColorParser;
 import view.doctor.TestAppointment;
 
 public class PanelWeek extends JPanel {
@@ -23,6 +25,9 @@ public class PanelWeek extends JPanel {
 	private PanelSlots[] days;
 	private Calendar[] calWeekScope;
 	private ClientController controller;
+	
+	public static final String COLOR_TAKEN = "red";
+	public static final String COLOR_AVAILABLE = "green";
 	
 	public PanelWeek(ClientController controller, int year, int month, int day) {
 		
@@ -93,10 +98,10 @@ public class PanelWeek extends JPanel {
 		this.add(dayTab);
 	}	
 	
-	public void update(int month, int day, int year) {
+	public void update(int month, int day, int year, Iterator<Appointment> activity) {
 		
 		this.setPanelValuesNull();
-	//	this.setPanelValues(month, day, year);
+		this.setPanelValues(month, day, year, activity);
 	}
 	
 	public void setPanelValuesNull() {
@@ -113,13 +118,13 @@ public class PanelWeek extends JPanel {
 		}
 	}
 	
-	public void setPanelValues(int month, int day, int year/*,Iterator<Appointment> activity*/) {
+	public void setPanelValues(int month, int day, int year, Iterator<Appointment> activity) {
 
-	/*	ArrayList<Appointment> activityList = new ArrayList<>();
+		ArrayList<Appointment> activityList = new ArrayList<>();
 
 		if (activity != null) {
 			while (activity != null && activity.hasNext()) {
-				TestAppointment a = activity.next();
+				Appointment a = activity.next();
 				activityList.add(a);
 			}
 
@@ -137,32 +142,33 @@ public class PanelWeek extends JPanel {
 
 	public void setEvent(Appointment act) {
 
-		JLabel evnt = new JLabel(act.getName());
+		JLabel evnt = new JLabel(act.toString());
 		evnt.setFont(new Font("Sans Serif", Font.BOLD, 14));
 		evnt.setForeground(Color.white);
 		
-		for(int i = 0; i < calWeekScope.length; i++) {
-			if(act.getYear() == calWeekScope[i].get(Calendar.YEAR) && act.getMonth() == calWeekScope[i].get(Calendar.MONTH) && act.getDay() == calWeekScope[i].get(Calendar.DAY_OF_MONTH)) {
-				for (int j = 0; j < 5; j++) {
-					int start = act.getStartHour() * 2 + act.getStartMinute() / 30;
-					int end = act.getEndHour() * 2 + act.getEndMinute() / 30;
-
-					days[j].getActivitySlot()[start].add(evnt);
-
-					while (start < end) {
-						days[j].getActivitySlot()[start].setBackground(act.getColor());
-						days[j].getActivitySlot()[start].setBorder(BorderFactory.createEmptyBorder());
-						days[j].getActivitySlot()[start].setCursor(new Cursor(Cursor.HAND_CURSOR));
-						start++;
-						}
+			for(int i = 0; i < calWeekScope.length; i++)  {
+				if(act.getYear() == calWeekScope[i].get(Calendar.YEAR) && act.getMonth() == calWeekScope[i].get(Calendar.MONTH) 
+						&& act.getDay() == calWeekScope[i].get(Calendar.DAY_OF_MONTH)) {
 					
-					}
-					
-					break;
-				}
-			}	
+						int start = act.getStartHour() * 2 + act.getStartMinute() / 30;
+						int end = act.getEndHour() * 2 + act.getEndMinute() / 30;
+
+						days[i].getActivitySlot()[start].add(evnt);
+
+						while (start < end) {
+							if(act.isAvailable()) 
+								days[i].getActivitySlot()[start].setBackground(ColorParser.getColor(COLOR_AVAILABLE));
+						 else 
+							 days[i].getActivitySlot()[start].setBackground(ColorParser.getColor(COLOR_TAKEN));	
+							
+							days[i].getActivitySlot()[start].setBorder(BorderFactory.createEmptyBorder());
+							days[i].getActivitySlot()[start].setCursor(new Cursor(Cursor.HAND_CURSOR));
+							
+							start++;
+							}
+					  	}
+			
 		}
-	*/	
+		
 	}
-	
 }

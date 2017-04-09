@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -18,6 +19,7 @@ import javax.swing.RowFilter.Entry;
 import javax.swing.table.DefaultTableModel;
 
 import controller.ClientController;
+import model.Appointment;
 import values.AppStrings;
 
 public class PanelReservation extends JPanel {
@@ -32,6 +34,8 @@ public class PanelReservation extends JPanel {
 	private AgendaTableModel modelAgendaTable;
 	private JScrollPane scrollAgendaTable;
 
+
+	private ArrayList<Appointment> activityList;
 
 	private ClientController controller;
 
@@ -49,7 +53,7 @@ public class PanelReservation extends JPanel {
 		this.addPlaceComp();
 
 		// Add listeners
-		//this.addListeners();
+		this.addListeners();
 	}
 
 	private void initComp() {
@@ -117,35 +121,24 @@ public class PanelReservation extends JPanel {
 	//	btnMarkDone.setBounds(240, 15, 200, 30);
 		btnCancel.setBounds(450, 15, 200, 30);
 	}
-	public void update(int month, int day, int year) {
+	public void update(int month, int day, int year,Iterator<Appointment> activity) {
 		this.setTableNull();
-		this.setTableValues(/*Iterator<Appointment> activity*/);
-	//	this.updateLabel(year, month, day);
+		this.setTableValues(activity);
 		this.deleteBtnDisable();
 	}
 
 	public void deleteBtnDisable() {
 
 		boolean flag = false;
-		for (int i = 0; i < agendaTable.getRowCount(); i++) {
-			if ((agendaTable.getValueAt(i, 0) != null && !((String[]) agendaTable.getValueAt(i, 0))[1].contains("-")
-					&& !((String[]) agendaTable.getValueAt(i, 1))[0].contains(AppStrings.NOEVENTS.toString())
-					&& !((String[]) agendaTable.getValueAt(i, 1))[2].contains("lightgray"))) {
-				flag = true;
-			}
-		}
-/*
-		flag = false;
+		
 		if (btnCancel.getText().equalsIgnoreCase("Cancel Appointment")) {
 			for (int i = 0; i < agendaTable.getRowCount(); i++) {
-				if (((String[]) agendaTable.getValueAt(i, 1))[2].contains(Activity.COLOR_TODO_DONE)) {
 					flag = true;
 				}
 			}
 			btnCancel.setEnabled(flag);
 		}
-*/
-	}
+	
 /*
 	public void TESTupdate(int month, int day, int year, Activity activity) {
 		this.setTableNull();
@@ -175,16 +168,17 @@ public class PanelReservation extends JPanel {
 	}
 	
 	//displays all reservation/appointment
-	public void setTableValues(/*,Iterator<Appointment> activity*/) {
+	public void setTableValues(Iterator<Appointment> activity) {
 		System.out.println("Setting table values");
-		// ArrayList<Appointment> activityList = new ArrayList<>();
-		//activityList = new ArrayList<>();
+		
+		activityList = new ArrayList<>();
+		
 		int rwCnt = 0;
 
 		modelAgendaTable.setRowCount(1);
 		modelAgendaTable.setValueAt(new String[] { AppStrings.NOEVENTS.toString(), "", "black", "" }, 0, 0);
 		modelAgendaTable.setValueAt(new String[] { AppStrings.NOEVENTS.toString(), "", "black", "" }, 0, 1);
-/*
+		
 		if (activity == null) {
 			System.out.println("No activities.");
 		} else {
@@ -192,23 +186,30 @@ public class PanelReservation extends JPanel {
 			while (activity != null && activity.hasNext()) {
 				activityList.add(activity.next());
 			}
+			
 			if (activityList.size() > 0)
 				modelAgendaTable.setRowCount(activityList.size());
+			
 			for (int i = 0; i < activityList.size(); i++) {
-					String[] sArr = activityList.get(i).toStringArr();
+				DecimalFormat d = new DecimalFormat("00");
 
-					modelAgendaTable.setValueAt(sArr, rwCnt, 0);
-					modelAgendaTable.setValueAt(sArr, rwCnt, 1);
+				String date = (activityList.get(i).getMonth() + 1) + "/" + (activityList.get(i).getDay()) + "/" + activityList.get(i).getYear();
+				String time = activityList.get(i).getStartHour() + ":" + d.format(activityList.get(i).getStartMinute()) + " - " + activityList.get(i).getEndHour() + ":"
+						+ d.format(activityList.get(i).getEndMinute());
 
-					rwCnt++;
+				modelAgendaTable.setValueAt(date, rwCnt, 0);
+				modelAgendaTable.setValueAt(time, rwCnt, 1);
+				modelAgendaTable.setValueAt(activityList.get(i), rwCnt, 2);
+
+				rwCnt++;
 				}
 			}
-		}*/
+		
 		revalidate();
 		repaint();
 	}
-/*	private void addListeners() {
-	//	btnMarkDone.addActionListener(new MarkDone());
+	private void addListeners() {
+		
 		btnCancel.addActionListener(new DeleteAppointment());
 	}
 	
@@ -226,10 +227,9 @@ public class PanelReservation extends JPanel {
 				setAgendaColumn(3);
 
 				for (int i = agendaTable.getRowCount() - 1; i >= 0; i--) {
-					if (agendaTable.getValueAt(i, 1) != null
-							&& ((String[]) agendaTable.getValueAt(i, 1))[2].contains(Activity.COLOR_TODO_DONE)) {
+					if (agendaTable.getValueAt(i, 1) != null) {
 						String[] sArr = (String[]) agendaTable.getValueAt(i, 0);
-						controller.deleteActivity(Integer.parseInt(sArr[3]));
+						controller.cancelAppointment(/*Integer.parseInt(sArr[3])*/);
 					}
 				}
 				setAgendaColumn(2);
@@ -238,7 +238,6 @@ public class PanelReservation extends JPanel {
 		}
 
 	}
-*/
 	class AgendaTableModel extends DefaultTableModel {
 		private boolean[][] editable_cells;
 
@@ -256,5 +255,6 @@ public class PanelReservation extends JPanel {
 		this.editable_cells[row][col] = value;
 		this.fireTableCellUpdated(row, col);
 	}
+	
 	}
 }
