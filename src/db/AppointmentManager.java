@@ -91,16 +91,15 @@ public class AppointmentManager {
 		return result;
 	}
 	
-	//how would the appointment be retrieved from the db? would it be by the time or what?
-	public AppointmentDB getAppointment(String what, String wew) throws IOException{
+	//start time at date na lang ginamit ko bois
+	public AppointmentDB getAppointment(String startTime, String date) throws IOException{
 		
 		AppointmentDB appointment = null;
 		ResultSet result;
 
-		//I intentionally left the error below to remind mahself what to edit here
 		String query = "SELECT * FROM " + AppointmentDB.TABLE_NAME +
-					   " WHERE " + AppointmentDB.COL_ + " = '" + what + 
-					   "' AND " + AppointmentDB.COL_ + " = '" + wew + "'";
+					   " WHERE " + AppointmentDB.COL_STARTTIME + " = '" + startTime + 
+					   "' AND " + AppointmentDB.COL_DATE + " = '" + date + "'";
 		
 		DBConnection db = new DBConnection();
 		
