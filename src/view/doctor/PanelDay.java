@@ -224,7 +224,8 @@ public class PanelDay extends JPanel {
 						Calendar calDelete = new GregorianCalendar(docController.getYearCurr(), docController.getMonthCurr(), docController.getDayCurr());
 						calDelete.set(Calendar.HOUR, timeH);
 						calDelete.set(Calendar.MINUTE, timeM);
-						
+						calDelete.clear(Calendar.SECOND);
+						calDelete.clear(Calendar.MILLISECOND);
 						docController.deleteAppointment(calDelete);
 					} else {
 						if(choice == JOptionPane.OK_OPTION) {
