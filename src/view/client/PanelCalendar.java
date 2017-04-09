@@ -324,12 +324,14 @@ public class PanelCalendar extends JPanel {
 			if(table.getValueAt(row, col) != null) {
 				int day = (Integer)table.getValueAt(row, col);
 				controller.setDayCurr(day);
+				controller.updateView();
 			}
 			else {
 				int[] indexes = getIndexOfDay(1);
 				int day = (Integer)table.getValueAt(indexes[0], indexes[1]);
 				setSelectedCell(1);
 				controller.setDayCurr(day);
+				controller.updateView();
 			}
 		}
 

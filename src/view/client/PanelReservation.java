@@ -122,7 +122,7 @@ public class PanelReservation extends JPanel {
 	//	btnMarkDone.setBounds(240, 15, 200, 30);
 		btnCancel.setBounds(450, 15, 200, 30);
 	}
-	public void update(int month, int day, int year,Iterator<Appointment> activity) {
+	public void update(Iterator<Appointment> activity) {
 		this.setTableNull();
 		this.setTableValues(activity);
 		this.deleteBtnDisable();
@@ -220,16 +220,14 @@ public class PanelReservation extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (btnCancel.getText().equalsIgnoreCase("Cancel")) {
-				btnCancel.setText("Cancel Appointment");
-
-				setAgendaColumn(2);
-			} else if (btnCancel.getText().equalsIgnoreCase("Cancel Appointment")) {
+			
+			if (btnCancel.getText().equalsIgnoreCase("Cancel Appointment")) {
 
 				setAgendaColumn(3);
 
 				for (int i = agendaTable.getRowCount() - 1; i >= 0; i--) {
 					if (agendaTable.getValueAt(i, 1) != null) {
+						
 						String[] sArr = (String[]) agendaTable.getValueAt(i, 0);
 						controller.cancelAppointment(/*Integer.parseInt(sArr[3])*/);
 					}
