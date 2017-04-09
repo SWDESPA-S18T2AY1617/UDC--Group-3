@@ -102,9 +102,9 @@ public class SecretaryController extends ViewController {
 		//getStartH, getStartM
 		//getEndH, getEndM
 		Calendar start = Calendar.getInstance();
-		start.set(bv.getYearInput(), bv.getMonthInput(), bv.getDayInput(), bv.getStartH(), bc.getStartM() );
+		start.set(bv.getYearInput(), bv.getMonthInput(), bv.getDayInput(), bv.getStartH(), bc.getStartM(),0 );
 		Calendar end = Calendar.getInstance();
-		end.set(bv.getYearInput(), bv.getMonthInput(), bv.getDayInput(), bv.getEndH(), bc.getEndM() );
+		end.set(bv.getYearInput(), bv.getMonthInput(), bv.getDayInput(), bv.getEndH(), bc.getEndM(),0 );
 
 		if(controller.setAppointment(temp, start, end))
 			JOptionPane.showMessageDialog(null, "Appointment reserved!");
