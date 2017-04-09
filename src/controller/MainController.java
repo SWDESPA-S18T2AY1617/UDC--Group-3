@@ -113,6 +113,10 @@ public class MainController {
 		return model.getAppointments(year, month);
 	}
 	
+	public Iterator<Appointment> getAllAppointments() {
+		return model.getAllAppointments();
+	}
+	
 	public ArrayList<String> getDoctorNames() {
 		return model.getDoctorNames();
 	}
