@@ -49,6 +49,7 @@ public abstract class ViewController {
 	
 	public void setDayCurr(int day) {
 		calendar.setDayCurr(day);
+		//this.updateView();
 	}
 
 	public void setMonthCurr(int month) {

@@ -45,7 +45,7 @@ public class ClientController extends ViewController {
 		f.setTopPanel(pm);
 		f.setRightPanel(pd);
 	}
-	
+
 	public void updateAll(int year, int month, int day) {
 		//ArrayList<Activity> act = new ArrayList<>();
 		//while(activity != null && activity.hasNext())
@@ -82,6 +82,7 @@ public class ClientController extends ViewController {
 	public void updateView(/*Maybe an Iterator of Appointments*/)
 	{
 		//will be called by MainController
+		
 	}
 	/*
 	//check appointments (parameter == filter, can be changed to ArrayList<Integer> if preferred, depends on model implementation)
