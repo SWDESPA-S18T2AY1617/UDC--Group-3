@@ -60,7 +60,7 @@ public class DoctorController extends ViewController {
 		f.setRightPanel(pw.getPanelTable());
 		
 		// TEST
-		this.setAppointments(super.getYearBound(), super.getMonthBound(), super.getDayBound());
+		//this.setAppointments(super.getYearBound(), super.getMonthBound(), super.getDayBound());
 		System.out.println("donecreateandshow");
 	}
 
