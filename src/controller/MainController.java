@@ -97,9 +97,9 @@ public class MainController {
 						}
 					}
 				} else if(list.get(i).getClient_id() == -1) {
-					
+					appointment.setClient(new Client(-1, ""));
 				} else {
-					System.out.println("ERROR SETTING CLIENT");
+					System.out.println("NO CLIENT");
 				}
 			}
 			Appointment.ctr = manager.getCurrAutoInc();
