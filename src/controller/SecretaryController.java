@@ -96,15 +96,15 @@ public class SecretaryController extends ViewController {
 	}
 	@Override
 	public void setAppointment() {
-		Client temp = new Client(bv.getClientName())
+		Client temp = new Client(bv.getClientName());
 		// TODO Auto-generated method stub
 		//getMonthInput, getDayInput, getYearInput
 		//getStartH, getStartM
 		//getEndH, getEndM
 		Calendar start = Calendar.getInstance();
-		start.set(bv.getYearInput(), bv.getMonthInput(), bv.getDayInput(), bv.getStartH(), bc.getStartM(),0 );
+		start.set(bv.getYearInput(), bv.getMonthInput(), bv.getDayInput(), bv.getStartH(), bv.getStartM(),0 );
 		Calendar end = Calendar.getInstance();
-		end.set(bv.getYearInput(), bv.getMonthInput(), bv.getDayInput(), bv.getEndH(), bc.getEndM(),0 );
+		end.set(bv.getYearInput(), bv.getMonthInput(), bv.getDayInput(), bv.getEndH(), bv.getEndM(),0 );
 
 		if(controller.setAppointment(temp, start, end))
 			JOptionPane.showMessageDialog(null, "Appointment reserved!");
