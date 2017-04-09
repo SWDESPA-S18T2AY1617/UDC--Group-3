@@ -1,11 +1,17 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+
 public class Doctor {
 	
 	public static int ctr = 0;
 	
 	private final int id;
 	private String name;
+	private ArrayList<Appointment> appointments;
 	
 	public Doctor(String n)
 	{
@@ -13,6 +19,24 @@ public class Doctor {
 		
 		this.id = ctr;
 		name = n;
+		appointments = new ArrayList<>();
+	}
+	
+	public void addAppointment(Appointment a) {
+		a.setDoctor(this);
+		appointments.add(a);
+		sortAppointments();
+	}
+	
+	public void addAppointments(ArrayList<Appointment> a) {
+		for(Appointment appointment : a)
+			appointment.setDoctor(this);
+		appointments.addAll(a);
+		sortAppointments();
+	}
+	
+	public void setAppointment() {
+		
 	}
 	
 	public String getName() {
@@ -27,4 +51,24 @@ public class Doctor {
 		this.name = name;
 	}
 	
+	public Iterator<Appointment> getAppointments() {
+		return appointments.iterator();
+	}
+	
+	public void sortAppointments() {
+		Collections.sort(appointments, new Comparator<Appointment>() {
+			public int compare(Appointment s1, Appointment s2) {
+				int n = s1.getYear() - s2.getYear();
+				if (n == 0)
+					n = s1.getMonth() - s2.getMonth();
+				if (n == 0)
+					n = s1.getDay() - s2.getDay();
+				if (n == 0)
+					n = s1.getStartHour() - s2.getStartHour();
+				if (n == 0)
+					n = s1.getStartMinute() - s2.getStartMinute();
+				return n;
+			}
+		});
+	}
 }

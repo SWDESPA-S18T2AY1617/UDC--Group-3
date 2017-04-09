@@ -15,6 +15,14 @@ public class Client {
 		name = n;
 	}
 	
+	public Client(int id, String name)
+	{
+		ctr++;
+		
+		this.id = id;
+		this.name = name;
+	}
+	
 	public String getName() {
 		return name;
 	}
