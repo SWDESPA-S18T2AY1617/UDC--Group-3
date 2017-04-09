@@ -3,7 +3,7 @@ package db;
 public class ClientDB {
 	
 	public static final String TABLE_NAME = "client";
-	public static final String CLIENT_ID = "clientid";
+	public static final String CLIENT_ID = "client_id";
 	public static final String CLIENT_NAME = "name";
 	
 	private int clientid;

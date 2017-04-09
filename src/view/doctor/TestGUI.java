@@ -20,14 +20,27 @@ public class TestGUI {
 		} catch (UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
+		
+		MainController mc = new MainController();
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				MainController mc = new MainController();
 				DoctorController dc = new DoctorController(mc);
 				if(dc.showDoctorWho()) {
-					dc.createAndShowGUI();
+					dc.createGUI();
+					dc.showGUI();
 				}
+				DoctorController dc2 = new DoctorController(mc);
+				if(dc2.showDoctorWho()) {
+					dc2.createGUI();
+					dc2.showGUI();
+				}
+				
+				System.out.println("hhhhhuuuuuuuuuuhhhhhhuuuuuuu");
 			}
+			
 		});
+		
+		
+		
 	}
 }

@@ -32,6 +32,7 @@ import javax.swing.border.LineBorder;
 import com.sun.javafx.geom.transform.GeneralTransform3D;
 
 import controller.DoctorController;
+import model.Appointment;
 import model.CalendarCalculator;
 //import model.Activity;
 //import model.Event;
@@ -62,6 +63,8 @@ public class PanelWeek extends JPanel {
 	private GridBagConstraints[] gb;
 	
 	private DoctorController dController;
+	public static final String COLOR_TAKEN = "lightgray";
+	public static final String COLOR_AVAILABLE = "green";
 
 	public PanelWeek(DoctorController dController, int year, int month, int day) {
 		
@@ -359,21 +362,21 @@ public class PanelWeek extends JPanel {
 		this.add(scrollAct);
 	}
 
-	public void update(int month, int day, int year, Iterator<TestAppointment> activity) {
+	public void update(int month, int day, int year, Iterator<Appointment> activity) {
 		this.setPanelValuesNull();
 		this.setHeaderValues(year, month, day);
 		this.setPanelValues(month, day, year, activity);
 	}
 
-	public void setPanelValues(int month, int day, int year, Iterator<TestAppointment> activity) {
+	public void setPanelValues(int month, int day, int year, Iterator<Appointment> activity) {
 		
-		ArrayList<TestAppointment> activityList = new ArrayList<>();
+		ArrayList<Appointment> activityList = new ArrayList<>();
 
 		if (activity != null) {
 			while (activity != null && activity.hasNext()) {
-				TestAppointment a = activity.next();
+				Appointment a = activity.next();
 				activityList.add(a);
-				System.out.println(a.getName());
+				System.out.println(a.toString());
 			}
 
 			for (int i = 0; i < activityList.size(); i++) {
@@ -387,9 +390,9 @@ public class PanelWeek extends JPanel {
 		}
 	}
 
-	public void setEvent(TestAppointment act) {
+	public void setEvent(Appointment act) {
 
-		JLabel evnt = new JLabel(act.getName());
+		JLabel evnt = new JLabel(act.toString());
 		evnt.setFont(new Font("Sans Serif", Font.BOLD, 14));
 		evnt.setForeground(Color.white);
 
@@ -400,14 +403,24 @@ public class PanelWeek extends JPanel {
 				int end = act.getEndHour() * 2 + act.getEndMinute() / 30;
 
 				activitySlot[48 * i + start].add(evnt);
-				activitySlot[48 * i + start].add(arrBtnRemove[48 * i + start]);
-				arrBtnRemove[48 * i + start].setVisible(false);
+				
+				StringBuilder sb = new StringBuilder(act.toString());
+				
+				if(dController.getDoctor().getName().equalsIgnoreCase(act.getDoctorName())) {
+					activitySlot[48 * i + start].add(arrBtnRemove[48 * i + start]);
+					arrBtnRemove[48 * i + start].setVisible(false);
+				}
+				
 				final int originalIndex = 48 * i + start;
 				
 				while (start < end) {
-					activitySlot[48 * i + start].setBackground(act.getColor());
+					if(act.isAvailable()) {
+						activitySlot[48 * i + start].setBackground(ColorParser.getColor(COLOR_AVAILABLE));
+					} else activitySlot[48 * i + start].setBackground(ColorParser.getColor(COLOR_TAKEN));				
+					
 					activitySlot[48 * i + start].setBorder(BorderFactory.createEmptyBorder());
-					if(act.getColor() != ColorParser.getColor(TestAppointment.COLOR_TAKEN)) {
+					if(activitySlot[48 * i + start].getBackground() != ColorParser.getColor(COLOR_TAKEN) && dController.getDoctor().getName().equalsIgnoreCase(act.getDoctorName())) {
+						
 						activitySlot[48 * i + start].addMouseListener(new MouseAdapter() {
 							@Override
 							public void mouseEntered(MouseEvent e) {

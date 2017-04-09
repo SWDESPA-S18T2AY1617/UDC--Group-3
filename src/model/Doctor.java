@@ -1,17 +1,11 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-
 public class Doctor {
 	
 	public static int ctr = 0;
 	
 	private final int id;
 	private String name;
-	private ArrayList<Appointment> appointments;
 	
 	public Doctor(String n)
 	{
@@ -19,9 +13,13 @@ public class Doctor {
 		
 		this.id = ctr;
 		name = n;
-		appointments = new ArrayList<>();
 	}
 	
+	public Doctor(int id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+	/*
 	public void addAppointment(Appointment a) {
 		a.setDoctor(this);
 		appointments.add(a);
@@ -38,7 +36,7 @@ public class Doctor {
 	public void setAppointment() {
 		
 	}
-	
+	*/
 	public String getName() {
 		return name;
 	}
@@ -50,7 +48,7 @@ public class Doctor {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+	/*
 	public Iterator<Appointment> getAppointments() {
 		return appointments.iterator();
 	}
@@ -71,4 +69,5 @@ public class Doctor {
 			}
 		});
 	}
+	*/
 }
