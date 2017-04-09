@@ -37,6 +37,14 @@ public class CalendarModel {
 		return doctors.get(i);
 	}
 	
+	public ArrayList<String> getDoctorNames() {
+		ArrayList<String> list = new ArrayList<>();
+		for(Doctor d : doctors) {
+			list.add(d.getName());
+		}
+		return list;
+	}
+	
 	public boolean setAppointment(Client c, ArrayList<Calendar> list) {
 		if(isAllValid(list)) {
 			for(int i = 0; i < list.size(); i++) {

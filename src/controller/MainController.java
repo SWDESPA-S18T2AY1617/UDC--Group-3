@@ -112,6 +112,10 @@ public class MainController {
 		return model.getAppointments(year, month);
 	}
 	
+	public ArrayList<String> getDoctorNames() {
+		return model.getDoctorNames();
+	}
+	
 	//called by client or secretary
 	public void cancelAppointment() {
 		
