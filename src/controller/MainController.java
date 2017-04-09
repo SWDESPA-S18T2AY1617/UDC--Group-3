@@ -16,6 +16,26 @@ public class MainController {
 		initiateViews();
 	}
 	
+	//called by client or secretary
+	public void cancelAppointment() {
+		
+	}
+	
+	//called by doctor
+	public void deleteAppointment() {
+		
+	}
+	
+	//called by client or secretary
+	public void setAppointment() {
+		
+	}
+	
+	//called by doctor
+	public void addAppointment() {
+		
+	}
+	
 	private void initiateViews() {
 		// get info from DB for clients and doctors
 	}
