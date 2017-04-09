@@ -9,11 +9,10 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 import model.CalendarPointers;
 
-public class ViewController {
+public class ViewControllerUNUSED {
 
 	private CalendarPointers cp;
 	
@@ -34,7 +33,7 @@ public class ViewController {
 
 	// public ViewController(Controller controller, int year, int month, int
 	// day) {
-	public ViewController(int year, int month, int day) {
+	public ViewControllerUNUSED(int year, int month, int day) {
 		// TODO Auto-generated constructor stub
 		// this.controller = controller;
 		cp = new CalendarPointers();

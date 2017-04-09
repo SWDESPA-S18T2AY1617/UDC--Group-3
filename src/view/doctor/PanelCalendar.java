@@ -13,6 +13,8 @@ import javax.swing.event.ChangeListener;
 import java.util.*;
 import javax.swing.table.*;
 
+import controller.DoctorController;
+
 //import controller.Controller;
 
 import java.awt.Color;
@@ -35,14 +37,12 @@ public class PanelCalendar extends JPanel {
 	private JCheckBox chckAvailable;
 	private JCheckBox chckUnavailable;
 	
-	//private Controller controller;
-	private ViewController vc;
+	private DoctorController docController;
 	
-	//public PanelCalendar(Controller controller, int currYear, int currMonth, int currDay) {
-	public PanelCalendar(ViewController vc, int currYear, int currMonth, int currDay) {
+	public PanelCalendar(DoctorController docController, int currYear, int currMonth, int currDay) {
 		//this.controller = controller;
 		
-		this.vc = vc;
+		this.docController = docController;
 		// Set panel properties
 		this.setPreferredSize(new Dimension(220, 670));
 		this.setLayout(null);
@@ -255,7 +255,7 @@ public class PanelCalendar extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				vc.setMainPanel(vc.PANEL_CREATE);
+				docController.setMainPanel(docController.PANEL_CREATE);
 			}
 			
 		});
@@ -264,9 +264,9 @@ public class PanelCalendar extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(chckAvailable.isSelected()) {
-					vc.showAvailable(true);
+					docController.showAvailable(true);
 				} else {
-					vc.showAvailable(false);
+					docController.showAvailable(false);
 				}
 			}
 			
@@ -276,14 +276,51 @@ public class PanelCalendar extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(chckUnavailable.isSelected()) {
-					vc.showUnavailable(true);
+					docController.showUnavailable(true);
 				} else {
-					vc.showUnavailable(false);
+					docController.showUnavailable(false);
 				}
 			}
 			
 		});
-		
+		btnNext.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				docController.addMonth();
+			}
+			
+		});
+		btnPrev.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				docController.subMonth();
+			}
+			
+		});
+		calendarTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				JTable table = (JTable)e.getSource();
+				
+				int row = table.getSelectedRow();
+				int col = table.getSelectedColumn();
+				if(table.getValueAt(row, col) != null) {
+					int day = (Integer)table.getValueAt(row, col);
+					docController.setDayCurr(day);
+				}
+				else {
+					int[] indexes = getIndexOfDay(1);
+					int day = (Integer)table.getValueAt(indexes[0], indexes[1]);
+					setSelectedCell(1);
+					docController.setDayCurr(day);
+				}
+			}
+		});
+	}
+	
 	}
 	/*
 	public void addActionListeners() {
@@ -326,7 +363,7 @@ public class PanelCalendar extends JPanel {
 	class BtnCreate implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			controller.setMainPanel(ViewController.PANEL_CREATE);
+			controller.setMainPanel(DoctorController.PANEL_CREATE);
 			if(btnCreate.isEnabled())
 				btnCreate.setEnabled(false);
 		}

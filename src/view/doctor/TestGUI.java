@@ -3,6 +3,9 @@ package view.doctor;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import controller.DoctorController;
+import controller.MainController;
+
 public class TestGUI {
 	public static void main(String[] args) {
 		try {
@@ -19,6 +22,8 @@ public class TestGUI {
 		} catch (UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
-		ViewController vw = new ViewController(2017, 10, 29);
+		//ViewController vw = new ViewController(2017, 10, 29);
+		MainController mc = new MainController();
+		DoctorController dc = new DoctorController(mc);
 	}
 }

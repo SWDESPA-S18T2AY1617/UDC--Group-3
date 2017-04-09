@@ -22,6 +22,7 @@ import javax.swing.JToggleButton;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import controller.DoctorController;
 //import controller.Controller;
 import values.Month;
 
@@ -44,14 +45,11 @@ public class PanelMenu extends JPanel {
 	private JLabel lblIcon;
 	// private Controller controller;
 
-	private ViewController vc;
+	private DoctorController dController;
 
-	public PanelMenu(ViewController vc, int year, int month, int day) {
-		// public PanelMenu(Controller controller, int year, int month, int day)
-		// {
-		// this.controller = controller;
+	public PanelMenu(DoctorController dController, int year, int month, int day) {
 
-		this.vc = vc;
+		this.dController = dController;
 
 		this.setLayout(null);
 		this.setPreferredSize(new Dimension(900, 60));
@@ -189,13 +187,13 @@ public class PanelMenu extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(btnWeek.isSelected()) {
-					vc.setMainPanel(vc.PANEL_CAL_WEEK);
+					dController.setMainPanel(dController.PANEL_CAL_WEEK);
 					btnCal.setBackground(new Color(60, 168, 138));
 					btnAgenda.setBackground(new Color(70, 206, 168));
 				}
 					
 				else if (btnDay.isSelected()) {
-					vc.setMainPanel(vc.PANEL_CAL_DAY);
+					dController.setMainPanel(dController.PANEL_CAL_DAY);
 					btnDay.setBackground(new Color(60, 168, 138));
 					btnAgenda.setBackground(new Color(70, 206, 168));
 				}
@@ -209,9 +207,9 @@ public class PanelMenu extends JPanel {
 				btnAgenda.setBackground(new Color(60, 168, 138));
 				btnCal.setBackground(new Color(70, 206, 168));
 				if(btnWeek.isSelected())
-					vc.setMainPanel(vc.PANEL_AGENDA_WEEK);
+					dController.setMainPanel(dController.PANEL_AGENDA_WEEK);
 				else if (btnDay.isSelected())
-					vc.setMainPanel(vc.PANEL_AGENDA_DAY);
+					dController.setMainPanel(dController.PANEL_AGENDA_DAY);
 			}
 		});
 		btnDay.addActionListener(new ActionListener() {
@@ -220,9 +218,9 @@ public class PanelMenu extends JPanel {
 				btnDay.setBackground(new Color(60, 168, 138));
 				btnWeek.setBackground(new Color(70, 206, 168));
 				if(btnCal.isSelected())
-					vc.setMainPanel(vc.PANEL_CAL_DAY);
+					dController.setMainPanel(dController.PANEL_CAL_DAY);
 				else if (btnAgenda.isSelected())
-					vc.setMainPanel(vc.PANEL_AGENDA_DAY);
+					dController.setMainPanel(dController.PANEL_AGENDA_DAY);
 			}
 		});
 		btnWeek.addActionListener(new ActionListener() {
@@ -231,32 +229,10 @@ public class PanelMenu extends JPanel {
 				btnWeek.setBackground(new Color(60, 168, 138));
 				btnDay.setBackground(new Color(70, 206, 168));
 				if(btnCal.isSelected())
-					vc.setMainPanel(vc.PANEL_CAL_WEEK);
+					dController.setMainPanel(dController.PANEL_CAL_WEEK);
 				else if (btnAgenda.isSelected())
-					vc.setMainPanel(vc.PANEL_AGENDA_WEEK);
+					dController.setMainPanel(dController.PANEL_AGENDA_WEEK);
 			}
 		});
 	}
-	/*
-	 * public void addActionListeners() { btnToday.addActionListener(new
-	 * BtnToday()); btnCal.addActionListener(new btnCal());
-	 * btnAgenda.addActionListener(new BtnAgenda()); }
-	 * 
-	 * class BtnToday implements ActionListener {
-	 * 
-	 * @Override public void actionPerformed(ActionEvent e) { // TODO
-	 * Auto-generated method stub controller.resetDay(); } }
-	 * 
-	 * class btnCal implements ActionListener {
-	 * 
-	 * @Override public void actionPerformed(ActionEvent e) { // TODO
-	 * Auto-generated method stub
-	 * controller.setMainPanel(ViewController.PANEL_DAY); } }
-	 * 
-	 * class BtnAgenda implements ActionListener {
-	 * 
-	 * @Override public void actionPerformed(ActionEvent e) { // TODO
-	 * Auto-generated method stub
-	 * controller.setMainPanel(ViewController.PANEL_AGENDA); } }
-	 */
 }

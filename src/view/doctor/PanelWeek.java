@@ -31,6 +31,7 @@ import javax.swing.border.LineBorder;
 
 import com.sun.javafx.geom.transform.GeneralTransform3D;
 
+import controller.DoctorController;
 import model.CalendarCalculator;
 //import model.Activity;
 //import model.Event;
@@ -59,9 +60,12 @@ public class PanelWeek extends JPanel {
 
 	private GridBagConstraints[] gbc;
 	private GridBagConstraints[] gb;
+	
+	private DoctorController dController;
 
-	public PanelWeek(int year, int month, int day) {
-
+	public PanelWeek(DoctorController dController, int year, int month, int day) {
+		
+		this.dController = dController;
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 
 		this.setPreferredSize(new Dimension(670, 830));
@@ -145,7 +149,7 @@ public class PanelWeek extends JPanel {
 			panelHeader[i].setLayout(headerGBL);
 			if (i != 0) {
 				panelHeader[i].add(new JLabel(""));
-				panelHeader[i].setBorder(BorderFactory.createEtchedBorder());
+				//panelHeader[i].setBorder(BorderFactory.createEtchedBorder());
 			}
 
 		}
@@ -165,6 +169,7 @@ public class PanelWeek extends JPanel {
 		panelTable = new JPanel();
 		panelTable.setLayout(new BoxLayout(panelTable, BoxLayout.Y_AXIS));
 
+		panelTable.setBackground(Color.WHITE);
 		panelTable.add(panelHeaderContainer);
 		panelTable.add(panelWeek);
 		panelTable.setMinimumSize(new Dimension(1500, 600));
@@ -340,7 +345,7 @@ public class PanelWeek extends JPanel {
 			}
 			String sMonth = Month.values()[currMonth].toShortString();
 			JLabel lblHeader = new JLabel(sMonth + " " + (monday + i - 1));
-			lblHeader.setFont(new Font("Sans Serif", Font.BOLD, 14));
+			lblHeader.setFont(new Font("Sans Serif", Font.PLAIN, 14));
 			panelHeader[i].add(lblHeader);
 			calWeekScope[i - 1] = new GregorianCalendar(year, currMonth, (monday + i - 1));
 		}

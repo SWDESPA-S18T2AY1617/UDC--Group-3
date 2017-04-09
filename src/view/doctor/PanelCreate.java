@@ -34,6 +34,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import controller.DoctorController;
 //import controller.Controller;
 //import model.Activity;
 //import model.ActivityFactory;
@@ -69,17 +70,15 @@ public class PanelCreate extends JPanel {
 	private JLabel lblEndAfter;
 	private JLabel lblEndAfterOccur;
 
-	private JComboBox<String> cbRepeats; // daily, weekly, monthly
-	private JComboBox<Integer> cbRepeatEvery; // daily (1 - 5 days), weekly,
-												// monthly
-	private JComboBox<Integer> cbEndAfter; // (1 - 10) occurrences
+	private JComboBox<String> cbRepeats;
+	private JComboBox<Integer> cbRepeatEvery;
+	private JComboBox<Integer> cbEndAfter;
 
-	// private Controller controller;
+	private DoctorController docController;
 
-	// public PanelCreate(Controller controller, int year, int month, int day) {
-	public PanelCreate(ViewController vc, int year, int month, int day) {
-		// this.controller = controller;
-
+	public PanelCreate(DoctorController docController, int year, int month, int day) {
+		this.docController = docController;
+		
 		this.setLayout(null);
 		this.setBackground(Color.WHITE);
 
@@ -618,46 +617,7 @@ public class PanelCreate extends JPanel {
 		remove(cbEndAfter);
 		remove(lblEndAfterOccur);
 	}
-
-	/*
-	 * public void addListeners() { btnSave.addActionListener(new BtnSave());
-	 * btnDiscard.addActionListener(new BtnDiscard());
-	 * jrbRecurring.addActionListener(new HideFromTime());
-	 * jrbOnce.addActionListener(new ShowFromTime());
-	 * spinMonth.addChangeListener(new RegenerateDay());
-	 * spinYear.addChangeListener(new RegenerateDay()); }
-	 * 
-	 * 
-	 * class BtnSave implements ActionListener {
-	 * 
-	 * @Override public void actionPerformed(ActionEvent e) { // TODO
-	 * Auto-generated method stub System.out.println(getSelectedRB());
-	 * if(getSelectedRB().equalsIgnoreCase("Event")) { Calendar start = new
-	 * GregorianCalendar(getSpinYear(), getIntSpinMonth(), getSpinDay());
-	 * start.set(Calendar.SECOND, 0); Calendar end = (Calendar) start.clone();
-	 * start.set(Calendar.HOUR, getSpinFromHour()); start.set(Calendar.MINUTE,
-	 * getSpinFromMinutes()); end.set(Calendar.HOUR, getSpinToHour());
-	 * end.set(Calendar.MINUTE, getSpinToMinutes()); if(!getTitle().equals(""))
-	 * { Activity a = ActivityFactory.createEvent(getTitle(), start, end);
-	 * if(controller.isActivityValid(a)) { controller.addActivity(a);
-	 * JOptionPane.showMessageDialog(null, "Event Successfully Created!",
-	 * "Event Created", JOptionPane.INFORMATION_MESSAGE); } else
-	 * JOptionPane.showMessageDialog(null, "Event Invalid", "Failed",
-	 * JOptionPane.ERROR_MESSAGE); } else JOptionPane.showMessageDialog(null,
-	 * "Fill Up All Fields", "Warning", JOptionPane.WARNING_MESSAGE); } else
-	 * if(getSelectedRB().equalsIgnoreCase("Task")) { Calendar start = new
-	 * GregorianCalendar(getSpinYear(), getIntSpinMonth(), getSpinDay());
-	 * start.set(Calendar.SECOND, 0); start.set(Calendar.HOUR,
-	 * getSpinFromHour()); start.set(Calendar.MINUTE, getSpinFromMinutes());
-	 * if(!getTitle().equals("")) { Activity a =
-	 * ActivityFactory.createToDo(getTitle(), start);
-	 * if(controller.isActivityValid(a)) { controller.addActivity(a);
-	 * JOptionPane.showMessageDialog(null, "Task Successfully Created!",
-	 * "Task Created", JOptionPane.INFORMATION_MESSAGE); } else
-	 * JOptionPane.showMessageDialog(null, "Task Invalid", "Failed",
-	 * JOptionPane.ERROR_MESSAGE); } else JOptionPane.showMessageDialog(null,
-	 * "Fill Up All Fields", "Warning", JOptionPane.WARNING_MESSAGE); } } }
-	 */
+	
 	class RegenerateDay implements ChangeListener {
 
 		@Override
@@ -671,10 +631,4 @@ public class PanelCreate extends JPanel {
 			repaint();
 		}
 	}
-	/*
-	 * class BtnDiscard implements ActionListener {
-	 * 
-	 * @Override public void actionPerformed(ActionEvent e) { // TODO
-	 * Auto-generated method stub clearAll(); } }
-	 */
 }

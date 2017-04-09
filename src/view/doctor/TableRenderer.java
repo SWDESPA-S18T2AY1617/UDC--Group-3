@@ -24,7 +24,13 @@ public class TableRenderer extends DefaultTableCellRenderer {
                 setBackground( table.getSelectionBackground() );
             else
                 setBackground(Color.WHITE);
-             
+            /*
+            if (selected)
+                setBackground( table.getSelectionBackground() );
+            else
+                setBackground( table.getBackground() );
+            */
+                        
             setBorder(null);
             setForeground(Color.black);
             setHorizontalAlignment(DefaultTableCellRenderer.CENTER);

@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import controller.DoctorController;
 import model.CalendarCalculator;
 import values.AppStrings;
 import values.Month;
@@ -43,11 +44,12 @@ public class PanelAgenda extends JPanel {
 	private List<TestAppointment> listTA;
 	// private ArrayList<Activity> listAppointment;
 
-	// private Controller controller;
+	private DoctorController docController;
 
-	// public PanelAgenda(Controller controller) {
-	public PanelAgenda(ViewController vc, int year, int month, int day) {
-
+	public PanelAgenda(DoctorController docController, int year, int month, int day) {
+		// Set controller
+		this.docController = docController;
+	
 		// Set panel properties
 		this.setLayout(null);
 		this.setBackground(Color.WHITE);

@@ -28,6 +28,7 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 
+import controller.DoctorController;
 //import model.Activity;
 //import model.Event;
 import values.DayHeader;
@@ -49,8 +50,10 @@ public class PanelDay extends JPanel {
 	private GridBagConstraints[] gbc;
 	private GridBagConstraints[] gb;
 
-	public PanelDay() {
-
+	private DoctorController docController;
+	
+	public PanelDay(DoctorController docController) {
+		this.docController = docController;
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 
 		this.setPreferredSize(new Dimension(670, 830));
