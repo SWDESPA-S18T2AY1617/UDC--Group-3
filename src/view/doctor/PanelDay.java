@@ -21,6 +21,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -215,26 +217,49 @@ public class PanelDay extends JPanel {
 					int choice = JOptionPane.showConfirmDialog(null, pmd, "Modify Activity", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 					
 					if(pmd.toDelete()) {
+						// Delete original appointment
 						int timeH = index / 2;
 						int timeM = 30 * (index % 2);
 						
-						// Get appointment from list which matches the above starting time and the current date pointer
-						// -> then delete the appointment
+						Calendar calDelete = new GregorianCalendar(docController.getYearCurr(), docController.getMonthCurr(), docController.getDayCurr());
+						calDelete.set(Calendar.HOUR, timeH);
+						calDelete.set(Calendar.MINUTE, timeM);
 						
+						docController.deleteAppointment(calDelete);
 					} else {
 						if(choice == JOptionPane.OK_OPTION) {
-							if(pmd.isValidTime()) {
-								// Original starting time
+							if(pmd.isValidTime() && !pmd.isWeekend()) {
+								// Delete original appointment
 								int timeH = index / 2;
 								int timeM = 30 * (index % 2);
 								
-								// Get appointment from list which matches the above starting time and the current date pointer
+								Calendar calDelete = new GregorianCalendar(docController.getYearCurr(), docController.getMonthCurr(), docController.getDayCurr());
+								calDelete.set(Calendar.HOUR, timeH);
+								calDelete.set(Calendar.MINUTE, timeM);
 								
-								/* appointment.setDate( */pmd.getSpinDate();
-								/* appointment.setStartTime( */pmd.getFromTime();
-								/* appointment.setEndTime( */pmd.getToTime();
-							} else {
-								JOptionPane.showMessageDialog(null, "Invalid time input", "Cannot modify appointment", JOptionPane.WARNING_MESSAGE);
+								docController.deleteAppointment(calDelete);
+								
+								// Create appointment
+								Calendar start = pmd.getFromTime();
+								Calendar end = pmd.getToTime();
+							
+								start.set(Calendar.MONTH, pmd.getIntSpinMonth());
+								start.set(Calendar.DAY_OF_MONTH, pmd.getSpinDay());
+								start.set(Calendar.YEAR, pmd.getSpinYear());
+								
+								end.set(Calendar.MONTH, pmd.getIntSpinMonth());
+								end.set(Calendar.DAY_OF_MONTH, pmd.getSpinDay());
+								end.set(Calendar.YEAR, pmd.getSpinYear());
+								
+								Appointment a = new Appointment(start, end);
+								if(!docController.addAppointment(a))
+									JOptionPane.showMessageDialog(null, "Cannot add appointment because of overlap.", "Cannot add appointment", JOptionPane.WARNING_MESSAGE);
+							} 
+							if(!pmd.isValidTime()) {
+								JOptionPane.showMessageDialog(null, "Invalid time value.", "Cannot modify appointment", JOptionPane.WARNING_MESSAGE);
+							}
+							if(!pmd.isWeekend()) {
+								JOptionPane.showMessageDialog(null, "Weekend appointments are not applicable.");
 							}
 						}
 					} 

@@ -261,6 +261,11 @@ public class PanelModifyDelete extends JPanel {
 		else return true;
 		
 	}
+	
+	public boolean isWeekend() {
+		return getSpinDate().get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY || getSpinDate().get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY;
+	}
+	
 	public void resetDay() {
 		this.spinDay.setValue(((SpinnerNumberModel)(spinDay.getModel())).getMinimum());
 	}
