@@ -115,6 +115,10 @@ public class DoctorController extends ViewController {
 		return d;
 	}
 	
+	public void setDoctor(Doctor d) {
+		this.d = d;
+	}
+	
 	public boolean isTaskFiltered() {
 		return pc.isTaskSelected();
 	}
