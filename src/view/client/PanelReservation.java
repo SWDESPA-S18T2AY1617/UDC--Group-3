@@ -239,8 +239,6 @@ public class PanelReservation extends JPanel {
 
 	}
 */
-}
-
 	class AgendaTableModel extends DefaultTableModel {
 		private boolean[][] editable_cells;
 
@@ -257,5 +255,6 @@ public class PanelReservation extends JPanel {
 	public void setCellEditable(int row, int col, boolean value) {
 		this.editable_cells[row][col] = value;
 		this.fireTableCellUpdated(row, col);
+	}
 	}
 }
