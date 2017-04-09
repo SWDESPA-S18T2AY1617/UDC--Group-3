@@ -130,7 +130,7 @@ public class DoctorController extends ViewController {
 	}
 
 	public void showAvailable(boolean show) {
-
+		pa.showAvailable(show);
 		pw.showAvailable(show);
 	}
 
