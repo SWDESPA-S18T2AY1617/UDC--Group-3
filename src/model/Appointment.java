@@ -73,6 +73,16 @@ public class Appointment {
 		return temp.toString();
 	}
 	
+	public String toStringDrClient() {
+		StringBuilder temp = new StringBuilder();
+		temp.append("<html>");
+		if(client != null)
+			temp.append(client.getName() + "\n" + " || ");
+		temp.append("Dr. " + doctor.getName() + "</html>");
+		
+		return temp.toString();
+	}
+	
 	public void setClient(Client client) {
 		this.client = client;
 	}
@@ -151,6 +161,10 @@ public class Appointment {
 
 	public String getDoctorName() {
 		return doctor.getName();
+	}
+	
+	public String getClientName() {
+		return client.getName();
 	}
 	
 	public void setStartTime(Calendar startTime) {
