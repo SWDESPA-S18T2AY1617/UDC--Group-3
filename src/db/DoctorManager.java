@@ -120,7 +120,7 @@ public class DoctorManager{
 		return doctor;
 	}
 	
-	public boolean deleteDoctor(DoctorDB doctor){
+	public boolean deleteDoctor(DoctorDB doctor) throws IOException{
 		boolean result;
 		
 		String query = "DELETE FROM " + DoctorDB.TABLE_NAME + 
