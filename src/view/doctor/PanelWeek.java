@@ -363,6 +363,7 @@ public class PanelWeek extends JPanel {
 	}
 
 	public void update(int month, int day, int year, Iterator<Appointment> activity) {
+		System.out.println("update panel week " + month + " " + day + " " + year);
 		this.setPanelValuesNull();
 		this.setHeaderValues(year, month, day);
 		this.setPanelValues(month, day, year, activity);
@@ -490,8 +491,9 @@ public class PanelWeek extends JPanel {
 
 	public void setPanelValuesNull() {
 
-		for (int i = 0; i < 48; i++) {
+		for (int i = 0; i < 48 * 5; i++) {
 			activitySlot[i].setBackground(Color.WHITE);
+			activitySlot[i].setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.LIGHT_GRAY));
 			activitySlot[i].removeAll();
 			activitySlot[i].revalidate();
 			activitySlot[i].repaint();
