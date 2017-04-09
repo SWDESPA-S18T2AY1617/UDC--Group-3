@@ -33,7 +33,7 @@ public class MainController {
 	private void initiateViews() {
 		// get info from DB for clients and doctors
 		//initiateSecretary();
-		initiateClient();
+		//initiateClient();
 		initiateDoctor();
 	}
 	
@@ -101,6 +101,7 @@ public class MainController {
 				} else {
 					System.out.println("NO CLIENT");
 				}
+				model.addAppointment(appointment);
 			}
 			Appointment.ctr = manager.getCurrAutoInc();
 		} catch (Exception e) {
