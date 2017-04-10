@@ -343,6 +343,45 @@ public class PanelDay extends JPanel {
 		}
 	}
 
+	public void showAvailable(boolean show) {
+		if(!show) {
+			for(JPanel j : activitySlot) {
+				if(j.getBackground() == Color.GREEN) {
+					j.setOpaque(false);
+					j.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.LIGHT_GRAY));
+				}
+			}
+			repaint();
+		} else {
+			for(JPanel j : activitySlot) {
+				if(j.getBackground() == Color.GREEN) {
+					j.setOpaque(true);
+					j.setBorder(BorderFactory.createEmptyBorder());
+				}
+			}
+			repaint();
+		}
+	}
+	
+	public void showUnavailable(boolean show) {
+		if(!show) {
+			for(JPanel j : activitySlot) {
+				if(j.getBackground() == Color.LIGHT_GRAY) {
+					j.setOpaque(false);
+					j.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.LIGHT_GRAY));
+				}
+			}
+			repaint();
+		} else {
+			for(JPanel j : activitySlot) {
+				if(j.getBackground() == Color.LIGHT_GRAY) {
+					j.setOpaque(true);
+					j.setBorder(BorderFactory.createEmptyBorder());
+				}
+			}
+			repaint();
+		}
+	}
 	public JScrollPane getScrollPane() {
 		return scrollAct;
 	}

@@ -183,7 +183,7 @@ public class PanelCalendarView extends JPanel{
 		while(listofAppointments.hasNext()){
 
 			Appointment app = listofAppointments.next();
-
+			System.out.println(displayDoc1);
 			if(displayDoc1 && app.getDoctorName().equals(doctor1)){
 
 				if(dailyORweekly){// true = daily ; false = weekly

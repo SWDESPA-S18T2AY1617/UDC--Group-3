@@ -36,7 +36,9 @@ public class SecretaryController extends ViewController {
 		main.setLeft(mnc);
 		main.setRight(cv);
 		mnc.sendDateToView();
-
+		setDoc1(false);
+		setDoc2(false);
+		setDoc3(false);
 	}
 	public void setCalendarPanel(){
 		main.setRight(cv);

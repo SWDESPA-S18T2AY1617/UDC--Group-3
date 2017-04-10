@@ -9,7 +9,7 @@ public class Test {
 		// TODO Auto-generated method stub
 
 		MainController mc = new MainController();
-		ClientController cc = new ClientController(mc);
+		//ClientController cc = new ClientController(mc);
 	}
 
 }

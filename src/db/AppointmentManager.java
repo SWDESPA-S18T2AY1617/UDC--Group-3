@@ -53,8 +53,8 @@ public class AppointmentManager {
 				", " + AppointmentDB.COL_DATE + ", " +  
 				AppointmentDB.COL_CLIENTID + ", " + AppointmentDB.COL_DOCTORID + ") VALUES ('" + 
 				appointment.getStart_time() + "', '" + appointment.getEnd_time() + "', '" +
-				appointment.getDate() + "', '" +  
-				appointment.getClient_id() + "', '" + appointment.getDoctor_id() + "')";
+				appointment.getDate() + "', " +  
+				appointment.getClient_id() + ", " + appointment.getDoctor_id() + ")";
 		
 		DBConnection db = new DBConnection();
 		
@@ -74,8 +74,8 @@ public class AppointmentManager {
 		boolean result;
 		
 		String query = "DELETE FROM " + AppointmentDB.TABLE_NAME + 
-				       " WHERE " + AppointmentDB.COL_APPOINTMENTID + " = '" + 
-				       appointment.getAppointment_id() + "'";
+				       " WHERE " + AppointmentDB.COL_APPOINTMENTID + " = " + 
+				       appointment.getAppointment_id() + "";
 		
 		DBConnection db = new DBConnection();
 		

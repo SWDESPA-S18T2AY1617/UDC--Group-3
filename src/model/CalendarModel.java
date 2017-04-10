@@ -38,6 +38,11 @@ public class CalendarModel {
 		sortAppointments();
 	}
 	
+	public void addInAppointment(Appointment a) {
+		appointments.add(a);
+		sortAppointments();
+	}
+	
 	public Doctor getDoctor(int doctorId) {
 		for(Doctor d : doctors) {
 			if(d.getID() == doctorId)

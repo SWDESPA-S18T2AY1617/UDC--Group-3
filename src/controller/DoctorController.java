@@ -73,12 +73,17 @@ public class DoctorController extends ViewController {
 	 * @param activity 	list of appointments during the week / list of all appointments 
 	 */
 	public void updateAll(Iterator<Appointment> activity) {
-		
+		ArrayList<Appointment> list = new ArrayList<>();
+		while(activity.hasNext()) {
+			Appointment a = activity.next();
+			if(a.getDoctor().getID() == d.getID())
+				list.add(a);
+		}
 		pc.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr());
 		pm.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr());
-		pa.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), activity);
-		pw.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), activity);
-		pd.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), activity);
+		pa.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), list.iterator());
+		pw.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), list.iterator());
+		pd.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), list.iterator());
 
 	}
 
@@ -130,12 +135,13 @@ public class DoctorController extends ViewController {
 	}
 
 	public void showAvailable(boolean show) {
-		pa.showAvailable(show);
+		pd.showAvailable(show);
 		pw.showAvailable(show);
 	}
 
 	public void showUnavailable(boolean show) {
 		pw.showUnavailable(show);
+		pd.showUnavailable(show);
 	}
 
 	public boolean showDoctorWho() {
@@ -256,11 +262,19 @@ public class DoctorController extends ViewController {
 	
 	@Override
 	public void updateView() {
+		Iterator<Appointment> activity = controller.get3MonthAppointments(super.getYearCurr(), super.getMonthCurr());
+		ArrayList<Appointment> list = new ArrayList<>();
+		while(activity.hasNext()) {
+			Appointment a = activity.next();
+			if(a.getDoctor().getID() == d.getID())
+				list.add(a);
+		}
+		
 		pc.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr());
 		pm.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr());
-		pa.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), controller.get3MonthAppointments(super.getYearCurr(), super.getMonthCurr()));
-		pw.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), controller.get3MonthAppointments(super.getYearCurr(), super.getMonthCurr()));
-		pd.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), controller.get3MonthAppointments(super.getYearCurr(), super.getMonthCurr()));
+		pa.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), list.iterator());
+		pw.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), list.iterator());
+		pd.update(super.getMonthCurr(), super.getDayCurr(), super.getYearCurr(), list.iterator());
 	}
 
 	@Override

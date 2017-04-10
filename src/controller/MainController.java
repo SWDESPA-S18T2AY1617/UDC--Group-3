@@ -34,8 +34,8 @@ public class MainController {
 	private void initiateViews() {
 		// get info from DB for clients and doctors
 		
-		//initiateClient();
 		initiateDoctor();
+		initiateClient();
 		//initiateSecretary();
 	}
 	
@@ -65,7 +65,7 @@ public class MainController {
 		DoctorManager manager = new DoctorManager();
 		try {
 			ArrayList<DoctorDB> list = manager.getAllDoctors();
-			System.out.println(list.size());
+			System.out.println(list.size() + "HOHOHO");
 			for(int i = 0; i < list.size(); i++) {
 				Doctor doctor = Converter.toDoctor(list.get(i));
 				model.addDoctor(doctor);
@@ -84,6 +84,7 @@ public class MainController {
 		AppointmentManager manager = new AppointmentManager();
 		try {
 			ArrayList<AppointmentDB> list = manager.getAllAppointments();
+			System.out.println("HELLOOOOOO" + list.size());
 			for(int i = 0; i < list.size(); i++) {
 				Appointment appointment = Converter.toAppointment(list.get(i));
 				int doctorId = list.get(i).getDoctor_id();
@@ -95,6 +96,7 @@ public class MainController {
 							Client c = ((ClientController) views.get(j)).getClient();
 							if(c.getID() == list.get(i).getClient_id()){
 								appointment.setClient(c);
+								j = views.size();
 							}
 						}
 					}
@@ -103,7 +105,7 @@ public class MainController {
 				} else {
 					System.out.println("NO CLIENT");
 				}
-				model.addAppointment(appointment);
+				model.addInAppointment(appointment);
 			}
 			Appointment.ctr = manager.getCurrAutoInc();
 		} catch (Exception e) {
@@ -154,6 +156,7 @@ public class MainController {
 		else return false;
 	}
 	
+	
 	//called by doctor
 	public boolean addAppointment(Appointment appointment) {
 		if(model.isAppointmentValid(appointment)) {
@@ -162,6 +165,7 @@ public class MainController {
 			return true;
 		}
 		else {
+			System.out.println("IM OUT LALAAAAAAAAAAA");
 			return false;
 		}
 	}

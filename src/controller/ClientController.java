@@ -24,7 +24,6 @@ public class ClientController extends ViewController {
 	private PanelDay pd;
 	private PanelWeek pw;
 	private PanelReservation pa;
-	private MainController controller;
 	
 	public static final int PANEL_DAY = 1;
 	public static final int PANEL_RESERVATION = 2;
@@ -34,7 +33,6 @@ public class ClientController extends ViewController {
 	public ClientController(MainController controller)
 	{
 		super(controller);
-		this.controller = controller;
 		
 		f = new FrameMain();
 		pc = new PanelCalendar(this, super.getYearBound(), super.getMonthBound(), super.getDayBound());

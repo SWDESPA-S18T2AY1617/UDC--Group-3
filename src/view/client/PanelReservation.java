@@ -194,6 +194,7 @@ public class PanelReservation extends JPanel {
 				modelAgendaTable.setRowCount(activityList.size());
 			
 			for (int i = 0; i < activityList.size(); i++) {
+				System.out.println(activityList.size() + "DFGHJKJHGFDSDFGHJK");
 				DecimalFormat d = new DecimalFormat("00");
 
 				String date = (activityList.get(i).getMonth() + 1) + "\\" + (activityList.get(i).getDay()) + "\\" + activityList.get(i).getYear();
@@ -202,7 +203,8 @@ public class PanelReservation extends JPanel {
 
 				modelAgendaTable.setValueAt(date, rwCnt, 0);
 				modelAgendaTable.setValueAt(time, rwCnt, 1);
-				modelAgendaTable.setValueAt(activityList.get(i), rwCnt, 2);
+				
+				modelAgendaTable.setValueAt(activityList.get(i), rwCnt, 1);
 
 				rwCnt++;
 				}

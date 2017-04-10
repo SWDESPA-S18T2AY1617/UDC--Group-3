@@ -308,6 +308,8 @@ public class PanelCalendar extends JPanel {
 	class FilterCheckBox implements ActionListener {
 		@Override 
 		public void actionPerformed(ActionEvent e) {
+			
+			
 			controller.updateView();
 		}
 	}

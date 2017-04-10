@@ -268,7 +268,7 @@ public class PanelCreate extends JPanel{
 			end.set(Calendar.HOUR, getSpinToHour());
 			end.set(Calendar.MINUTE, getSpinToMinutes());
 			
-			controller.setAppointment(controller.getClient(), start, end);
+			//controller.setAppointment(controller.getClient(), start, end);
 				if(controller.setAppointment(controller.getClient(), start, end)) {
 					JOptionPane.showMessageDialog(null, "Appointment Successfully Created!", "Event Created", JOptionPane.INFORMATION_MESSAGE);
 			}
